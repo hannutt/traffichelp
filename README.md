@@ -18,9 +18,10 @@ An example image that has been searched for trains departing from Helsinki railw
 
 ![alt text](traffic2.png)
 
-An example picture where the information of a lake called Hattukari has been retrieved. information to be displayed is e.g. lake temperature and coordinates.
+An example image from which the information of the water area called Kipsi has been retrieved. the displayed information is, for example, the temperature of the water, the coordinates and the direction of the wind wave. The user can also use the input field to search for the desired water area.
 
-![alt text](traffic3.png)
+
+![alt text](trafficNew.png)
 
 
 All search criteria entered by the user are passed as parameters to the api endpoint. for example, the function of the program, where railway information can be searched based on the station, is implemented with the html-select element, where the javaScript function saves the station selected by the user and sends the station as a parameter.
