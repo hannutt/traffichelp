@@ -22,6 +22,14 @@
   justify-content: center;
   font-size: calc(8px + 2vmin);
   color: black;
+  border: 1px solid black;
+}
+
+
+/*app header divim sisällä oleviin label komponentteihin tyhjä tila cb:n ja labelin väliin*/
+.App-header label {
+  padding-right: 0.4em;
+
 }
 
 .App-link {
@@ -40,9 +48,11 @@
 .list{
   background-color: lightgray;
   border-radius: 10px;
+  font-size: medium;
   
 }
 
 .title {
   font-weight: bold;
 }
+

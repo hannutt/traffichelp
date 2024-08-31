@@ -43,6 +43,9 @@ function Sea() {
 </select>
 <div>
     <p>Or write name here</p>
+    {/*käytetään samaa halufunktiota sekä select että input kentässä. erona ainoastaa se
+    että syötekenttä haussa parametri tallennetaan state-muuttujaan ja lähetetään funktiolle
+    vasta onclick kutsussa.*/}
     <input type="text" id="name" className="name" onChange={e=>setWaterName(e.target.value)}></input>
     
     <br></br>

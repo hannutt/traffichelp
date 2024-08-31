@@ -3,13 +3,16 @@ import { useState } from "react"
 function Train() {
     const [trainClick,setTrainClick]=useState(false)
     const [stationClick,setStationClick]=useState(false)
+    const [trainComposition,setTrainComposition]=useState(false)
+    const [Dday,setDday]=useState('')
+    const [trainNum,setTrainNum]=useState('')
+    const [selectionDiv,setSelectionDiv]=useState(true)
 
-    const URLi = 'https://rata.digitraffic.fi/api/v1/passenger-information/active'
-    const USERID = {'Digitraffic-User': 'Junamies/FoobarApp 1.0'}
-
+  
    function clear() {
     
     document.getElementById("list").hidden=true
+    document.getElementById("clearBtn").hidden=true
    }
 
    function getSelctedStation(val) {
@@ -37,9 +40,37 @@ function Train() {
     })
 }
 
+function handleTrainData() {
+    const URLi = 'https://rata.digitraffic.fi/api/v1/passenger-information/active'
+    const USERID = {'Digitraffic-User': 'Junamies/FoobarApp 1.0'}
 
-    function handleTrainData() {
-        setTrainClick(!trainClick)
+    setTrainClick(!trainClick)
+    fetch(URLi, {headers:USERID})
+    .then(response =>{
+        return response.json()
+    })
+    //data on json-tulosjoukon nimi
+    .then(data=>{
+        console.log(data)
+        //data käydään silmukassa läpi, d on silmukkamuuttuja kuin esim i for-loopissa
+        
+         data.forEach(d => {
+         const li = document.createElement("li")
+        
+         //kentässä näytetää json tulosjoukon roadstationid ja sensorvalue-
+         li.innerText=+d.trainNumber+' ' +d.video.text.en+" Notification valid: "+d.endValidity
+         document.getElementById("list").appendChild(li)
+    })
+    
+})
+}
+
+
+    function handleCompositionData(p1,p2) {
+
+        
+        const URLi = `https://rata.digitraffic.fi/api/v1/compositions/${p1}/${p2}`
+        const USERID = {'Digitraffic-User': 'Junamies/FoobarApp 1.0'}
         fetch(URLi, {headers:USERID})
         .then(response =>{
             return response.json()
@@ -49,28 +80,32 @@ function Train() {
             console.log(data)
             //data käydään silmukassa läpi, d on silmukkamuuttuja kuin esim i for-loopissa
             
-             data.forEach(d => {
+             data.journeySections.forEach(d => {
              const li = document.createElement("li")
             
              //kentässä näytetää json tulosjoukon roadstationid ja sensorvalue-
-             li.innerText=+d.trainNumber+' ' +d.video.text.en+" Notification valid: "+d.endValidity
+             li.innerText="Departure from " +d.beginTimeTableRow.stationShortCode+" at "+d.beginTimeTableRow.scheduledTime+" arrival to " +d.endTimeTableRow.stationShortCode+" at "+d.endTimeTableRow.scheduledTime
              document.getElementById("list").appendChild(li)
         })
         
 })
 }
     return(
+        
         <div>
+            <br></br>
            
         <button class="btn btn-info btn-sm" onClick={handleTrainData}>Show Active passenger info</button>
         <div id="trainContent" className="trainContent">
             <ul id="list" className="list"></ul>
         </div>
-        <div className="selection">
-            <h4>Display data from selected station</h4>
+        <label htmlFor="stationCB">Get information about train stations</label>
+        <input type="checkbox" id="stationCB" onChange={()=>setSelectionDiv(!selectionDiv)}></input>
+        <div hidden={selectionDiv} className="selection">
+           
             <br></br>
-        <label for="stations">Choose a station:</label>
-
+        
+<label for="stations">Choose a station:</label>
 <select name="stations" id="stations" onChange={e=>getSelctedStation(e.target.value)}>
     <option value="default" selected>select</option>
   <option value="hki">Helsinki station</option>
@@ -78,9 +113,19 @@ function Train() {
   <option value="tre">Tampere station</option>
   <option value="sjk">Seinäjoki station</option>
 </select>
+</div>
+<br></br>
+    <div>
+        <label htmlFor="srcCB">Search for train information by date and train number</label>
+    <input className="srcCB" type="checkbox" onChange={()=>setTrainComposition(!trainComposition)}></input>
+    <div>
+        {/*checkboxin klikkaus muuttaa trainCompositionin trueksi ja silloin näytetään alla olevat input kentät*/}
+    {trainComposition &&
+    <><input type="text" onChange={e=>setDday(e.target.value)} name="departureday" id="departureday" placeholder="YYYY-MM-DD"></input><input type="text" onChange={e=>setTrainNum(e.target.value)} name="trainNum" id="trainNum" placeholder="eg. 59"></input><button onClick={()=>handleCompositionData(Dday,trainNum)}>Fetch</button></> }
+    </div>
         </div>
-        {trainClick && <button onClick={clear}>X</button>}
-        {stationClick&& <button onClick={clear}>X</button> }
+        {trainClick && <button id="clearBtn" onClick={clear}>X</button>}
+        {stationClick&& <button id="clearBtn" onClick={clear}>X</button> }
         
         </div>
 
