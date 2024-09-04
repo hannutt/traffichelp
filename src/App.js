@@ -39,17 +39,7 @@ function App() {
       setHideTrain(!hideTrain)
       
     }
-    /*
-    else{
-
-   
-      setSeaOpt(false)
-      setHideRoad(false)
-      setHideTrain(false)
-      setRoadOpt(false)
-      setHideSea(false)
-      setTrainOpt(false)
-    }*/
+  
     
   }
   return (

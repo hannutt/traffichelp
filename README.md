@@ -6,7 +6,7 @@ The program currently searches for rail traffic data, road traffic data, and mar
 
 Example image of the start view. Clicking on the checkbox invokes a new react component that shows the user an input field, a dropdown menu, and other components that allow the user to set search criteria for the information being searched for.
 
-![alt text](startview.png)
+![alt text](src/images/startview.png)
 
 Specifications
 
@@ -27,11 +27,15 @@ Sample images of the information searched and received using the search criteria
 
 An example view where the user has searched for valid train passenger bulletins and the departure and arrival times and route of train 45 on 30.8.24
 
-![alt text](dataoftrain-1.png)
+![alt text](src/images/dataoftrain-1.png)
 
 An example image from which the information of the water area called Kipsi has been retrieved. the displayed information is, for example, the temperature of the water, the coordinates and the direction of the wind wave. The user can also use the input field to search for the desired water area.
 
-![alt text](trafficNew-1.png)
+![alt text](src/images/trafficNew-1.png)
+
+Example picture where the user has retrieved all Finnish road work notices from the API
+
+![alt text](src/images/roadAnnounc.png)
 
 
 
