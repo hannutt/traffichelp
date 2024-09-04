@@ -33,7 +33,8 @@ An example image from which the information of the water area called Kipsi has b
 
 ![alt text](src/images/trafficNew-1.png)
 
-Example picture where the user has retrieved all Finnish road work notices from the API
+Example picture where the user has retrieved all Finnish road work notices from the API.
+The div element where the traffic announcements are displayed has a max-width value that prevents the div element from growing too large if there are a lot of active traffic announcements. the scroll bar makes it easier to browse notifications.
 
 ![alt text](src/images/roadAnnounc.png)
 
