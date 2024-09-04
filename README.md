@@ -17,15 +17,21 @@ Each line of retrieved data is displayed in its own li element and the elements 
 
 All search criteria entered by the user are passed as parameters to the api endpoint. for example, the function of the program, where railway information can be searched based on the station, is implemented with the html-select element, where the javaScript function saves the station selected by the user and sends the station as a parameter.
 
+Readability of the response text
+
+The text is mostly readable. However, some extra characters from the answers have been removed to improve the user experience using the JavaScript substitution method.
+
+the replacement method is executed automatically in the forEach loop
+
 Sample images of the information searched and received using the search criteria
 
 An example view where the user has searched for valid train passenger bulletins and the departure and arrival times and route of train 45 on 30.8.24
 
-![alt text](dataoftrain.png)
+![alt text](dataoftrain-1.png)
 
 An example image from which the information of the water area called Kipsi has been retrieved. the displayed information is, for example, the temperature of the water, the coordinates and the direction of the wind wave. The user can also use the input field to search for the desired water area.
 
-![alt text](trafficNew.png)
+![alt text](trafficNew-1.png)
 
 
 

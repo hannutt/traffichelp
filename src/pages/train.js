@@ -17,7 +17,7 @@ function Train() {
 
    function getSelctedStation(val) {
     setStationClick(!stationClick)
-    const stationUrl = `https://rata.digitraffic.fi/api/v1/live-trains/station/hki/${val}`
+    const stationUrl = `https://rata.digitraffic.fi/api/v1/live-trains/station/${val}`
     const USERID = {'Digitraffic-User': 'Junamies/FoobarApp 1.0'}
     fetch(stationUrl, {headers:USERID})
     .then(response =>{
@@ -31,7 +31,7 @@ function Train() {
             const li = document.createElement("li")
            
             //kentässä näytetää json tulosjoukon roadstationid ja sensorvalue-
-            li.innerText= "Train number: "+d.trainNumber+" Cancelled: "+d.cancelled + ' Departure date '+d.departureDate
+            li.innerText= "Train: "+d.trainNumber+' ' +d.commuterLineID+ ' | '+ 'Cancelled: '+d.cancelled+ " | Leaves from track: "+d.timeTableRows[0].commercialTrack+"| at "+d.timeTableRows[0].scheduledTime.replace("T"," ").replace(":00.000Z"," ")
             document.getElementById("list").appendChild(li)
        })
 
@@ -41,7 +41,7 @@ function Train() {
 }
 
 function handleTrainData() {
-    const URLi = 'https://rata.digitraffic.fi/api/v1/passenger-information/active'
+    const URLi = 'https://rata.digitraffic.fi/api/v1/passenger-information/active?station=HKI'
     const USERID = {'Digitraffic-User': 'Junamies/FoobarApp 1.0'}
 
     setTrainClick(!trainClick)
@@ -55,11 +55,12 @@ function handleTrainData() {
         //data käydään silmukassa läpi, d on silmukkamuuttuja kuin esim i for-loopissa
         
          data.forEach(d => {
-         const li = document.createElement("li")
+
+            const li = document.createElement("li")
         
          //kentässä näytetää json tulosjoukon roadstationid ja sensorvalue-
-         li.innerText=+d.trainNumber+' ' +d.video.text.en+" Notification valid: "+d.endValidity
-         document.getElementById("list").appendChild(li)
+            li.innerText=d.trainNumber+' ' +d.video.text.en+" Notification valid: "+d.endValidity.replace("T00:00:00Z"," ")
+            document.getElementById("list").appendChild(li)
     })
     
 })
@@ -84,7 +85,7 @@ function handleTrainData() {
              const li = document.createElement("li")
             
              //kentässä näytetää json tulosjoukon roadstationid ja sensorvalue-
-             li.innerText="Departure from " +d.beginTimeTableRow.stationShortCode+" at "+d.beginTimeTableRow.scheduledTime+" arrival to " +d.endTimeTableRow.stationShortCode+" at "+d.endTimeTableRow.scheduledTime
+             li.innerText="Departure from " +d.beginTimeTableRow.stationShortCode+" at "+d.beginTimeTableRow.scheduledTime.replace("T"," ").replace("Z"," ").replace("000"," ")+" arrival to " +d.endTimeTableRow.stationShortCode+" at "+d.endTimeTableRow.scheduledTime.replace("T"," ").replace("Z", " ").replace("000 "," ")
              document.getElementById("list").appendChild(li)
         })
         
@@ -110,7 +111,7 @@ function handleTrainData() {
     <option value="default" selected>select</option>
   <option value="hki">Helsinki station</option>
   <option value="tku">Turku station</option>
-  <option value="tre">Tampere station</option>
+  <option value="tpe">Tampere station</option>
   <option value="sjk">Seinäjoki station</option>
 </select>
 </div>
@@ -121,7 +122,7 @@ function handleTrainData() {
     <div>
         {/*checkboxin klikkaus muuttaa trainCompositionin trueksi ja silloin näytetään alla olevat input kentät*/}
     {trainComposition &&
-    <><input type="text" onChange={e=>setDday(e.target.value)} name="departureday" id="departureday" placeholder="YYYY-MM-DD"></input><input type="text" onChange={e=>setTrainNum(e.target.value)} name="trainNum" id="trainNum" placeholder="eg. 59"></input><button onClick={()=>handleCompositionData(Dday,trainNum)}>Fetch</button></> }
+    <><input type="text" onChange={e=>setDday(e.target.value)} name="departureday" id="departureday" placeholder="YYYY-MM-DD"></input><input type="text" onChange={e=>setTrainNum(e.target.value)} name="trainNum" id="trainNum" placeholder="eg. 59"></input><button class="btn btn-primary" onClick={()=>handleCompositionData(Dday,trainNum)}>Fetch Data</button></> }
     </div>
         </div>
         {trainClick && <button id="clearBtn" onClick={clear}>X</button>}

@@ -1,6 +1,11 @@
+import { useState } from "react"
+
 function Road() {
+    const [roadCBsel,setRoadCBsel]=useState(true)
+
     
    function roadAnnounce () {
+    setRoadCBsel(!roadCBsel)
     const roadUrl = 'https://tie.digitraffic.fi/api/traffic-message/v1/messages?inactiveHours=0&includeAreaGeometry=false&situationType=TRAFFIC_ANNOUNCEMENT'
     const USERID = {'Digitraffic-User': 'Junamies/FoobarApp 1.0'}
     fetch(roadUrl, {headers:USERID})
@@ -26,11 +31,15 @@ function Road() {
     
     return(
         <div>
-        <div id="roadContent">
+            
+        <div id="roadContent" hidden={roadCBsel} className="roadContent">
             <ul id="list"></ul>
         </div>
             <label htmlFor="announcementCB" >Road traffic announcements</label>
-                <input type="checkbox"onChange={roadAnnounce}></input>
+                <input id="announcementCB" type="checkbox"onChange={roadAnnounce}></input>
+                <br></br>
+                <label htmlFor="roadworksCB" >Active road works</label>
+                <input id="roadworksCB" type="checkbox"></input>
         
         </div>
     )

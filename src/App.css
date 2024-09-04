@@ -56,3 +56,21 @@
   font-weight: bold;
 }
 
+.roadContent {
+  border: 2px solid black;
+  max-height: 200px;
+  overflow: auto;
+}
+
+.seaInput input {
+  float:left;
+
+}
+.seaInput button {
+ 
+  padding-right: 0.2em;
+
+ 
+}
+
+
