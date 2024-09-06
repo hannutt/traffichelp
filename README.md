@@ -29,9 +29,11 @@ An example view where the user has searched for valid train passenger bulletins 
 
 ![alt text](src/images/dataoftrain-1.png)
 
-An example image from which the information of the water area called Kipsi has been retrieved. the displayed information is, for example, the temperature of the water, the coordinates and the direction of the wind wave. The user can also use the input field to search for the desired water area.
+An example image from which the information of the water area called Kipsi has been retrieved. the information displayed is, for example, the water temperature, coordinates and the direction of the wind wave. The user can also search for the desired water area using the input field.
 
-![alt text](src/images/trafficNew-1.png)
+The API search works with the siteNumber value, so the "show site numbers" button searches and displays the names of the water areas and the "siteNumber" values ​​to the user, making it easy for the user to select the desired water area. 
+
+![alt text](src/images/seaExample.png)
 
 Example picture where the user has retrieved all Finnish road work notices from the API.
 The div element where the traffic announcements are displayed has a max-width value that prevents the div element from growing too large if there are a lot of active traffic announcements. the scroll bar makes it easier to browse notifications.

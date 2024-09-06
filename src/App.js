@@ -3,7 +3,10 @@ import './App.css';
 import Train from './pages/train'; 
 import  Sea from "./pages/sea"
 import Road from "./pages/road";
+import WsComponent from './pages/seaWebSocket';
 import { useState } from 'react';
+import { BrowserRouter,Routes,Route,Link } from 'react-router-dom';
+
 
 function App() {
   const [trainOpt,setTrainOpt]=useState(false)
@@ -43,7 +46,10 @@ function App() {
     
   }
   return (
+    
     <div className='App-header'>
+                  
+                    
     <div>
     <h2 className='title'>Traffic Helper</h2>
    
