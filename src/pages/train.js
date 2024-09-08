@@ -1,5 +1,6 @@
 import { useState } from "react"
-
+import { BrowserRouter,Routes,Route,Link,useNavigate } from 'react-router-dom';
+import TrainGraphQl from "./trainGraphql"
 function Train() {
     const [trainClick,setTrainClick]=useState(false)
     const [stationClick,setStationClick]=useState(false)
@@ -31,7 +32,7 @@ function Train() {
             const li = document.createElement("li")
            
             //kentässä näytetää json tulosjoukon roadstationid ja sensorvalue-
-            li.innerText= "Train: "+d.trainNumber+' ' +d.commuterLineID+ ' | '+ 'Cancelled: '+d.cancelled+ " | Leaves from track: "+d.timeTableRows[0].commercialTrack+"| at "+d.timeTableRows[0].scheduledTime.replace("T"," ").replace(":00.000Z"," ")
+            li.innerText= "Train: "+d.trainNumber+' | '+ 'Cancelled: '+d.cancelled+ " | Leaves from track: "+d.timeTableRows[0].commercialTrack+"| at "+d.timeTableRows[0].scheduledTime.replace("T"," ").replace(":00.000Z"," ")
             document.getElementById("list").appendChild(li)
        })
 
@@ -99,6 +100,14 @@ function handleTrainData() {
             <br></br>
            
         <button class="btn btn-info btn-sm" onClick={handleTrainData}>Show Active passenger info</button>
+        <br></br>
+        <Routes>
+            <Route>          
+                <Route path="/traingql" element={<TrainGraphQl/>}/>
+                </Route>
+                </Routes>
+                <Link to="/traingql"><button className="btn btn-info btn-sm">GraphQL</button></Link>
+        
         <div id="trainContent" className="trainContent">
             <ul id="list" className="list"></ul>
         </div>

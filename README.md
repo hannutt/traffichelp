@@ -1,4 +1,4 @@
-Project keywords: JavaScript, React, Open API, Bootstrap 5
+Project keywords: JavaScript, React, Open API, GraphQL, Bootstrap 5
 
 The purpose of this program is to produce useful traffic and environmental information in clear language for the user to read. Data is retrieved from the open APIs provided by Digitraffic in accordance with the user's search criteria.
 
@@ -17,6 +17,8 @@ Each line of retrieved data is displayed in its own li element and the elements 
 
 All search criteria entered by the user are passed as parameters to the api endpoint. for example, the function of the program, where railway information can be searched based on the station, is implemented with the html-select element, where the javaScript function saves the station selected by the user and sends the station as a parameter.
 
+GraphQL API queries are available for rail traffic. GraphQL API queries are implemented using the react-query and fetch methods.
+
 Readability of the response text
 
 The text is mostly readable. However, some extra characters from the answers have been removed to improve the user experience using the JavaScript substitution method.
@@ -29,7 +31,9 @@ An example view where the user has searched for valid train passenger bulletins 
 
 ![alt text](src/images/dataoftrain-1.png)
 
-An example image from which the information of the water area called Kipsi has been retrieved. the information displayed is, for example, the water temperature, coordinates and the direction of the wind wave. The user can also search for the desired water area using the input field.
+An example image from which the information of the water area called Kipsi has been retrieved. the information displayed is, for example, the water temperature, coordinates and the direction of the wind wave. A Google Maps image of the water area can be displayed by clicking on the checkbox. the map image gets the necessary coordinates from the API
+
+The user can also search for the desired water area using the input field.
 
 The API search works with the siteNumber value, so the "show site numbers" button searches and displays the names of the water areas and the "siteNumber" values ​​to the user, making it easy for the user to select the desired water area. 
 
