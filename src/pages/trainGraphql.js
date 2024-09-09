@@ -1,42 +1,42 @@
 import { useState } from "react";
-import { useQuery } from "react-query";
+import { useMutation, useQuery } from "react-query";
+import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
+
+
+const client = new ApolloClient({
+
+    headers: { "Content-Type": "application/json", "Accept-Encoding": "gzip" },
+    uri: 'https://rata.digitraffic.fi/api/v2/graphql/graphql',
+    cache: new InMemoryCache(),
+})
+
+
+
 function TrainGraphQL() {
     const [queryText,setQueryText]=useState('')
     const [dataVar,setDataVar]=useState([''])
 
-    function DoQuery() {
-        const endpoint = 'https://rata.digitraffic.fi/api/v2/graphql/graphql'
-
     
-
-        //const { data, loading, error } = useQuery("qu", () => {
-            return fetch(endpoint, {
-                method: "POST",
-                headers: { "Content-Type": "application/json", "Accept-Encoding": "gzip" },
-                body: JSON.stringify({ query: queryText })
-            })
-            .then(response =>response.json())
-            //data on json-tulosjoukon nimi
-            .then(data=>{
-                
-                console.log(data)
-                
-                data.forEach(d => {
-                    
-                    const li = document.createElement("li")
-                   
-                    //kentässä näytetää json tulosjoukon roadstationid ja sensorvalue-
-                    li.innerText= d.currentlyRunningTrains[0]
-                    //document.getElementById("list").appendChild(li)
-                    document.getElementById("list").appendChild(li)
-               })
+      function DoQuery() {
+     
+        const query = gql(queryText)
+    
         
-                
-                
-            })
+        client.query({ query })
+        .then((response) => {
+        console.log(response.data)
+        const li = document.createElement("li")
+               
+        //kentässä näytetää json tulosjoukon roadstationid ja sensorvalue-
+        li.innerText= response.data.trainNumber
+        document.getElementById("list").appendChild(li)
+  })
+  
 
-    }
 
+      }
+  
+    
 
     return (
         <div className="graph">
@@ -44,8 +44,8 @@ function TrainGraphQL() {
             <div id="content">
                 <ul id="list"></ul>
             </div>
-            <textarea onChange={e=>setQueryText(e.target.value)}></textarea>
-            <button onClick={DoQuery}>Query</button>
+            <textarea rows={5} cols={50} onChange={e=>setQueryText(e.target.value)}></textarea>
+            <button class='btn btn-primary' onClick={DoQuery}>Do Query</button>
           
 
         </div>

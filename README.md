@@ -17,7 +17,7 @@ Each line of retrieved data is displayed in its own li element and the elements 
 
 All search criteria entered by the user are passed as parameters to the api endpoint. for example, the function of the program, where railway information can be searched based on the station, is implemented with the html-select element, where the javaScript function saves the station selected by the user and sends the station as a parameter.
 
-GraphQL API queries are available for rail traffic. GraphQL API queries are implemented using the react-query and fetch methods.
+GraphQL API queries are available for rail traffic and user can write queries themselves. queries are written to the textarea element and stored in a state variable. GraphQL API queries are implemented with the Apollo client.
 
 Readability of the response text
 
@@ -43,6 +43,10 @@ Example picture where the user has retrieved all Finnish road work notices from 
 The div element where the traffic announcements are displayed has a max-width value that prevents the div element from growing too large if there are a lot of active traffic announcements. the scroll bar makes it easier to browse notifications.
 
 ![alt text](src/images/roadAnnounc.png)
+
+Example image where a user writes a query to Digitraffic's rail traffic GrapQL API
+
+![alt text](src/images/graphqlQuery.png)
 
 
 

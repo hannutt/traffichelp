@@ -8,7 +8,8 @@ function Sea() {
     const [latitude, setLatitude] = useState()
     const [longitude, setLongitude] = useState()
     const [mapState,setMapState]=useState(false)
-
+    const [listClose,setListClose]=useState(false)
+    var clicks=0
     useEffect(() => {
         setLatitude(latitude);
         setLongitude(longitude)
@@ -16,6 +17,21 @@ function Sea() {
     }, [latitude, longitude])
 
 
+    function close () {
+        clicks+=1
+        if (clicks % 1 ===0)
+        {
+            document.getElementById("list").hidden=true
+
+        }
+        if (clicks % 2 === 0)
+        {
+            document.getElementById("list").hidden=false
+        }
+       
+        
+        
+    }
 
     function availableAreas() {
         const seaUrl = 'https://meri.digitraffic.fi/api/sse/v1/measurements'
@@ -36,6 +52,11 @@ function Sea() {
                     li.innerText = "name: " + d.properties.siteName + 'site number: ' + d.properties.siteNumber
                     document.getElementById("list").appendChild(li)
                 })
+                const closeBtn = document.createElement("button")
+                closeBtn.textContent="X"
+                closeBtn.onclick=close
+               
+                document.getElementById("list").appendChild(closeBtn)
             })
     }
 
@@ -68,15 +89,10 @@ function Sea() {
 
     }
     return (
-
-
-
-
         <div>
          
             <Routes>
                 <Route>
-
                     <Route path="/websocket" element={<WsComponent />} />
                 </Route>
             </Routes>
