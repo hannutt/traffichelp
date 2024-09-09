@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useMutation, useQuery } from "react-query";
-import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
+import { ApolloClient, InMemoryCache, gql,useLazyQuery } from '@apollo/client'
 
 
 const client = new ApolloClient({
@@ -16,20 +16,22 @@ function TrainGraphQL() {
     const [queryText,setQueryText]=useState('')
     const [dataVar,setDataVar]=useState([''])
 
-    
       function DoQuery() {
      
         const query = gql(queryText)
-    
-        
         client.query({ query })
         .then((response) => {
         console.log(response.data)
-        const li = document.createElement("li")
+        for (var i=0;i<5;i++)
+        {
+            const li = document.createElement("li")
                
-        //kentässä näytetää json tulosjoukon roadstationid ja sensorvalue-
-        li.innerText= response.data.trainNumber
-        document.getElementById("list").appendChild(li)
+            //kentässä näytetää json tulosjoukon roadstationid ja sensorvalue-
+            li.innerText= "Train number: "+ response.data.currentlyRunningTrains[i].trainNumber+' Train speed: '+response.data.currentlyRunningTrains[i].trainLocations[0].speed+" km/h"
+            document.getElementById("list").appendChild(li)
+
+        }
+       
   })
   
 
@@ -46,6 +48,7 @@ function TrainGraphQL() {
             </div>
             <textarea rows={5} cols={50} onChange={e=>setQueryText(e.target.value)}></textarea>
             <button class='btn btn-primary' onClick={DoQuery}>Do Query</button>
+           
           
 
         </div>

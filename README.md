@@ -44,10 +44,9 @@ The div element where the traffic announcements are displayed has a max-width va
 
 ![alt text](src/images/roadAnnounc.png)
 
-Example image where a user writes a query to Digitraffic's rail traffic GrapQL API
+example image where a user writes a query to Digitraffic's rail traffic GrapQL API. The survey searches for the first 5 trains with a speed of more than 30 km/h
 
 ![alt text](src/images/graphqlQuery.png)
-
 
 
 
