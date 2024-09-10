@@ -1,4 +1,4 @@
-Project keywords: JavaScript, React, Open API, GraphQL, Bootstrap 5
+Project keywords: JavaScript, React, Open API, GraphQL, Bootstrap 5, JSON
 
 The purpose of this program is to produce useful traffic and environmental information in clear language for the user to read. Data is retrieved from the open APIs provided by Digitraffic in accordance with the user's search criteria.
 
@@ -19,12 +19,13 @@ All search criteria entered by the user are passed as parameters to the api endp
 
 GraphQL API queries are available for rail traffic and user can write queries themselves. queries are written to the textarea element and stored in a state variable. GraphQL API queries are implemented with the Apollo client.
 
+Weather camera images are retrieved from weathercam.digitraffic.fi/<id>. The images of the camera to be displayed are selected from the html selection component and the selected image is displayed in the <img> element. The URLs of the camera images are stored in variables and the selected component has an onChange event handler function that performs the search and display of the user's desired image.
+
 Readability of the response text
 
 The text is mostly readable. However, some extra characters from the answers have been removed to improve the user experience using the JavaScript substitution method.
 
 the replacement method is executed automatically in the forEach loop
-
 Sample images of the information searched and received using the search criteria
 
 An example view where the user has searched for valid train passenger bulletins and the departure and arrival times and route of train 45 on 30.8.24
@@ -47,6 +48,10 @@ The div element where the traffic announcements are displayed has a max-width va
 example image where a user writes a query to Digitraffic's rail traffic GrapQL API. The survey searches for the first 5 trains with a speed of more than 30 km/h
 
 ![alt text](src/images/graphqlQuery.png)
+
+An example picture where the user has selected a road camera from the html select component
+
+![alt text](src/images/weatherCam.png)
 
 
 

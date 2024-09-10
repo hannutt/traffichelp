@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { useMutation, useQuery } from "react-query";
-import { ApolloClient, InMemoryCache, gql,useLazyQuery } from '@apollo/client'
+
+import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
 
 
 const client = new ApolloClient({
@@ -14,20 +14,22 @@ const client = new ApolloClient({
 
 function TrainGraphQL() {
     const [queryText,setQueryText]=useState('')
-    const [dataVar,setDataVar]=useState([''])
+    
 
       function DoQuery() {
-     
+        //graphQL kyselyteksti
         const query = gql(queryText)
         client.query({ query })
         .then((response) => {
-        console.log(response.data)
+            console.log(response.data)
+        
         for (var i=0;i<5;i++)
         {
             const li = document.createElement("li")
-               
+         
+            li.innerText= "Train number: "+ response.data.currentlyRunningTrains[i].trainNumber+' Train speed: '+response.data.currentlyRunningTrains[i].trainLocations[0].speed+" km/h"   
             //kentässä näytetää json tulosjoukon roadstationid ja sensorvalue-
-            li.innerText= "Train number: "+ response.data.currentlyRunningTrains[i].trainNumber+' Train speed: '+response.data.currentlyRunningTrains[i].trainLocations[0].speed+" km/h"
+            //li.innerText= "Train number: "+ response.data.currentlyRunningTrains[i].trainNumber+' Train speed: '+response.data.currentlyRunningTrains[i].trainLocations[0].speed+" km/h"
             document.getElementById("list").appendChild(li)
 
         }

@@ -17,48 +17,42 @@ function Sea() {
     }, [latitude, longitude])
 
 
-    function close () {
-        clicks+=1
-        if (clicks % 1 ===0)
-        {
-            document.getElementById("list").hidden=true
-
-        }
-        if (clicks % 2 === 0)
-        {
-            document.getElementById("list").hidden=false
-        }
-       
-        
-        
-    }
 
     function availableAreas() {
-        const seaUrl = 'https://meri.digitraffic.fi/api/sse/v1/measurements'
-        const USERID = { 'Digitraffic-User': 'Junamies/FoobarApp 1.0' }
-        fetch(seaUrl, { headers: USERID })
-            .then(response => {
-                return response.json()
-            })
-            //data on json-tulosjoukon nimi
-            .then(data => {
-
-                console.log(data)
-
-                data.features.forEach(d => {
-                    const li = document.createElement("li")
-
-                    //kentässä näytetää json tulosjoukon roadstationid ja sensorvalue-
-                    li.innerText = "name: " + d.properties.siteName + 'site number: ' + d.properties.siteNumber
-                    document.getElementById("list").appendChild(li)
+        clicks = clicks+1
+        if(clicks %2 ===0)
+        {
+            document.getElementById("list").innerText=""
+            document.getElementById("list").hidden=true
+        
+        }
+        else{
+            document.getElementById("list").hidden=false
+            const seaUrl = 'https://meri.digitraffic.fi/api/sse/v1/measurements'
+            const USERID = { 'Digitraffic-User': 'Junamies/FoobarApp 1.0' }
+            fetch(seaUrl, { headers: USERID })
+                .then(response => {
+                    return response.json()
                 })
-                const closeBtn = document.createElement("button")
-                closeBtn.textContent="X"
-                closeBtn.onclick=close
-               
-                document.getElementById("list").appendChild(closeBtn)
-            })
-    }
+                //data on json-tulosjoukon nimi
+                .then(data => {
+    
+                    console.log(data)
+    
+                    data.features.forEach(d => {
+                        const li = document.createElement("li")
+    
+                        //kentässä näytetää json tulosjoukon roadstationid ja sensorvalue-
+                        li.innerText = "name: " + d.properties.siteName + 'site number: ' + d.properties.siteNumber
+                        document.getElementById("list").appendChild(li)
+                    })
+                   
+                  
+                })
+        }
+
+        }
+    
 
     function getSelectedLake(lake) {
 

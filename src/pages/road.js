@@ -1,7 +1,9 @@
 import { useState } from "react"
+import WeatherCam from "./weatherCamera"
 
 function Road() {
     const [roadCBsel,setRoadCBsel]=useState(true)
+    const [wcam,setWcam]=useState(false)
 
     function roadWorks() {
         /*div johon tieliikennedata asetetaan näkyviin*/
@@ -99,6 +101,12 @@ function Road() {
                 <br></br>
                 <label htmlFor="weightCB" >Active weight Restritctions</label>
                 <input id="weightB" type="checkbox"onChange={weightRistrictions}></input>
+                <br></br>
+                <label htmlFor="cameraCB" >Weather cameras</label>
+                <input id="cameraCB" type="checkbox"onChange={()=>setWcam(!wcam)}></input>
+                {wcam && <WeatherCam/>}
+                {/*}
+                <img src="https://weathercam.digitraffic.fi/C0450701.jpg"></img>*/}
         
         
         </div>

@@ -32,7 +32,7 @@ function Train() {
             const li = document.createElement("li")
            
             //kentässä näytetää json tulosjoukon roadstationid ja sensorvalue-
-            li.innerText= "Train: "+d.trainNumber+' | '+ 'Cancelled: '+d.cancelled+ " | Leaves from track: "+d.timeTableRows[0].commercialTrack+"| at "+d.timeTableRows[0].scheduledTime.replace("T"," ").replace(":00.000Z"," ")
+            li.innerText= "Train: "+d.trainNumber+' | '+ '| Goes to: ' +d.timeTableRows[0].stationShortCode+ " | Leaves from track: "+d.timeTableRows[0].commercialTrack+"| at "+d.timeTableRows[0].scheduledTime.replace("T"," ").replace(":00.000Z"," ")
             document.getElementById("list").appendChild(li)
        })
 
@@ -44,7 +44,7 @@ function Train() {
 function handleTrainData() {
     const URLi = 'https://rata.digitraffic.fi/api/v1/passenger-information/active?station=HKI'
     const USERID = {'Digitraffic-User': 'Junamies/FoobarApp 1.0'}
-    var i = 0;
+    
     setTrainClick(!trainClick)
     fetch(URLi, {headers:USERID})
     .then(response =>{
@@ -60,9 +60,9 @@ function handleTrainData() {
 
             const li = document.createElement("li")
         
-            li.innerText=d.property
+            //li.innerText="Train number: "+d.trainNumber+" "+d.audio.text.en
          //kentässä näytetää json tulosjoukon roadstationid ja sensorvalue-
-            //li.innerText=d.trainNumber+' ' +d.audio.text.en+" Notification valid: "+d.endValidity.replace("T00:00:00Z"," ")
+            li.innerText="Train number "+d.trainNumber+' ' +d.audio.text.en+" Notification valid: "+d.endValidity.replace("T00:00:00Z"," ")
             document.getElementById("list").appendChild(li)
     })
     
@@ -70,10 +70,10 @@ function handleTrainData() {
 }
 
 
-    function handleCompositionData(p1,p2) {
+    function handleCompositionData(pDay,pTrainNum) {
 
         
-        const URLi = `https://rata.digitraffic.fi/api/v1/compositions/${p1}/${p2}`
+        const URLi = `https://rata.digitraffic.fi/api/v1/compositions/${pDay}/${pTrainNum}`
         const USERID = {'Digitraffic-User': 'Junamies/FoobarApp 1.0'}
         fetch(URLi, {headers:USERID})
         .then(response =>{
