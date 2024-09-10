@@ -1,17 +1,18 @@
 import { useState } from "react"
 
 function WeatherCam() {
-    const [camTre,setCamTre]=useState('https://weathercam.digitraffic.fi/C0450701.jpg')
-    const [camJkl,setCamJkl]=useState('https://weathercam.digitraffic.fi/C0450703.jpg')
+    const camTre='https://weathercam.digitraffic.fi/C0450701.jpg'
+    const camJkl='https://weathercam.digitraffic.fi/C0450703.jpg'
 
     function getCamera(e) {
-        console.log(e)
+        //e on parametrina saatava optionin value, joka annetaan img elementille sourceksi.
         document.getElementById("camImg").src=e
         
 
     }
     return(
         <div>
+            {/*e.target value eli valitun optionin value arvo lähetetään getcamera funktiolle*/}
             <select onChange={e=>getCamera(e.target.value)}>
                 <option value={'empty'} selected>Select</option>
                 <option value={camTre}>VT 3 Tampere Lakalaiva</option>

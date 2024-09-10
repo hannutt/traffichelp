@@ -19,7 +19,7 @@ All search criteria entered by the user are passed as parameters to the api endp
 
 GraphQL API queries are available for rail traffic and user can write queries themselves. queries are written to the textarea element and stored in a state variable. GraphQL API queries are implemented with the Apollo client.
 
-Weather camera images are retrieved from weathercam.digitraffic.fi/<id>. The images of the camera to be displayed are selected from the html selection component and the selected image is displayed in the <img> element. The URLs of the camera images are stored in variables and the selected component has an onChange event handler function that performs the search and display of the user's desired image.
+Weather camera images are retrieved from weathercam.digitraffic.fi/(id) The images of the camera to be displayed are selected from the html selection component and the selected image is displayed in the html img element. The URLs of the camera images are stored in variables and the selected component has an onChange event handler function that performs the search and display of the user's desired image.
 
 Readability of the response text
 
