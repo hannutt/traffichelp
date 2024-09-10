@@ -136,8 +136,8 @@ function handleTrainData() {
     <><input type="text" onChange={e=>setDday(e.target.value)} name="departureday" id="departureday" placeholder="YYYY-MM-DD"></input><input type="text" onChange={e=>setTrainNum(e.target.value)} name="trainNum" id="trainNum" placeholder="eg. 59"></input><button class="btn btn-primary" onClick={()=>handleCompositionData(Dday,trainNum)}>Fetch Data</button></> }
     </div>
         </div>
-        {trainClick && <button id="clearBtn" onClick={clear}>X</button>}
-        {stationClick&& <button id="clearBtn" onClick={clear}>X</button> }
+        {trainClick && <button id="clearBtn"  class="btn-close" onClick={clear}>X</button>}
+        {stationClick&& <button id="clearBtn"  class="btn-close" onClick={clear}>X</button> }
         
         </div>
 

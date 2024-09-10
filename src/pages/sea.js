@@ -8,7 +8,7 @@ function Sea() {
     const [latitude, setLatitude] = useState()
     const [longitude, setLongitude] = useState()
     const [mapState,setMapState]=useState(false)
-    const [listClose,setListClose]=useState(false)
+    
     var clicks=0
     useEffect(() => {
         setLatitude(latitude);
@@ -72,9 +72,10 @@ function Sea() {
 
                     //kentässä näytetää json tulosjoukon roadstationid ja sensorvalue-
                     li.innerText = "name: " + d.properties.siteName + ' water temperature: ' + d.properties.temperature + ' °C ' + 'Coordinates: ' + d.geometry.coordinates + " Wind-wave direction: " + d.properties.windWaveDir
-                    console.log(d.geometry.coordinates[0] + " " + d.geometry.coordinates[1])
+                  
                     setLongitude(d.geometry.coordinates[0])
                     setLatitude(d.geometry.coordinates[1])
+                    document.getElementById("list").hidden=false
                     document.getElementById("list").appendChild(li)
                 })
               
@@ -125,14 +126,14 @@ function Sea() {
                     <br></br>
                     <button class="btn btn-primary btn-sm" onClick={availableAreas}>Show site numbers</button>
                 </div>
-                {mapState && <APIProvider apiKey={""}>
+                {mapState && <APIProvider apiKey={"AIzaSyDiQRNNT5hggRvxm7i6n1zhO5Z9TzD31cE"}>
                 <Map
                     
                     style={{ width: '50vw', height: '50vh' }}
                     defaultCenter={{ lat: latitude, lng: longitude }}
-                    defaultZoom={8}
+                    defaultZoom={10}
                     gestureHandling={'greedy'}
-                    disableDefaultUI={true} />
+                    disableDefaultUI={false} />
             </APIProvider>}
             </div>
         </div>
