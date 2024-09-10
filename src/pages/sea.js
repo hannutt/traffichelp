@@ -126,7 +126,7 @@ function Sea() {
                     <br></br>
                     <button class="btn btn-primary btn-sm" onClick={availableAreas}>Show site numbers</button>
                 </div>
-                {mapState && <APIProvider apiKey={"AIzaSyDiQRNNT5hggRvxm7i6n1zhO5Z9TzD31cE"}>
+                {mapState && <APIProvider apiKey={""}>
                 <Map
                     
                     style={{ width: '50vw', height: '50vh' }}
