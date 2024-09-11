@@ -8,14 +8,56 @@ function Sea() {
     const [latitude, setLatitude] = useState()
     const [longitude, setLongitude] = useState()
     const [mapState,setMapState]=useState(false)
+    const [waterAreas,setWaterAreas]=useState(true)
+    const [closeButton,setCloseButton]=useState(true)
     
     var clicks=0
+    //useeffect huomaa heti, jos latitude longitude statet muuttuvat
     useEffect(() => {
         setLatitude(latitude);
         setLongitude(longitude)
        
     }, [latitude, longitude])
 
+    function hideContent() {
+        clicks=clicks+1
+        if (clicks % 1 === 0)
+        {
+            document.getElementById("lakeContent").hidden=true
+            setCloseButton(!closeButton)
+            //poistetaan cb:n valinta
+            document.getElementById("safetyCB").checked=false
+
+        }
+       
+    }
+
+
+    function safetyFails() {
+        document.getElementById("lakeContent").hidden=false
+        setCloseButton(!closeButton)
+        const seaUrl = 'https://meri.digitraffic.fi/api/aton/v1/faults'
+      
+        fetch(seaUrl)
+            .then(response => {
+                return response.json()
+            })
+            //data on json-tulosjoukon nimi
+            .then(data => {
+
+                console.log(data)
+                data.features.forEach(d => {
+                    const li = document.createElement("li")
+
+                    //kentässä näytetää json tulosjoukon roadstationid ja sensorvalue-
+                    li.innerText = "Area: " + d.properties.area_description + 'fairway: ' + d.properties.fairway_name_fi+" fixed: "+d.properties.fixed
+                    document.getElementById("list").appendChild(li)
+            })
+        })
+
+                
+
+    }
 
 
     function availableAreas() {
@@ -91,21 +133,30 @@ function Sea() {
                     <Route path="/websocket" element={<WsComponent />} />
                 </Route>
             </Routes>
-
+            <button id="closeBtn" hidden={closeButton} onClick={hideContent}>X</button>
             <div id="lakeContent" className="lakeContent">
                 <ul id="list" className="list"></ul>
             </div>
-            <label for="lake">Choose a water area:</label>
+            <input class="form-check-input" id='safetyCB' type="checkbox" onClick={safetyFails}></input>
+            <label class="form-check-label" for="safetyCB">Safety device faults</label>
+            <br></br>
+            <input class="form-check-input" id='marineCB' type="checkbox" ></input>
+            <label class="form-check-label" for="marineCB">Marine warnings</label>
+            <br></br>
+            <input class="form-check-input" id='waterCB' type="checkbox" onChange={()=>setWaterAreas(!waterAreas)} ></input>
+            <label class="form-check-label" for="waterCB">Water area information</label>
+            <br></br>
+            <label for="lake" hidden={waterAreas}>Choose a water area:</label>
 
-            <select name="lake" id="lake" onChange={e => getSelectedLake(e.target.value)}>
+            <select hidden={waterAreas} name="lake" id="lake" onChange={e => getSelectedLake(e.target.value)}>
                 <option value="8859">Kelloniemi</option>
                 <option value="20169">Hattukari</option>
                 <option value="20243">Kipsi</option>
                 <option value="20244">Talla</option>
             </select>
-            <label htmlFor="map">
+            <label hidden={waterAreas} htmlFor="map">
             Show the water area on the map</label>
-            <input id="map" type="checkbox" onChange={()=>setMapState(!mapState)}></input>
+            <input hidden={waterAreas} id="map" type="checkbox" onChange={()=>setMapState(!mapState)}></input>
             <br></br>
       
 
@@ -120,11 +171,11 @@ function Sea() {
                 <br></br>
                 <Link hidden to="/websocket">WebSocket</Link>
                 <div className="seaInput">
-                    <input type="text" id="name" className="name" placeholder="Or write site number here" onChange={e => setWaterName(e.target.value)}></input>
+                    <input type="text" hidden={waterAreas} id="name" className="name" placeholder="Or write site number here" onChange={e => setWaterName(e.target.value)}></input>
 
-                    <button onClick={() => getSelectedLake(waterName)} class="btn btn-primary">Fetch Data</button>
+                    <button onClick={() => getSelectedLake(waterName)} hidden={waterAreas} class="btn btn-primary">Fetch Data</button>
                     <br></br>
-                    <button class="btn btn-primary btn-sm" onClick={availableAreas}>Show site numbers</button>
+                    <button class="btn btn-primary btn-sm"hidden={waterAreas} onClick={availableAreas}>Show site numbers</button>
                 </div>
                 {mapState && <APIProvider apiKey={""}>
                 <Map

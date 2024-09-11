@@ -112,23 +112,7 @@ function Road() {
             </div>
             {wcam && <WeatherCam />}
          
-            {/*}
-            <label htmlFor="announcementCB" >Road traffic announcements</label>
-            <input id="announcementCB" type="checkbox" onChange={roadAnnounce}></input>
-            <br></br>
-            <label htmlFor="roadworksCB" >Active road works</label>
-            <input id="roadworksCB" type="checkbox" onChange={roadWorks}></input>
-            <br></br>
-            <label htmlFor="weightCB" >Active weight Restritctions</label>
-            <input id="weightB" type="checkbox" onChange={weightRistrictions}></input>
-            <br></br>
-            <label htmlFor="cameraCB" >Weather cameras</label>
-            <input id="cameraCB" type="checkbox" onChange={() => setWcam(!wcam)}></input>
-            {wcam && <WeatherCam />}
-            {/*}
-                <img src="https://weathercam.digitraffic.fi/C0450701.jpg"></img>*/}
-
-
+      
         </div>
     )
 }

@@ -21,6 +21,9 @@ GraphQL API queries are available for rail traffic and user can write queries th
 
 Weather camera images are retrieved from weathercam.digitraffic.fi/(id) The images of the camera to be displayed are selected from the html selection component and the selected image is displayed in the html img element. The URLs of the camera images are stored in variables and the selected component has an onChange event handler function that performs the search and display of the user's desired image.
 
+The image of each weather camera can be changed by pressing the "change camera" button.
+There are 3 different angles for each camera.
+
 Readability of the response text
 
 The text is mostly readable. However, some extra characters from the answers have been removed to improve the user experience using the JavaScript substitution method.
@@ -53,5 +56,8 @@ An example picture where the user has selected a road camera from the html selec
 
 ![alt text](src/images/weatherCam.png)
 
+Example image when the user has clicked the "change camera" button and the camera image has changed.
+
+![alt text](src/images/weatherCamChange.png)
 
 
