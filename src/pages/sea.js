@@ -2,6 +2,7 @@ import { useState, useEffect } from "react"
 import { BrowserRouter, Routes, Route, Link, useNavigate } from 'react-router-dom';
 import WsComponent from "./seaWebSocket";
 import { APIProvider, Map } from '@vis.gl/react-google-maps';
+import MarineWarnings from "./marineWarns"
 function Sea() {
 
     const [waterName, setWaterName] = useState('')
@@ -10,6 +11,7 @@ function Sea() {
     const [mapState,setMapState]=useState(false)
     const [waterAreas,setWaterAreas]=useState(true)
     const [closeButton,setCloseButton]=useState(true)
+    const [warnings,setWarnigns]=useState(false)
     
     var clicks=0
     //useeffect huomaa heti, jos latitude longitude statet muuttuvat
@@ -31,6 +33,7 @@ function Sea() {
         }
        
     }
+  
 
 
     function safetyFails() {
@@ -140,13 +143,14 @@ function Sea() {
             <input class="form-check-input" id='safetyCB' type="checkbox" onClick={safetyFails}></input>
             <label class="form-check-label" for="safetyCB">Safety device faults</label>
             <br></br>
-            <input class="form-check-input" id='marineCB' type="checkbox" ></input>
+            <input class="form-check-input" id='marineCB' onChange={()=>setWarnigns(!warnings)} type="checkbox" ></input>
             <label class="form-check-label" for="marineCB">Marine warnings</label>
             <br></br>
             <input class="form-check-input" id='waterCB' type="checkbox" onChange={()=>setWaterAreas(!waterAreas)} ></input>
             <label class="form-check-label" for="waterCB">Water area information</label>
             <br></br>
             <label for="lake" hidden={waterAreas}>Choose a water area:</label>
+            {warnings&&<MarineWarnings/>}
 
             <select hidden={waterAreas} name="lake" id="lake" onChange={e => getSelectedLake(e.target.value)}>
                 <option value="8859">Kelloniemi</option>

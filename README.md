@@ -26,9 +26,8 @@ There are 3 different angles for each camera.
 
 Readability of the response text
 
-The text is mostly readable. However, some extra characters from the answers have been removed to improve the user experience using the JavaScript substitution method.
-
-the replacement method is executed automatically in the forEach loop
+The text is mostly readable. However, some extra characters from the answers have been removed to improve the user experience using the JavaScript replace method.
+the replace method is executed automatically in the forEach loop.
 Sample images of the information searched and received using the search criteria
 
 An example view where the user has searched for valid train passenger bulletins and the departure and arrival times and route of train 45 on 30.8.24
