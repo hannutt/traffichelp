@@ -42,7 +42,7 @@ function Train() {
 }
 
 function handleTrainData() {
-    const URLi = 'https://rata.digitraffic.fi/api/v1/passenger-information/active?station=HKI'
+    const URLi = 'https://rata.digitraffic.fi/api/v1/passenger-information/active'
     const USERID = {'Digitraffic-User': 'Junamies/FoobarApp 1.0'}
     
     setTrainClick(!trainClick)
@@ -56,13 +56,13 @@ function handleTrainData() {
         //data käydään silmukassa läpi, d on silmukkamuuttuja kuin esim i for-loopissa
         
          data.forEach(d => {
-            
+         const li = document.createElement("li")
 
-            const li = document.createElement("li")
+
         
             //li.innerText="Train number: "+d.trainNumber+" "+d.audio.text.en
          //kentässä näytetää json tulosjoukon roadstationid ja sensorvalue-
-            li.innerText="Train number "+d.trainNumber+' ' +d.audio.text.en+" Notification valid: "+d.endValidity.replace("T00:00:00Z"," ")
+            li.innerText="Train number "+d.trainNumber+' ' +d.video.text.en+" Notification valid: "+d.endValidity.replace("T00:00:00Z"," ")
             document.getElementById("list").appendChild(li)
     })
     

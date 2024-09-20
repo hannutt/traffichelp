@@ -17,6 +17,8 @@ function App() {
   const [hideTrain, setHideTrain] = useState(false)
   const [hideSea, setHideSea] = useState(false)
 
+
+  //funktio piilottaa tai näyttää komponentteja saamansa parametrin arvon (stateval) perusteella
   const helper = (stateval) => {
     console.log(stateval)
     if (stateval == 'trainOpt') {

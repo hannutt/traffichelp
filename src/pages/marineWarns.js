@@ -1,4 +1,4 @@
-function MarineWarnings() {
+function MarineWarnings(props) {
     
     document.getElementById("lakeContent").hidden=false
     const seaUrl="https://meri.digitraffic.fi/api/nautical-warning/v1/warnings/active"
@@ -27,4 +27,5 @@ function MarineWarnings() {
 
         
 }
+
 export default MarineWarnings

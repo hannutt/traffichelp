@@ -1,8 +1,9 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, createElement } from "react"
 import { BrowserRouter, Routes, Route, Link, useNavigate } from 'react-router-dom';
 import WsComponent from "./seaWebSocket";
 import { APIProvider, Map } from '@vis.gl/react-google-maps';
 import MarineWarnings from "./marineWarns"
+import $ from "jquery";
 function Sea() {
 
     const [waterName, setWaterName] = useState('')
@@ -12,7 +13,8 @@ function Sea() {
     const [waterAreas,setWaterAreas]=useState(true)
     const [closeButton,setCloseButton]=useState(true)
     const [warnings,setWarnigns]=useState(false)
-    
+    const [hideSafety,setHideSafety]=useState(false)
+    const [hideMarine,setHideMarine]=useState(false)
     var clicks=0
     //useeffect huomaa heti, jos latitude longitude statet muuttuvat
     useEffect(() => {
@@ -34,6 +36,11 @@ function Sea() {
        
     }
   
+    function executeWaterArea() {
+        setWaterAreas(!waterAreas)
+        setHideSafety(!hideSafety)
+        setHideMarine(!hideMarine)
+    }
 
 
     function safetyFails() {
@@ -55,14 +62,10 @@ function Sea() {
                     //kentässä näytetää json tulosjoukon roadstationid ja sensorvalue-
                     li.innerText = "Area: " + d.properties.area_description + 'fairway: ' + d.properties.fairway_name_fi+" fixed: "+d.properties.fixed
                     document.getElementById("list").appendChild(li)
+                   
             })
         })
-
-                
-
     }
-
-
     function availableAreas() {
         clicks = clicks+1
         if(clicks %2 ===0)
@@ -100,6 +103,7 @@ function Sea() {
     
 
     function getSelectedLake(lake) {
+        document.getElementById("list").innerText=" "
 
         const seaUrl = `https://meri.digitraffic.fi/api/sse/v1/measurements?siteNumber=${lake}`
         const USERID = { 'Digitraffic-User': 'Junamies/FoobarApp 1.0' }
@@ -112,6 +116,7 @@ function Sea() {
 
                 console.log(data)
 
+              
                 data.features.forEach(d => {
                     const li = document.createElement("li")
 
@@ -122,14 +127,34 @@ function Sea() {
                     setLatitude(d.geometry.coordinates[1])
                     document.getElementById("list").hidden=false
                     document.getElementById("list").appendChild(li)
+             
+                  
+                    
                 })
+                
+               
+                
               
             })
+            //speakBtn.addEventListener("click",speak(document.getElementById("list").innerHTML))
 
 
     }
+
+    function speak(val) {
+        // Create a SpeechSynthesisUtterance
+        const utterance = new SpeechSynthesisUtterance(val);
+
+        // Select a voice
+        const voices = speechSynthesis.getVoices();
+        utterance.voice = voices[0]; // Choose a specific voice
+      
+        // Speak the text
+        speechSynthesis.speak(utterance);
+      }
     return (
         <div>
+            
          
             <Routes>
                 <Route>
@@ -140,13 +165,14 @@ function Sea() {
             <div id="lakeContent" className="lakeContent">
                 <ul id="list" className="list"></ul>
             </div>
-            <input class="form-check-input" id='safetyCB' type="checkbox" onClick={safetyFails}></input>
-            <label class="form-check-label" for="safetyCB">Safety device faults</label>
+            <button onClick={()=>speak(document.getElementById("list").innerHTML)}>speak</button>
+            <input class="form-check-input" hidden={hideSafety} id='safetyCB' type="checkbox" onClick={safetyFails}></input>
+            <label class="form-check-label" hidden={hideSafety} for="safetyCB">Safety device faults</label>
             <br></br>
-            <input class="form-check-input" id='marineCB' onChange={()=>setWarnigns(!warnings)} type="checkbox" ></input>
-            <label class="form-check-label" for="marineCB">Marine warnings</label>
+            <input class="form-check-input" hidden={hideMarine} id='marineCB' onChange={()=>setWarnigns(!warnings)} type="checkbox" ></input>
+            <label class="form-check-label" hidden={hideMarine} for="marineCB">Marine warnings</label>
             <br></br>
-            <input class="form-check-input" id='waterCB' type="checkbox" onChange={()=>setWaterAreas(!waterAreas)} ></input>
+            <input class="form-check-input" id='waterCB' type="checkbox" onChange={executeWaterArea} ></input>
             <label class="form-check-label" for="waterCB">Water area information</label>
             <br></br>
             <label for="lake" hidden={waterAreas}>Choose a water area:</label>
@@ -162,16 +188,12 @@ function Sea() {
             Show the water area on the map</label>
             <input hidden={waterAreas} id="map" type="checkbox" onChange={()=>setMapState(!mapState)}></input>
             <br></br>
-      
-
+    
             <div>
-
-
                 {/*käytetään samaa halufunktiota sekä select että input kentässä. erona ainoastaa se
     että syötekenttä haussa parametri tallennetaan state-muuttujaan ja lähetetään funktiolle
     vasta onclick kutsussa.*/}
                 <br></br>
-             
                 <br></br>
                 <Link hidden to="/websocket">WebSocket</Link>
                 <div className="seaInput">
