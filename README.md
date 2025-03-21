@@ -42,8 +42,7 @@ The API search works with the siteNumber value, so the "show site numbers" butto
 
 ![alt text](src/images/seaExample.png)
 
-Example picture where the user has retrieved all Finnish road work notices from the API.
-The div element where the traffic announcements are displayed has a max-width value that prevents the div element from growing too large if there are a lot of active traffic announcements. the scroll bar makes it easier to browse notifications.
+Example image where the user has searched for all ongoing roadworks in Finland and opened one of the roadworks in the Google Maps map view. Each roadwork has a Bootstrap 5 style button, which the user can click to open the roadwork location in the Google Maps view. The latitude/longitude coordinates of the roadwork are stored in React State variables after the button is clicked and sent as parameters to the Maps component implementing the map view.
 
 ![alt text](src/images/roadAnnounc.png)
 

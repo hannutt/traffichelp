@@ -7,6 +7,7 @@ function WeatherCam() {
     const camJkl = ["https://weathercam.digitraffic.fi/C0951001.jpg", "https://weathercam.digitraffic.fi/C0951002.jpg", "https://weathercam.digitraffic.fi/C0951009.jpg"]
     const [camView, setCamView] = useState(0)
     //sanakirjaolio, ensin tulee avain, eli esim tre, joka saadaan select komponentin optionin valuesta
+    //avaimen avulla käytetään arvona olevaa listaa
     const cams = {"tre":camTre,"kur":camKur,"jkl":camJkl}
     const [cameraParam,setCameraParam]= useState('')
 
@@ -32,11 +33,6 @@ function WeatherCam() {
                 //cams[cameraParam][camView]= esim cams[kur][kameran numero]
                 document.getElementById("camImg").src = cams[cameraParam][camView]
             }
-        
-    
-       
-        //var val = WeatherCam()
-        //console.log(val)*/
 
 
     }
@@ -52,7 +48,7 @@ function WeatherCam() {
             <br></br>
             <button class="btn btn-primary btn-sm" onClick={changeView}>Change camera</button>
             <br></br>
-            <img id="camImg" width={700} height={500} alt="camera image" src={'empty'}></img>
+            <img id="camImg" width={700} height={500} alt="camera" src={'empty'}></img>
 
 
         </div>
