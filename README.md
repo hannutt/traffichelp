@@ -1,4 +1,4 @@
-Project keywords: JavaScript, React, Open API, GraphQL, Bootstrap 5, JSON
+Project keywords: JavaScript, React, SpeechSynthesis API, GraphQL, Bootstrap 5, JSON
 
 The purpose of this program is to produce useful traffic and environmental information in clear language for the user to read. Data is retrieved from the open APIs provided by Digitraffic in accordance with the user's search criteria.
 
@@ -19,10 +19,7 @@ All search criteria entered by the user are passed as parameters to the api endp
 
 GraphQL API queries are available for rail traffic and user can write queries themselves. queries are written to the textarea element and stored in a state variable. GraphQL API queries are implemented with the Apollo client.
 
-Weather camera images are retrieved from weathercam.digitraffic.fi/(id) The images of the camera to be displayed are selected from the html selection component and the selected image is displayed in the html img element. The URLs of the camera images are stored in variables and the selected component has an onChange event handler function that performs the search and display of the user's desired image.
-
-The image of each weather camera can be changed by pressing the "change camera" button.
-There are 3 different angles for each camera.
+Weather camera images are retrieved from weathercam.digitraffic.fi/(id) The images of the camera to be displayed are selected from the html selection component and the selected image is displayed in the html img element. The URLs of the camera images are stored in variables and the selected component has an onChange event handler function that performs the search and display of the user's desired image. The image of each weather camera can be changed by pressing the "change camera" button. There are 3 different angles for each camera.
 
 Readability of the response text
 
@@ -34,13 +31,18 @@ An example view where the user has searched for valid train passenger bulletins 
 
 ![alt text](src/images/dataoftrain-1.png)
 
-An example image from which the information of the water area called Kipsi has been retrieved. the information displayed is, for example, the water temperature, coordinates and the direction of the wind wave. A Google Maps image of the water area can be displayed by clicking on the checkbox. the map image gets the necessary coordinates from the API
-
-The user can also search for the desired water area using the input field.
-
-The API search works with the siteNumber value, so the "show site numbers" button searches and displays the names of the water areas and the "siteNumber" values ​​to the user, making it easy for the user to select the desired water area. 
+An example image from which the information of the water area called Kipsi has been retrieved. the information displayed is, for example, the water temperature, coordinates and the direction of the wind wave. A Google Maps image of the water area can be displayed by clicking on the checkbox. the map image gets the necessary coordinates from the API.
+When you click the Convert text to speech checkbox, the application converts the retrieved data into speech using the SpeecSynthesis API. Finally, the application plays the result through the device speakers.
 
 ![alt text](src/images/seaExample.png)
+
+The user can also search for the desired water area using the input field.
+The API search works with the siteNumber value, so the "show site numbers" button searches and displays the names of the water areas and the "siteNumber" values ​​to the user, making it easy for the user to select the desired water area. 
+
+Sample image of the list of available water areas
+
+![alt text](src/images/sites.png)
+
 
 Example image where the user has searched for all ongoing roadworks in Finland and opened one of the roadworks in the Google Maps map view. Each roadwork has a Bootstrap 5 style button, which the user can click to open the roadwork location in the Google Maps view. The latitude/longitude coordinates of the roadwork are stored in React State variables after the button is clicked and sent as parameters to the Maps component implementing the map view.
 

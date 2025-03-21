@@ -49,6 +49,7 @@
   background-color: lightgray;
   border-radius: 10px;
   font-size: medium;
+  font-weight: bold;
   
 }
 
@@ -66,9 +67,9 @@
   float:left;
 
 }
-.seaInput button {
+.seaInput>button {
  
-  padding-right: 0.2em;
+  margin-left: 10px;
 
  
 }
@@ -79,4 +80,10 @@
 .graph {
   min-height: 600px;
 }
+.hrLine {
+  width:75%;
+  border-width: 4;
+  color: black;
+}
+
 

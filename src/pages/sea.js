@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route, Link, useNavigate } from 'react-router-do
 import WsComponent from "./seaWebSocket";
 import { APIProvider, Map } from '@vis.gl/react-google-maps';
 import MarineWarnings from "./marineWarns"
-import $ from "jquery";
+import '../App.css';
 function Sea() {
 
     const [waterName, setWaterName] = useState('')
@@ -142,14 +142,10 @@ function Sea() {
     }
 
     function speak(val) {
-        // Create a SpeechSynthesisUtterance
         const utterance = new SpeechSynthesisUtterance(val);
-
-        // Select a voice
         const voices = speechSynthesis.getVoices();
-        utterance.voice = voices[0]; // Choose a specific voice
-      
-        // Speak the text
+        utterance.voice = voices[0];
+        utterance.lang="en-US"
         speechSynthesis.speak(utterance);
       }
     return (
@@ -165,7 +161,11 @@ function Sea() {
             <div id="lakeContent" className="lakeContent">
                 <ul id="list" className="list"></ul>
             </div>
-            <button onClick={()=>speak(document.getElementById("list").innerHTML)}>speak</button>
+            
+            
+            <input class="form-check-input" id="speakCB" onClick={()=>speak(document.getElementById("list").innerHTML)}></input>
+            <label class="form-check-label" for="speakCB">Convert text to speech</label>
+            <hr className="hrLine"></hr>
             <input class="form-check-input" hidden={hideSafety} id='safetyCB' type="checkbox" onClick={safetyFails}></input>
             <label class="form-check-label" hidden={hideSafety} for="safetyCB">Safety device faults</label>
             <br></br>
@@ -184,34 +184,39 @@ function Sea() {
                 <option value="20243">Kipsi</option>
                 <option value="20244">Talla</option>
             </select>
-            <label hidden={waterAreas} htmlFor="map">
-            Show the water area on the map</label>
-            <input hidden={waterAreas} id="map" type="checkbox" onChange={()=>setMapState(!mapState)}></input>
+            <hr className="hrLine"></hr>
+            <br></br>
+            <input class="form-check-input" hidden={waterAreas} id="map" type="checkbox" onChange={()=>setMapState(!mapState)}></input>
+            <label class="form-check-label" hidden={waterAreas} for="map">Show the water area on the map</label>
+           
             <br></br>
     
             <div>
                 {/*käytetään samaa halufunktiota sekä select että input kentässä. erona ainoastaa se
     että syötekenttä haussa parametri tallennetaan state-muuttujaan ja lähetetään funktiolle
     vasta onclick kutsussa.*/}
-                <br></br>
+                
                 <br></br>
                 <Link hidden to="/websocket">WebSocket</Link>
                 <div className="seaInput">
                     <input type="text" hidden={waterAreas} id="name" className="name" placeholder="Or write site number here" onChange={e => setWaterName(e.target.value)}></input>
 
-                    <button onClick={() => getSelectedLake(waterName)} hidden={waterAreas} class="btn btn-primary">Fetch Data</button>
-                    <br></br>
+                    <button onClick={() => getSelectedLake(waterName)} hidden={waterAreas} class="btn btn-primary btn-sm">Fetch Data</button>
+                    
                     <button class="btn btn-primary btn-sm"hidden={waterAreas} onClick={availableAreas}>Show site numbers</button>
                 </div>
+                <br></br>
+                <div className="mapArea">
                 {mapState && <APIProvider apiKey={""}>
                 <Map
                     
-                    style={{ width: '50vw', height: '50vh' }}
+                    style={{ width: '50vw', height: '45vh' }}
                     defaultCenter={{ lat: latitude, lng: longitude }}
-                    defaultZoom={10}
+                    defaultZoom={12}
                     gestureHandling={'greedy'}
                     disableDefaultUI={false} />
             </APIProvider>}
+            </div>
             </div>
         </div>
 
