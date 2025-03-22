@@ -13,13 +13,8 @@ function Train() {
     const [Dday, setDday] = useState('')
     const [trainNum, setTrainNum] = useState('')
     const [selectionDiv, setSelectionDiv] = useState(true)
-    
-  
-
-
-
-
-
+    let date=Date()
+    var [dateValue,setDateValue]=useState(dayjs(date))
 
     function clear() {
 
@@ -144,13 +139,14 @@ function Train() {
                 <div>
                     {/*checkboxin klikkaus muuttaa trainCompositionin trueksi ja silloin näytetään alla olevat input kentät*/}
                     {trainComposition && <>  <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DatePicker format="YYYY-MM-DD" Dday={Dday}  onChange={newval=> setDday(newval)} />
-                            {/*moment.js muuntaa date objektin haluttuun muotoon*/}
+                        {/*newvalue parametri on valittu päivämäärä*/}
+                        <DatePicker format="YYYY-MM-DD" value={dateValue}  onChange={(newValue)=>setDateValue(newValue)} />
+                            {/*dayjs kirjastolla saadaan muutettua Date objektin päivämäärä muotoon YYYY-DD-MM*/}
                             
-                            {console.log(Dday.toString())}
+                            {console.log(dayjs(dateValue).format('YYYY-MM-DD'))}
 
                             
-                    </LocalizationProvider><><input className="trainNumber" type="text" onChange={e => setTrainNum(e.target.value)} name="trainNum" id="trainNum" placeholder="eg. 59"></input><button class="btn btn-primary" onClick={() => handleCompositionData(moment(Dday).format('YYYY-MM-DD'), trainNum)}>Fetch Data</button></></>}
+                    </LocalizationProvider><><input className="trainNumber" type="text" onChange={e => setTrainNum(e.target.value)} name="trainNum" id="trainNum" placeholder="eg. 59"></input><button class="btn btn-primary" onClick={() => handleCompositionData(dayjs(dateValue).format('YYYY-MM-DD'), trainNum)}>Fetch Data</button></></>}
                 </div>
             </div>
           
