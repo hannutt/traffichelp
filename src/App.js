@@ -17,6 +17,8 @@ function App() {
   const [hideRoad, setHideRoad] = useState(false)
   const [hideTrain, setHideTrain] = useState(false)
   const [hideSea, setHideSea] = useState(false)
+  const [hideLogo,setHideLogo]=useState(false)
+  
 
 
   //funktio piilottaa tai näyttää komponentteja saamansa parametrin arvon (stateval) perusteella
@@ -26,6 +28,7 @@ function App() {
       setHideRoad(!hideRoad)
       setTrainOpt(!trainOpt)
       setHideSea(!hideSea)
+      setHideLogo(!hideLogo)
 
     }
     else if (stateval == 'roadOpt') {
@@ -50,11 +53,10 @@ function App() {
 
     <div className='App-header'>
 
-
+      <img className='tfLogo' id='tfLogo' hidden={hideLogo} src={tfLogoBlack} height={100} width={200}></img>
       <div>
       
-        <img className='tfLogo' src={tfLogoBlack} height={100} width={200}></img>
-       <br></br><br></br>
+
         <div class="form-check">
           <input class="form-check-input" id='trainCB' hidden={hideTrain} type="checkbox"  onChange={() => helper('trainOpt')}></input>
           <label class="form-check-label"hidden= {hideTrain}  for="trainCB">Train traffic data</label>
