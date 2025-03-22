@@ -23,13 +23,24 @@ Weather camera images are retrieved from weathercam.digitraffic.fi/(id) The imag
 
 Readability of the response text
 
-The text is mostly readable. However, some extra characters from the answers have been removed to improve the user experience using the JavaScript replace method.
-the replace method is executed automatically in the forEach loop.
-Sample images of the information searched and received using the search criteria
+The text is mostly readable. However, some extra characters from the answers have been removed to improve the user experience using the JavaScript replace method. the replace method is executed automatically in the forEach loop.
+Sample images of the information searched and received using the search criteria.
 
-An example view where the user has searched for valid train passenger bulletins and the departure and arrival times and route of train 45 on 22.3.25. The date is selected from the MUI DatePicker component and the train number is entered in the input field.
+DATA SEARCH FROM TRAINS AND TRAIN STATIONS.
+
+User can search for any VR train information using train number and date.
+
+An example view where the user has searched for valid train passenger bulletins and the departure and arrival times and route of train 45 on 22.3.25. The date is selected from the MUI DatePicker component and the train number is entered in the input field. The API call requires a date in the format YYYY-DD-MM. The selected date is formatted in the required format, using the format method of the DayJS library.
 
 ![alt text](src/images/dataoftrain-1.png)
+
+The application can also retrieve information from train stations. In the example image below, the user has selected Tampere railway station from the Select component to see all trains departing from Tampere station.
+
+![alt text](src/images/stationTre.png)
+
+SEA / WATER AREA DATA
+
+the user can search for information about water bodies and also display the location of the water body on Google Maps. The Google Maps feature is embedded in the application using this library: https://www.npmjs.com/package/@react-google-maps/api
 
 An example image from which the information of the water area called Kipsi has been retrieved. the information displayed is, for example, the water temperature, coordinates and the direction of the wind wave. A Google Maps image of the water area can be displayed by clicking on the checkbox. the map image gets the necessary coordinates from the API.
 When you click the Convert text to speech checkbox, the application converts the retrieved data into speech using the SpeecSynthesis API. Finally, the application plays the result through the device speakers.
