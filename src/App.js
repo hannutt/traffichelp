@@ -7,6 +7,7 @@ import WsComponent from './pages/seaWebSocket';
 import { useState } from 'react';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 
+import tfLogoBlack from './images/tfLogoBlack.png'
 
 
 function App() {
@@ -51,7 +52,9 @@ function App() {
 
 
       <div>
-        <h2 className='title'>Traffic Helper</h2>
+      
+        <img className='tfLogo' src={tfLogoBlack} height={100} width={200}></img>
+       <br></br><br></br>
         <div class="form-check">
           <input class="form-check-input" id='trainCB' hidden={hideTrain} type="checkbox"  onChange={() => helper('trainOpt')}></input>
           <label class="form-check-label"hidden= {hideTrain}  for="trainCB">Train traffic data</label>

@@ -9,7 +9,9 @@ function Road() {
     var [long,setLong]=useState(0)
     const [showMap,setShowMap]=useState(false)
 
-    const setMap=(id)=>{
+    const setMapCoordinates=(id)=>{
+        setLat(lat=0)
+        setLong(long=0)
         var coordinates = document.getElementById(id).value
         var coordSplit = coordinates.split(",")
         setLong(long=parseFloat(coordSplit[0]))
@@ -37,10 +39,12 @@ function Road() {
                     const li = document.createElement("li")
                     const mapBtn=document.createElement("button")
                     mapBtn.setAttribute("class","btn btn-primary btn-sm")
-                    //funktion lisääminen dynaamisesti luotuun buttoniin
+                    
                     mapBtn.id="mapBtn"+i
-                    mapBtn.addEventListener("click",()=>setMap(mapBtn.id))
+                    //funktion lisääminen dynaamisesti luotuun buttoniin
+                    mapBtn.addEventListener("click",()=>setMapCoordinates(mapBtn.id))
                     mapBtn.textContent="Show in map"
+                    //koordinaattien tallennus buttonin value propertyyn
                     mapBtn.value=d.geometry.coordinates[0][0]
                     
                  
@@ -103,14 +107,25 @@ function Road() {
             //data on json-tulosjoukon nimi
             .then(data => {
                 console.log(data)
+                var j =0
 
                 data.features.forEach(d => {
+
+                    j+=1
                     const li = document.createElement("li")
+                    const mapBtn=document.createElement("button")
+                    mapBtn.setAttribute("class","btn btn-primary btn-sm")
+                    //funktion lisääminen dynaamisesti luotuun buttoniin
+                    mapBtn.id="mapBtn"+j
+                    mapBtn.addEventListener("click",()=>setMapCoordinates(mapBtn.id))
+                    mapBtn.textContent="Show in map"
+                    //mapBtn.value=d.properties.geometry[0].coordinates
                     
 
                     //kentässä näytetää json tulosjoukon roadstationid ja sensorvalue-
-                    li.innerText = d.properties.announcements[0].location.description + ' ' + d.properties.announcements[0].comment
+                    li.innerText = d.properties.announcements[0].location.description + ' ' + d.properties.announcements[0].comment+' Ask more: '+d.properties.contact.email+' '+d.properties.contact.phone
                     document.getElementById("list").appendChild(li)
+                    document.getElementById("list").appendChild(mapBtn)
                 })
 
 

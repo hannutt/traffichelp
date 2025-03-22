@@ -85,5 +85,13 @@
   border-width: 4;
   color: black;
 }
+.flexHelpBtn {
+  
+  float: right;
+}
+.tfLogo {
+  border-radius: 12%;
+  
+}
 
 
