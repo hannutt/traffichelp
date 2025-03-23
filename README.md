@@ -8,7 +8,7 @@ Example image of the start view. Clicking on the checkbox invokes a new react co
 
 ![alt text](src/images/startview.png)
 
-Specifications
+SPECIFICATIONS
 
 Data is retrieved from the API interface using API endpoints and a JavaScript fetch method.
 Then the retrieved data is converted to Json format and looped in a forEach loop. Finally, the information is displayed inside the html li elements as clear text.
@@ -17,11 +17,8 @@ Each line of retrieved data is displayed in its own li element and the elements 
 
 All search criteria entered by the user are passed as parameters to the api endpoint. for example, the function of the program, where railway information can be searched based on the station, is implemented with the html-select element, where the javaScript function saves the station selected by the user and sends the station as a parameter.
 
-GraphQL API queries are available for rail traffic and user can write queries themselves. queries are written to the textarea element and stored in a state variable. GraphQL API queries are implemented with the Apollo client.
 
-Weather camera images are retrieved from weathercam.digitraffic.fi/(id) The images of the camera to be displayed are selected from the html selection component and the selected image is displayed in the html img element. The URLs of the camera images are stored in variables and the selected component has an onChange event handler function that performs the search and display of the user's desired image. The image of each weather camera can be changed by pressing the "change camera" button. There are 3 different angles for each camera.
-
-Readability of the response text
+READABILITY OF THE RESPONSE TEXT
 
 The text is mostly readable. However, some extra characters from the answers have been removed to improve the user experience using the JavaScript replace method. the replace method is executed automatically in the forEach loop.
 Sample images of the information searched and received using the search criteria.
@@ -37,6 +34,14 @@ An example view where the user has searched for valid train passenger bulletins 
 The application can also retrieve information from train stations. In the example image below, the user has selected Tampere railway station from the Select component to see all trains departing from Tampere station.
 
 ![alt text](src/images/stationTre.png)
+
+RAILWAY PASSENGER INFORMATION
+
+The user can search for passenger information by station. The station is selected from the HTML select component. Each selection has a value attribute containing the station abbreviation, which is stored in a state variable and sent to the JavaScript function performing the search using the onChange event handler when the user has selected the desired station.
+
+Example image where the user has selected Helsinki Station and retrieved active passenger information
+
+![alt text](src/images/passengerInfo.png)
 
 SEA / WATER AREA DATA
 
@@ -54,14 +59,9 @@ Sample image of the list of available water areas
 
 ![alt text](src/images/sites.png)
 
+VIEWING WEATHER CAMERAS
 
-Example image where the user has searched for all ongoing roadworks in Finland and opened one of the roadworks in the Google Maps map view. Each roadwork has a Bootstrap 5 style button, which the user can click to open the roadwork location in the Google Maps view. The latitude/longitude coordinates of the roadwork are stored in React State variables after the button is clicked and sent as parameters to the Maps component implementing the map view.
-
-![alt text](src/images/roadAnnounc.png)
-
-example image where a user writes a query to Digitraffic's rail traffic GrapQL API. The survey searches for the first 5 trains with a speed of more than 30 km/h
-
-![alt text](src/images/graphqlQuery.png)
+Weather camera images are retrieved from weathercam.digitraffic.fi/(id) The images of the camera to be displayed are selected from the html selection component and the selected image is displayed in the html img element. The URLs of the camera images are stored in variables and the selected component has an onChange event handler function that performs the search and display of the user's desired image. The image of each weather camera can be changed by pressing the "change camera" button. There are 3 different angles for each camera.
 
 An example picture where the user has selected a road camera from the html select component
 
@@ -70,5 +70,24 @@ An example picture where the user has selected a road camera from the html selec
 Example image when the user has clicked the "change camera" button and the camera image has changed.
 
 ![alt text](src/images/weatherCamChange.png)
+
+ROAD TRAFFIC DATA
+
+The user can search for various road traffic information, such as ongoing road works and active road traffic alerts.
+
+Example image where the user has searched for all ongoing roadworks in Finland and opened one of the roadworks in the Google Maps map view. Each roadwork has a Bootstrap 5 style button, which the user can click to open the roadwork location in the Google Maps view. The latitude/longitude coordinates of the roadwork are stored in React State variables after the button is clicked and sent as parameters to the Maps component implementing the map view.
+
+![alt text](src/images/roadAnnounc.png)
+
+GRAPHQL QUERIES
+
+
+GraphQL API queries are available for rail traffic and user can write queries themselves. queries are written to the textarea element and stored in a state variable. GraphQL API queries are implemented with the Apollo client.
+
+Example image where a user writes a query to Digitraffic's rail traffic GrapQL API. The survey searches for the first 5 trains with a speed of more than 30 km/h
+
+![alt text](src/images/graphqlQuery.png)
+
+
 
 
