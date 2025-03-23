@@ -31,9 +31,13 @@ An example view where the user has searched for valid train passenger bulletins 
 
 ![alt text](src/images/dataoftrain-1.png)
 
-The application can also retrieve information from train stations. In the example image below, the user has selected Tampere railway station from the Select component to see all trains departing from Tampere station.
+ROUTE GUIDE FOR TRAINS
 
-![alt text](src/images/stationTre.png)
+The user can search for routes by entering the departure station, destination station and travel date. The application searches information using these criteria and displays a list of trains matching the criteria to the user. The result shows the user the departure time, departure date and departure track.
+
+Example view of the result where the user has searched for trains from Helsinki to Tampere on the date 24.3.25.
+
+![alt text](src/images/routeguide.png)
 
 RAILWAY PASSENGER INFORMATION
 

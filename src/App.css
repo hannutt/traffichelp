@@ -103,10 +103,10 @@
 .pasInfo{
   display : inline-flex;
 }
-.passengerInfo {
+.liData {
   line-height: 1.8;
 }
-.passengerinfo2 {
+.liData2 {
   line-height: 1.8;
   background-color: #f2f2f2;
 }

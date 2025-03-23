@@ -13,6 +13,9 @@ function Train() {
     const [station, setStation] = useState('')
     const [trainNum, setTrainNum] = useState('')
     const [selectionDiv, setSelectionDiv] = useState(true)
+    const [routeGuide,setRouteGuide]=useState(true)
+    var [FromStation,setFromStation]=useState('')
+    var [toStation,setToStaion]=useState('')
     let date = Date()
     var [dateValue, setDateValue] = useState(dayjs(date))
 
@@ -47,9 +50,9 @@ function Train() {
             })
     }
 
-    function showArrivingAndDeparting() {
+    function fromStation(day) {
         //
-        const URLi = 'https://rata.digitraffic.fi/api/v1/live-trains/station/HKI/TPE'
+        const URLi = `https://rata.digitraffic.fi/api/v1/live-trains/station/${FromStation}/${toStation}?departure_date=${day}`
         const USERID = { 'Digitraffic-User': 'Junamies/FoobarApp 1.0' }
         fetch(URLi, { headers: USERID })
         .then(response => {
@@ -59,11 +62,20 @@ function Train() {
         .then(data => {
             console.log(data)
             //data käydään silmukassa läpi, d on silmukkamuuttuja kuin esim i for-loopissa
-
+            var i = 0
             data.forEach(d => {
+                i+=1
                 const li = document.createElement("li")
+                if (i % 1 == 0)
+                    {
+                        li.setAttribute("class",'liData')
+                    }
+                    if (i % 2 == 0)
+                    {
+                        li.setAttribute("class","liData2")
+                    }
 
-                li.innerText = d.timeTableRows[0].stationShortCode+" Track: "+d.timeTableRows[0].commercialTrack+" " +d.timeTableRows[0].type+" "+d.timeTableRows[0].scheduledTime
+                li.innerText = "Departure from: " +d.timeTableRows[0].stationShortCode+" Track: "+d.timeTableRows[0].commercialTrack+" "+" "+d.timeTableRows[0].scheduledTime.replace("T"," ").replace(".000Z"," ")
                 document.getElementById("list").appendChild(li)
             })
 
@@ -89,11 +101,11 @@ function Train() {
                     const li = document.createElement("li")
                     if (i % 1 == 0)
                     {
-                        li.setAttribute("class",'passengerInfo')
+                        li.setAttribute("class",'liData')
                     }
                     if (i % 2 == 0)
                     {
-                        li.setAttribute("class","passengerinfo2")
+                        li.setAttribute("class","liData2")
                     }
                     //li.innerText="Train number: "+d.trainNumber+" "+d.audio.text.en
                     //kentässä näytetää json tulosjoukon roadstationid ja sensorvalue-
@@ -172,15 +184,21 @@ function Train() {
             <br></br>
             <div class="arrNdep" hidden={selectionDiv}>
                 
-                    <label class="form-check-label" for="ArrivingDeparting">Show arriving and departing trains</label>
-                    <input class="form-check-input" type="checkbox" value="" id="ArrivingDeparting" onClick={showArrivingAndDeparting}></input>
+                    <label class="form-check-label" for="ArrivingDeparting">Train route guide</label>
+                    <input class="form-check-input" type="checkbox" value="" id="ArrivingDeparting" onChange={()=>setRouteGuide(!routeGuide)}></input>
             </div>
+            <div className="routeInputs" hidden={routeGuide}>
+                <input type="text" id="from" placeholder="FROM STATION" onChange={(e)=>setFromStation(e.target.value)}></input>
+                <input type="text" id="to" placeholder="TO STATION" onChange={(e)=>setToStaion(e.target.value)}></input>
+                <button class="btn btn-primary btn-sm" onClick={()=>fromStation(dayjs(dateValue).format('YYYY-MM-DD'))}>Show trains</button>
+            </div>
+            
             <div> 
                 <label class="form-check-label" for="srcCB">Search for train information by date and train number</label>
                 <input class="form-check-input" type="checkbox" onChange={() => setTrainComposition(!trainComposition)}></input>
                 <div>
                     {/*checkboxin klikkaus muuttaa trainCompositionin trueksi ja silloin näytetään alla olevat input kentät*/}
-                    {trainComposition && <>  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    {trainComposition || !routeGuide && <>  <LocalizationProvider dateAdapter={AdapterDayjs}>
                         {/*newvalue parametri on valittu päivämäärä*/}
                         <DatePicker format="YYYY-MM-DD" value={dateValue} onChange={(newValue) => setDateValue(newValue)} />
                         {/*dayjs kirjastolla saadaan muutettua Date objektin päivämäärä muotoon YYYY-DD-MM*/}
