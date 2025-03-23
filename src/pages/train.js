@@ -10,7 +10,7 @@ function Train() {
     const [trainClick, setTrainClick] = useState(false)
     const [stationClick, setStationClick] = useState(false)
     const [trainComposition, setTrainComposition] = useState(false)
-    const [Dday, setDday] = useState('')
+    const [station, setStation] = useState('')
     const [trainNum, setTrainNum] = useState('')
     const [selectionDiv, setSelectionDiv] = useState(true)
     let date=Date()
@@ -48,7 +48,7 @@ function Train() {
     }
 
     function handleTrainData() {
-        const URLi = 'https://rata.digitraffic.fi/api/v1/passenger-information/active'
+        const URLi = `https://rata.digitraffic.fi/api/v1/passenger-information/active?station=${station}`
         const USERID = { 'Digitraffic-User': 'Junamies/FoobarApp 1.0' }
 
         setTrainClick(!trainClick)
@@ -68,7 +68,8 @@ function Train() {
 
                     //li.innerText="Train number: "+d.trainNumber+" "+d.audio.text.en
                     //kentässä näytetää json tulosjoukon roadstationid ja sensorvalue-
-                    li.innerText = "Train number " + d.trainNumber + ' ' + d.video.text.en + " Notification valid: " + d.endValidity.replace("T00:00:00Z", " ")
+                    //li.innerText=d.audio.text.en
+                    li.innerText = "Train number " + d.trainNumber + ' ' + d.audio.text.en + " Notification valid: " + d.endValidity.replace("T00:00:00Z", " ")
                     document.getElementById("list").appendChild(li)
                 })
 
@@ -103,16 +104,23 @@ function Train() {
     return (
 
         <div>
-            <br></br>
-
+            <div className="pasInfo">
             <button class="btn btn-info btn-sm" onClick={handleTrainData}>Show Active passenger info</button>
-            <br></br>
+            <select onChange={(e)=>setStation(e.target.value)}>
+                <option value={"TPE"}>Tampere</option>
+                <option value={"HKI"}>Helsinki</option>
+                <option value={"SK"}>Seinäjoki</option>
+                <option value={"OL"}>Oulu</option>
+            </select>
+            </div>
+            <br></br><br></br>
             <Routes>
                 <Route>
                     <Route path="/traingql" element={<TrainGraphQl />} />
                 </Route>
             </Routes>
-            <Link to="/traingql"><button className="btn btn-info btn-sm">GraphQL</button></Link>
+            
+            <Link to="/traingql"><button className="btn btn-info btn-sm">GraphQL Queries</button></Link>
 
             <div id="trainContent" className="trainContent">
                 <ul id="list" className="list"></ul>
