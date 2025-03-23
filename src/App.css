@@ -103,4 +103,12 @@
 .pasInfo{
   display : inline-flex;
 }
+.passengerInfo {
+  line-height: 1.8;
+}
+.passengerinfo2 {
+  line-height: 1.8;
+  background-color: #f2f2f2;
+}
+
 

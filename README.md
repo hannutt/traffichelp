@@ -39,7 +39,7 @@ RAILWAY PASSENGER INFORMATION
 
 The user can search for passenger information by station. The station is selected from the HTML select component. Each selection has a value attribute containing the station abbreviation, which is stored in a state variable and sent to the JavaScript function performing the search using the onChange event handler when the user has selected the desired station.
 
-Example image where the user has selected Helsinki Station and retrieved active passenger information
+Example image where the user has selected Helsinki Station and retrieved active passenger information. Passenger information is displayed in an li element, where every other row uses the CSS color code #f2f2f2 and the  line-height is 1.8.
 
 ![alt text](src/images/passengerInfo.png)
 
@@ -80,7 +80,6 @@ Example image where the user has searched for all ongoing roadworks in Finland a
 ![alt text](src/images/roadAnnounc.png)
 
 GRAPHQL QUERIES
-
 
 GraphQL API queries are available for rail traffic and user can write queries themselves. queries are written to the textarea element and stored in a state variable. GraphQL API queries are implemented with the Apollo client.
 
