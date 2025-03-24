@@ -5,7 +5,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import dayjs from 'dayjs';
-
+import ByTrainNumber from "./byTrainNumber";
 
 function Train() {
     const [trainClick, setTrainClick] = useState(false)
@@ -91,9 +91,16 @@ function Train() {
     }
 
     function handlePassengerData() {
-        const URLi = `https://rata.digitraffic.fi/api/v1/passenger-information/active?station=${station}`
+        var URLi=''
+        if (station==='general')
+        {
+            URLi='https://rata.digitraffic.fi/api/v1/passenger-information/active?only_general=true'
+        }
+        else{
+            URLi = `https://rata.digitraffic.fi/api/v1/passenger-information/active?station=${station}`
+        }
+        
         const USERID = { 'Digitraffic-User': 'Junamies/FoobarApp 1.0' }
-
         setTrainClick(!trainClick)
         fetch(URLi, { headers: USERID })
             .then(response => {
@@ -123,9 +130,7 @@ function Train() {
                         li.innerText = "Train number " + d.trainNumber + ' Depar. date: ' + d.trainDepartureDate + ' ' + d.video.text.fi + " Notification valid: " + d.endValidity.replace("T00:00:00Z", " ")
                         document.getElementById("list").appendChild(li)
                     }
-                    //li.innerText="Train number: "+d.trainNumber+" "+d.audio.text.en
-                    //kentässä näytetää json tulosjoukon roadstationid ja sensorvalue-
-                    //li.innerText=d.audio.text.en
+                 
                     else {
                         li.innerText = "Train number " + d.trainNumber + ' Depar. date: ' + d.trainDepartureDate + ' ' + d.video.text.en + " Notification valid: " + d.endValidity.replace("T00:00:00Z", " ")
                         document.getElementById("list").appendChild(li)
@@ -139,7 +144,6 @@ function Train() {
 
     function handleCompositionData(pDay, pTrainNum) {
 
-
         const URLi = `https://rata.digitraffic.fi/api/v1/compositions/${pDay}/${pTrainNum}`
         const USERID = { 'Digitraffic-User': 'Junamies/FoobarApp 1.0' }
         fetch(URLi, { headers: USERID })
@@ -150,10 +154,8 @@ function Train() {
             .then(data => {
                 console.log(data)
                 //data käydään silmukassa läpi, d on silmukkamuuttuja kuin esim i for-loopissa
-
                 data.journeySections.forEach(d => {
                     const li = document.createElement("li")
-
                     //kentässä näytetää json tulosjoukon roadstationid ja sensorvalue-
                     li.innerText = "Departure from " + d.beginTimeTableRow.stationShortCode + " at " + d.beginTimeTableRow.scheduledTime.replace("T", " ").replace("Z", " ").replace("000", " ") + " arrival to " + d.endTimeTableRow.stationShortCode + " at " + d.endTimeTableRow.scheduledTime.replace("T", " ").replace("Z", " ").replace("000 ", " ")
                     document.getElementById("list").appendChild(li)
@@ -175,20 +177,26 @@ function Train() {
                     <option value={"HKI"}>Helsinki</option>
                     <option value={"SK"}>Seinäjoki</option>
                     <option value={"OL"}>Oulu</option>
+                    <option value={"general"}>General</option>
                 </select>
             </div>
             <div class="form-check form-switch">
                 <input class="form-check-input" type="checkbox" role="switch" id="langSwitch" onChange={() => setSwitchChanged(!switchChanged)}></input>
                 <label class="form-check-label" for="langSwitch">Lang. options</label>
-                {console.log(switchChanged)}
+                
             </div>
             {switchChanged && <div>
                 <input class="form-check-input" type="checkbox" value="fi" id="fiCB" onClick={(e) => setLanguage(e.target.value)}></input>
                 <label class="form-check-label" for="fiCB">FI</label>
                 <input class="form-check-input" type="checkbox" value="sv" id="svCB" onClick={(e) => setLanguage(e.target.value)}></input>
                 <label class="form-check-label" for="svCB">SV</label>
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DatePicker format="YYYY-MM-DD" value={dateValue} onChange={(newValue) => setDateValue(newValue)}  />
+                </LocalizationProvider>
             </div>}
-            <br></br><br></br>
+            <br></br>
+            <ByTrainNumber/>
+          
             <Routes>
                 <Route>
                     <Route path="/traingql" element={<TrainGraphQl />} />

@@ -51,6 +51,12 @@ Example image where the user has selected Helsinki Station and retrieved active 
 
 ![alt text](src/images/passengerInfo.png)
 
+The user can also search for passenger information based on the train number. This option will only show notifications related to the train number.
+
+![alt text](src/images/bynumber.png)
+
+
+
 Passenger information is displayed in English by default. However, the API also has passenger information in Finnish and Swedish. The user can change the language by sliding the Bootstrap 5 Switch component. Sliding to the right will show 2 checkboxes, FI and SV, which the user can use to change the language.
 
 ![alt text](src/images/langopt.png)

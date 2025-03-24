@@ -72,6 +72,7 @@ function Sea() {
         var site = document.getElementById(id).innerText
         document.getElementById("list").hidden = true
         document.getElementById("name").value = site
+        getSelectedLake(site)
 
     }
 
@@ -118,6 +119,7 @@ function Sea() {
 
 
     function getSelectedLake(lake) {
+        
         document.getElementById("list").innerText = " "
 
         const seaUrl = `https://meri.digitraffic.fi/api/sse/v1/measurements?siteNumber=${lake}`
@@ -145,16 +147,10 @@ function Sea() {
                 })
             })
         setTtsBtn(!ttsBtn)
-        //speakBtn.addEventListener("click",speak(document.getElementById("list").innerHTML))
-
-
+       
     }
-
-
     return (
         <div>
-
-
             <Routes>
                 <Route>
                     <Route path="/websocket" element={<WsComponent />} />

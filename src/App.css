@@ -110,5 +110,9 @@
   line-height: 1.8;
   background-color: #f2f2f2;
 }
+.numberSearch>input {
+  margin-right: 10px;
+
+}
 
 
