@@ -51,6 +51,10 @@ Example image where the user has selected Helsinki Station and retrieved active 
 
 ![alt text](src/images/passengerInfo.png)
 
+Passenger information is displayed in English by default. However, the API also has passenger information in Finnish and Swedish. The user can change the language by sliding the Bootstrap 5 Switch component. Sliding to the right will show 2 checkboxes, FI and SV, which the user can use to change the language.
+
+![alt text](src/images/langopt.png)
+
 SEA / WATER AREA DATA
 
 the user can search for information about water bodies and also display the location of the water body on Google Maps. The Google Maps feature is embedded in the application using this library: https://www.npmjs.com/package/@react-google-maps/api
@@ -61,7 +65,9 @@ When you click the Convert text to speech checkbox, the application converts the
 ![alt text](src/images/seaExample.png)
 
 The user can also search for the desired water area using the input field.
-The API search works with the siteNumber value, so the "show site numbers" button searches and displays the names of the water areas and the "siteNumber" values ​​to the user, making it easy for the user to select the desired water area.  The water area site numbers are clickable. Each site number has a Click event listener that automatically adds the site number to the input field used in the water area search upon click. The contents of the input field are passed as a parameter to the API endpoint that performs the data retrieval.
+The API search works with the siteNumber value, so the "show site numbers" button searches and displays the names of the water areas and the "siteNumber" values ​​to the user, making it easy for the user to select the desired water area. 
+
+The water area site numbers are clickable. Each site number has a Click event listener that automatically adds the site number to the input field used in the water area search upon click. The contents of the input field are passed as a parameter to the API endpoint that performs the data retrieval.
 
 Sample image of the list of available water areas.
 ![alt text](src/images/sites.png)
