@@ -57,10 +57,9 @@ When you click the Convert text to speech checkbox, the application converts the
 ![alt text](src/images/seaExample.png)
 
 The user can also search for the desired water area using the input field.
-The API search works with the siteNumber value, so the "show site numbers" button searches and displays the names of the water areas and the "siteNumber" values ​​to the user, making it easy for the user to select the desired water area. 
+The API search works with the siteNumber value, so the "show site numbers" button searches and displays the names of the water areas and the "siteNumber" values ​​to the user, making it easy for the user to select the desired water area.  The water area site numbers are clickable. Each site number has a Click event listener that automatically adds the site number to the input field used in the water area search upon click. The contents of the input field are passed as a parameter to the API endpoint that performs the data retrieval.
 
-Sample image of the list of available water areas
-
+Sample image of the list of available water areas.
 ![alt text](src/images/sites.png)
 
 VIEWING WEATHER CAMERAS

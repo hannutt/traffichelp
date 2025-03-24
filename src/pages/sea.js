@@ -66,6 +66,14 @@ function Sea() {
                 })
             })
     }
+
+    function siteId(id) {
+       var site= document.getElementById(id).innerText
+       document.getElementById("list").hidden = true
+       document.getElementById("name").value=site
+
+    }
+
     function availableAreas() {
         clicks = clicks + 1
         if (clicks % 2 === 0) {
@@ -85,13 +93,20 @@ function Sea() {
                 .then(data => {
 
                     console.log(data)
-
+                    var i = 1
                     data.features.forEach(d => {
                         const li = document.createElement("li")
+                        const liSite=document.createElement("li")
+                        liSite.id="site"+i
+                        
+                        i+=1
 
                         //kentässä näytetää json tulosjoukon roadstationid ja sensorvalue-
-                        li.innerText = "name: " + d.properties.siteName + 'site number: ' + d.properties.siteNumber
+                        li.innerText = "name: " + d.properties.siteName + ' site number: '
+                        liSite.innerText = d.properties.siteNumber
+                        liSite.addEventListener("click",()=>siteId(liSite.id))
                         document.getElementById("list").appendChild(li)
+                        document.getElementById("list").appendChild(liSite)
                     })
 
 
