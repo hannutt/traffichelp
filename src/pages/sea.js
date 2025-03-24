@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Link, useNavigate } from 'react-router-do
 import WsComponent from "./seaWebSocket";
 import { APIProvider, Map } from '@vis.gl/react-google-maps';
 import MarineWarnings from "./marineWarns"
+import ConvertText from "./convertText"
 import '../App.css';
 function Sea() {
 
@@ -15,7 +16,7 @@ function Sea() {
     const [warnings, setWarnigns] = useState(false)
     const [hideSafety, setHideSafety] = useState(false)
     const [hideMarine, setHideMarine] = useState(false)
-    const [ttsBtn,setTtsBtn]=useState(true)
+    const [ttsBtn, setTtsBtn] = useState(false)
     var clicks = 0
     //useeffect huomaa heti, jos latitude longitude statet muuttuvat
     useEffect(() => {
@@ -68,9 +69,9 @@ function Sea() {
     }
 
     function siteId(id) {
-       var site= document.getElementById(id).innerText
-       document.getElementById("list").hidden = true
-       document.getElementById("name").value=site
+        var site = document.getElementById(id).innerText
+        document.getElementById("list").hidden = true
+        document.getElementById("name").value = site
 
     }
 
@@ -96,15 +97,15 @@ function Sea() {
                     var i = 1
                     data.features.forEach(d => {
                         const li = document.createElement("li")
-                        const liSite=document.createElement("li")
-                        liSite.id="site"+i
-                        
-                        i+=1
+                        const liSite = document.createElement("li")
+                        liSite.id = "site" + i
+
+                        i += 1
 
                         //kentässä näytetää json tulosjoukon roadstationid ja sensorvalue-
                         li.innerText = "name: " + d.properties.siteName + ' site number: '
                         liSite.innerText = d.properties.siteNumber
-                        liSite.addEventListener("click",()=>siteId(liSite.id))
+                        liSite.addEventListener("dblclick", () => siteId(liSite.id))
                         document.getElementById("list").appendChild(li)
                         document.getElementById("list").appendChild(liSite)
                     })
@@ -135,7 +136,7 @@ function Sea() {
                     const li = document.createElement("li")
 
                     //kentässä näytetää json tulosjoukon roadstationid ja sensorvalue-
-                    li.innerText = "name: " + d.properties.siteName + ' water temperature: ' + d.properties.temperature + ' °C ' + 'Coordinates: ' + d.geometry.coordinates + " Wind-wave direction: " + d.properties.windWaveDir+' Data updated: '+d.properties.lastUpdate.replace("T"," ").replace("Z"," ")
+                    li.innerText = "name: " + d.properties.siteName + ' water temperature: ' + d.properties.temperature + ' °C ' + 'Coordinates: ' + d.geometry.coordinates + " Wind-wave direction: " + d.properties.windWaveDir + ' Data updated: ' + d.properties.lastUpdate.replace("T", " ").replace("Z", " ")
 
                     setLongitude(d.geometry.coordinates[0])
                     setLatitude(d.geometry.coordinates[1])
@@ -143,19 +144,13 @@ function Sea() {
                     document.getElementById("list").appendChild(li)
                 })
             })
-            setTtsBtn(!ttsBtn)
+        setTtsBtn(!ttsBtn)
         //speakBtn.addEventListener("click",speak(document.getElementById("list").innerHTML))
 
 
     }
 
-    function speak(val) {
-        const utterance = new SpeechSynthesisUtterance(val);
-        const voices = speechSynthesis.getVoices();
-        utterance.voice = voices[0];
-        utterance.lang = "en-US"
-        speechSynthesis.speak(utterance);
-    }
+
     return (
         <div>
 
@@ -169,10 +164,8 @@ function Sea() {
             <div id="lakeContent" className="lakeContent">
                 <ul id="list" className="list"></ul>
             </div>
+            {ttsBtn && <ConvertText />}
 
-
-            <input class="form-check-input" hidden={ttsBtn} id="speakCB" onClick={() => speak(document.getElementById("list").innerHTML)}></input>
-            <label class="form-check-label" hidden={ttsBtn} for="speakCB">Convert text to speech</label>
             <hr className="hrLine"></hr>
             <input class="form-check-input" hidden={hideSafety} id='safetyCB' type="checkbox" onClick={safetyFails}></input>
             <label class="form-check-label" hidden={hideSafety} for="safetyCB">Safety device faults</label>
@@ -201,8 +194,8 @@ function Sea() {
 
             <div>
                 {/*käytetään samaa halufunktiota sekä select että input kentässä. erona ainoastaa se
-    että syötekenttä haussa parametri tallennetaan state-muuttujaan ja lähetetään funktiolle
-    vasta onclick kutsussa.*/}
+                että syötekenttä haussa parametri tallennetaan state-muuttujaan ja lähetetään funktiolle
+                vasta onclick kutsussa.*/}
 
                 <br></br>
                 <Link hidden to="/websocket">WebSocket</Link>

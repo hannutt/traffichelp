@@ -17,6 +17,10 @@ Each line of retrieved data is displayed in its own li element and the elements 
 
 All search criteria entered by the user are passed as parameters to the api endpoint. for example, the function of the program, where railway information can be searched based on the station, is implemented with the html-select element, where the javaScript function saves the station selected by the user and sends the station as a parameter.
 
+API-KEY SECURITY; The APIs used by this application are all open APIs, and the access credentials are the same for all users. So there is no need to hide them in environment variables, for example.
+
+UI components; The application mostly uses Bootstrap 5 and Material-Ui (MUI) components.
+
 
 READABILITY OF THE RESPONSE TEXT
 
