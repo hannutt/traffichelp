@@ -56,7 +56,6 @@ The user can also search for passenger information based on the train number. Th
 ![alt text](src/images/bynumber.png)
 
 
-
 Passenger information is displayed in English by default. However, the API also has passenger information in Finnish and Swedish. The user can change the language by sliding the Bootstrap 5 Switch component. Sliding to the right will show 2 checkboxes, FI and SV, which the user can use to change the language.
 
 ![alt text](src/images/langopt.png)
@@ -68,6 +67,7 @@ the user can search for information about water bodies and also display the loca
 An example image from which the information of the water area called Kipsi has been retrieved. the information displayed is, for example, the water temperature, coordinates and the direction of the wind wave. A Google Maps image of the water area can be displayed by clicking on the checkbox. the map image gets the necessary coordinates from the API.
 When you click the Convert text to speech checkbox, the application converts the retrieved data into speech using the SpeecSynthesis API. Finally, the application plays the result through the device speakers.
 
+
 ![alt text](src/images/seaExample.png)
 
 The user can also search for the desired water area using the input field.
@@ -76,7 +76,14 @@ The API search works with the siteNumber value, so the "show site numbers" butto
 The water area site numbers are clickable. Each site number has a Click event listener that automatically adds the site number to the input field used in the water area search upon click. The contents of the input field are passed as a parameter to the API endpoint that performs the data retrieval.
 
 Sample image of the list of available water areas.
+
 ![alt text](src/images/sites.png)
+
+SHOW MARINE WARNINGS
+
+The application uses the Finnish Transport Agency's POOKI service to search for marine warnings. This feature usually returns a lot of data, so a dedicated CSS stylesheet has been created for the HTML element where the data is displayed. It has a maximum width of 400 px, a maximum height of 200 px, and the element has a scroll bar to make it easier to view the data.
+
+![alt text](src/images/marineWarnings.png)
 
 VIEWING WEATHER CAMERAS
 

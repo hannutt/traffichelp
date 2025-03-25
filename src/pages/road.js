@@ -10,8 +10,8 @@ function Road() {
     const [showMap,setShowMap]=useState(false)
 
     const setMapCoordinates=(id)=>{
-        setLat(lat=0)
-        setLong(long=0)
+        //setLat(lat=0)
+        //setLong(long=0)
         var coordinates = document.getElementById(id).value
         var coordSplit = coordinates.split(",")
         setLong(long=parseFloat(coordSplit[0]))
@@ -46,13 +46,6 @@ function Road() {
                     mapBtn.textContent="Show in map"
                     //koordinaattien tallennus buttonin value propertyyn
                     mapBtn.value=d.geometry.coordinates[0][0]
-                    
-                 
-                    
-
-                   
-                    
-
                     //kentässä näytetää json tulosjoukon roadstationid ja sensorvalue-
                     li.innerText = d.properties.announcements[0].title
                     document.getElementById("list").appendChild(li)
@@ -149,6 +142,7 @@ function Road() {
                                 gestureHandling={'greedy'}
                                 disableDefaultUI={false} />
                         </APIProvider>}
+            
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" id="announcementCB" onChange={roadAnnounce}></input>
                 <label class="form-check-label" for="announcementCB">Road Traffic announcements</label>
