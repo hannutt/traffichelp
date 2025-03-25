@@ -56,7 +56,7 @@ The user can also search for passenger information based on the train number. Th
 ![alt text](src/images/bynumber.png)
 
 
-Passenger information is displayed in English by default. However, the API also has passenger information in Finnish and Swedish. The user can change the language by sliding the Bootstrap 5 Switch component. Sliding to the right will show 2 checkboxes, FI and SV, which the user can use to change the language.
+Passenger information is displayed in English by default. However, the API also has passenger information in Finnish and Swedish. The user can change the language by sliding the Bootstrap 5 Switch component. Sliding to the right will show 2 checkboxes, FI and SV, which the user can use to change the language. After clicking the checkbox, a Bootstrap button will appear with the Finnish or Swedish flag, depending on the user's selection. The flag icons are from Flaticon.com and are 24 pixels in size.
 
 ![alt text](src/images/langopt.png)
 

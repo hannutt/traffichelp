@@ -6,6 +6,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import dayjs from 'dayjs';
 import ByTrainNumber from "./byTrainNumber";
+import LanguageOptions from "./languageOptions";
 
 function Train() {
     const [trainClick, setTrainClick] = useState(false)
@@ -17,7 +18,7 @@ function Train() {
     const [routeGuide, setRouteGuide] = useState(true)
     const [TrainNumberFeat, setTrainNumberFeat] = useState(false)
     const [switchChanged, setSwitchChanged] = useState(false)
-    var [language, setLanguage] = useState('')
+    
     var [FromStation, setFromStation] = useState('')
     var [toStation, setToStaion] = useState('')
     let date = Date()
@@ -120,21 +121,10 @@ function Train() {
                     if (i % 2 == 0) {
                         li.setAttribute("class", "liData2")
                     }
-                    if (language === 'sv') {
 
-                        li.innerText = "Train number " + d.trainNumber + ' Depar. date: ' + d.trainDepartureDate + ' ' + d.video.text.sv + " Notification valid: " + d.endValidity.replace("T00:00:00Z", " ")
-                        document.getElementById("list").appendChild(li)
-                    }
-                    else if (language === 'fi') {
-
-                        li.innerText = "Train number " + d.trainNumber + ' Depar. date: ' + d.trainDepartureDate + ' ' + d.video.text.fi + " Notification valid: " + d.endValidity.replace("T00:00:00Z", " ")
-                        document.getElementById("list").appendChild(li)
-                    }
-                 
-                    else {
                         li.innerText = "Train number " + d.trainNumber + ' Depar. date: ' + d.trainDepartureDate + ' ' + d.video.text.en + " Notification valid: " + d.endValidity.replace("T00:00:00Z", " ")
                         document.getElementById("list").appendChild(li)
-                    }
+                    
 
                 })
 
@@ -172,7 +162,7 @@ function Train() {
         <div>
             <div className="pasInfo">
                 <button class="btn btn-info btn-sm" onClick={handlePassengerData}>Show Active passenger info</button>
-                <select onChange={(e) => setStation(e.target.value)}>
+                <select id="stations" onChange={(e) => setStation(e.target.value)}>
                     <option value={"TPE"}>Tampere</option>
                     <option value={"HKI"}>Helsinki</option>
                     <option value={"SK"}>Seinäjoki</option>
@@ -185,15 +175,11 @@ function Train() {
                 <label class="form-check-label" for="langSwitch">Lang. options</label>
                 
             </div>
-            {switchChanged && <div>
-                <input class="form-check-input" type="checkbox" value="fi" id="fiCB" onClick={(e) => setLanguage(e.target.value)}></input>
-                <label class="form-check-label" for="fiCB">FI</label>
-                <input class="form-check-input" type="checkbox" value="sv" id="svCB" onClick={(e) => setLanguage(e.target.value)}></input>
-                <label class="form-check-label" for="svCB">SV</label>
+            {switchChanged && <LanguageOptions/>}
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker format="YYYY-MM-DD" value={dateValue} onChange={(newValue) => setDateValue(newValue)}  />
                 </LocalizationProvider>
-            </div>}
+            
             <br></br>
             <ByTrainNumber/>
           
