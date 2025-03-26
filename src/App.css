@@ -112,14 +112,21 @@
 }
 .liData {
   line-height: 1.8;
+  /*text-align: left;*/
 }
 .liData2 {
   line-height: 1.8;
   background-color: #f2f2f2;
+  /*text-align: left;*/
+  border-radius: 10px;
 }
 .numberSearch>input {
   margin-right: 10px;
 
 }
+.busInput {
+  margin-left: 10px;
+}
+
 
 

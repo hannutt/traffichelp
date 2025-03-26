@@ -1,8 +1,9 @@
-Project keywords: JavaScript, React, SpeechSynthesis API, GraphQL, Bootstrap 5, Material-UI, JSON
+Project keywords: JavaScript, React, Open data APIs, GraphQL, Bootstrap 5, Material-UI, JSON
 
 The purpose of this program is to produce useful traffic and environmental information in clear language for the user to read. Data is retrieved from the open APIs provided by Digitraffic in accordance with the user's search criteria.
 
-The program currently searches for rail traffic data, road traffic data, and marine traffic and marine environment data. You can read more about the APIs that the program uses here: https://www.digitraffic.fi/
+The program currently searches for rail traffic data, road traffic data, bus traffic data, marine traffic and marine environment data. You can read more about the APIs that the program uses here: https://www.digitraffic.fi/
+The app uses the Journey API to retrieve bus traffic information: https://wiki.itsfactory.fi/index.php/Journeys_API
 
 Example image of the start view. Clicking on the checkbox invokes a new react component that shows the user an input field, a dropdown menu, and other components that allow the user to set search criteria for the information being searched for. The checkboxes use Bootstrap 5 stacked style. The logo at the top was created with the freelogodesing.org logo creation tool. The logo image has a 12% radius at the corner.
 
@@ -84,6 +85,12 @@ SHOW MARINE WARNINGS
 The application uses the Finnish Transport Agency's POOKI service to search for marine warnings. This feature usually returns a lot of data, so a dedicated CSS stylesheet has been created for the HTML element where the data is displayed. It has a maximum width of 400 px, a maximum height of 200 px, and the element has a scroll bar to make it easier to view the data.
 
 ![alt text](src/images/marineWarnings.png)
+
+BUS SERVICE INFORMATION
+
+The user can search for information about the city of Tampere's bus services. So far, the feature allows you to search for routes by bus number and search terms. In the example image below, the user has searched for all buses that stop in the Ratina district.
+
+![alt text](src/images/busdata.png)
 
 VIEWING WEATHER CAMERAS
 

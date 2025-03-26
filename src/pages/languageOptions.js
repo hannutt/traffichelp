@@ -5,6 +5,7 @@ function LanguageOptions() {
     var [language, setLanguage] = useState('')
 
     function passengerData() {
+        //stations on train.js komponentissa, talletetaan sen valittu arvo muuttujaan
         var stationName=document.getElementById("stations").value
     
         const USERID = { 'Digitraffic-User': 'Junamies/FoobarApp 1.0' }
@@ -55,7 +56,7 @@ function LanguageOptions() {
             <input class="form-check-input" type="checkbox" value="sv" id="svCB" onClick={(e) => setLanguage(e.target.value)}></input>
             <label class="form-check-label" for="svCB">SV</label>
             {language==='fi' && <button class="btn btn-info btn-sm" onClick={passengerData}>Show info in <img src={fiFlag24px}/></button>}
-            {language==='sv' && <button class="btn btn-info btn-sm" onClick={passengerData}>Show info in SV. <img src={sweFlag24px}/></button>}
+            {language==='sv' && <button class="btn btn-info btn-sm" onClick={passengerData}>Show info in <img src={sweFlag24px}/></button>}
             <br></br>
             </div>
 

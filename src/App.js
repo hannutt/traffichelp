@@ -3,6 +3,7 @@ import './App.css';
 import Train from './pages/train';
 import Sea from "./pages/sea"
 import Road from "./pages/road";
+import Buses from "./pages/buses"
 import WsComponent from './pages/seaWebSocket';
 import { useState } from 'react';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
@@ -18,6 +19,8 @@ function App() {
   const [hideTrain, setHideTrain] = useState(false)
   const [hideSea, setHideSea] = useState(false)
   const [hideLogo,setHideLogo]=useState(false)
+  const [busOpt,setBusOpt]=useState(false)
+  
   
 
 
@@ -46,6 +49,14 @@ function App() {
       setHideTrain(!hideTrain)
 
     }
+    else if (stateval=='busOpt') {
+      setHideTrain(!hideTrain)
+      setHideRoad(!hideRoad)
+      setHideSea(!hideSea)
+      setBusOpt(!busOpt)
+      setHideLogo(!hideLogo)
+      
+    }
 
 
   }
@@ -66,6 +77,9 @@ function App() {
           <br></br>
           <input class="form-check-input" id='seaCB' hidden={hideSea} type="checkbox"  onChange={() => helper('seaOpt')}></input>
           <label class="form-check-label"hidden= {hideSea}  for="trainCB">Sea environment & Sea traffic Data</label>
+          <br></br>
+          <input class="form-check-input" id='busCB' hidden={hideSea} type="checkbox"  onChange={() => helper('busOpt')}></input>
+          <label class="form-check-label"hidden= {hideSea}  for="busCB">Buses</label>
        
         </div>
 
@@ -77,6 +91,7 @@ function App() {
         {trainOpt && <Train />}
         {seaOpt && <Sea />}
         {roadOpt && <Road />}
+        {busOpt && <Buses/>}
 
       </div>
     </div>
