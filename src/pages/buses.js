@@ -44,6 +44,40 @@ function Buses() {
         })
         .catch(err => console.error(err));
     }
+
+    function getLineData() {
+        fetch('http://data.itsfactory.fi/journeys/api/1/vehicle-activity?lineRef=8B', {
+            method: 'GET',
+
+        })
+        .then(response => {
+            return response.json()
+        })
+        
+        .then(data => {
+            console.log(data)
+            var i=0
+            data.body.forEach(d => {
+                const li = document.createElement("li")
+                li.innerText=d.monitoredVehicleJourney[0].onwardCalls
+                //li.innerText = d.monitoredVehicleJourney.lineRef 
+                document.getElementById("busContent").appendChild(li)
+                i+=1
+                if (i % 1 == 0)
+                {
+                    li.setAttribute("class","liData")
+                }
+                if ( i % 2 == 0)
+                {
+                    li.setAttribute("class","liData2")
+                }
+                
+            });
+        })
+        .catch(err => console.error(err));
+
+    }
+   
     return(
         <div>
             <center>
@@ -56,6 +90,8 @@ function Buses() {
             <input type="text" placeholder="keyword or line" onChange={(e)=>setKeyword(e.target.value)}></input>
             <span className="busInput">
             <button class="btn btn-primary btn-sm" onClick={processData}>Get data</button>
+            <button class="btn btn-primary btn-sm" onClick={getLineData}>Line data</button>
+          
             </span>
             </div>
             </center>

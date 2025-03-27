@@ -28,13 +28,21 @@ READABILITY OF THE RESPONSE TEXT
 The text is mostly readable. However, some extra characters from the answers have been removed to improve the user experience using the JavaScript replace method. the replace method is executed automatically in the forEach loop.
 Sample images of the information searched and received using the search criteria.
 
-DATA SEARCH FROM TRAINS AND TRAIN STATIONS.
+DATA SEARCH FROM TRAINS
 
 User can search for any VR train information using train number and date.
 
 An example view where the user has searched for valid train passenger bulletins and the departure and arrival times and route of train 45 on 22.3.25. The date is selected from the MUI DatePicker component and the train number is entered in the input field. The API call requires a date in the format YYYY-DD-MM. The selected date is formatted in the required format, using the format method of the DayJS library.
 
 ![alt text](src/images/dataoftrain-1.png)
+
+SEARCH TRAIN STATION INFORMATION
+
+The user can select the desired station from the html selector component. This feature displays the trains that stop at the selected stations, the scheduled arrival/departure time of the trains, and the actual arrival or departure time. The planned track used by the train when arriving at the station is also displayed.
+
+Example image where the user has selected Seinäjoki station.
+
+![alt text](src/images/skStation.png)
 
 ROUTE GUIDE FOR TRAINS
 
@@ -100,9 +108,6 @@ An example picture where the user has selected a road camera from the html selec
 
 ![alt text](src/images/weatherCam.png)
 
-Example image when the user has clicked the "change camera" button and the camera image has changed.
-
-![alt text](src/images/weatherCamChange.png)
 
 ROAD TRAFFIC DATA
 

@@ -7,6 +7,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import dayjs from 'dayjs';
 import ByTrainNumber from "./byTrainNumber";
 import LanguageOptions from "./languageOptions";
+import ConvertText from "./convertText";
 
 function Train() {
     const [trainClick, setTrainClick] = useState(false)
@@ -18,6 +19,7 @@ function Train() {
     const [routeGuide, setRouteGuide] = useState(true)
     const [TrainNumberFeat, setTrainNumberFeat] = useState(false)
     const [switchChanged, setSwitchChanged] = useState(false)
+    var [showTts,setShowTts]=useState(false)
     
     var [FromStation, setFromStation] = useState('')
     var [toStation, setToStaion] = useState('')
@@ -28,6 +30,7 @@ function Train() {
 
         document.getElementById("list").hidden = true
         document.getElementById("clearBtn").hidden = true
+        setShowTts(showTts=false)
     }
 
     function getSelctedStation(val) {
@@ -53,7 +56,7 @@ function Train() {
                     }
 
                     //kentässä näytetää json tulosjoukon roadstationid ja sensorvalue-
-                    li.innerText = "Train: " + d.trainNumber + ' | ' + '| Goes to: ' + d.timeTableRows[0].stationShortCode + " | Leaves from track: " + d.timeTableRows[0].commercialTrack + "| at " + d.timeTableRows[0].scheduledTime.replace("T", " ").replace(":00.000Z", " ")
+                    li.innerText = "Train: "+ d.trainType+' ' + d.trainNumber + ' Departure/arrival: '+d.timeTableRows[0].type +' | ' + '| Original departure station: ' + d.timeTableRows[0].stationShortCode + " | Track: " + d.timeTableRows[0].commercialTrack + "| Scheduled departure time " + d.timeTableRows[0].scheduledTime.replace("T", " ").replace(":00.000Z", " ")+'Realized departure time: '+d.timeTableRows[0].actualTime.replace("T", " ").replace(".000Z", " ")
                     document.getElementById("list").appendChild(li)
                 })
 
@@ -92,6 +95,7 @@ function Train() {
     }
 
     function handlePassengerData() {
+        setShowTts(!showTts)
         var URLi=''
         if (station==='general')
         {
@@ -115,6 +119,7 @@ function Train() {
                 data.forEach(d => {
                     i += 1
                     const li = document.createElement("li")
+                    li.id="list"
                     if (i % 1 == 0) {
                         li.setAttribute("class", 'liData')
                     }
@@ -175,10 +180,9 @@ function Train() {
                 <label class="form-check-label" for="langSwitch">Lang. options</label>
                 
             </div>
-            {switchChanged && <LanguageOptions/>}
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DatePicker format="YYYY-MM-DD" value={dateValue} onChange={(newValue) => setDateValue(newValue)}  />
-                </LocalizationProvider>
+            {switchChanged && <><LanguageOptions /><LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DatePicker format="YYYY-MM-DD" value={dateValue} onChange={(newValue) => setDateValue(newValue)} />
+            </LocalizationProvider></>}
             
             <br></br>
             <ByTrainNumber/>
@@ -190,6 +194,7 @@ function Train() {
             </Routes>
 
             <Link to="/traingql"><button className="btn btn-info btn-sm">GraphQL Queries</button></Link>
+            {showTts&&<ConvertText/>}
 
             <div id="trainContent" className="trainContent">
                 <ul id="list" className="list"></ul>
@@ -248,8 +253,8 @@ function Train() {
             </div>
             <div>
             </div>
-            {trainClick && <button id="clearBtn" class="btn-close" onClick={clear}>X</button>}
-            {stationClick && <button id="clearBtn" class="btn-close" onClick={clear}>X</button>}
+            {trainClick && <button id="clearBtn" class="btn btn-danger btn-sm" onClick={clear}>X</button>}
+            {stationClick && <button id="clearBtn" class="btn btn-danger btn-sm" onClick={clear}>X</button>}
 
         </div>
 
