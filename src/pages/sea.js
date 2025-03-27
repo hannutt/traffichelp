@@ -98,7 +98,7 @@ function Sea() {
                     var i = 1
                     data.features.forEach(d => {
                         const li = document.createElement("li")
-                        const liSite = document.createElement("li")
+                        const liSite = document.createElement("span")
                         liSite.id = "site" + i
 
                         i += 1
