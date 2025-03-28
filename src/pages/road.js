@@ -1,6 +1,7 @@
 import { useState } from "react"
 import WeatherCam from "./weatherCamera"
 import { APIProvider, Map } from '@vis.gl/react-google-maps';
+import { use } from "react";
 
 function Road() {
     const [roadCBsel, setRoadCBsel] = useState(true)
@@ -8,6 +9,7 @@ function Road() {
     var [lat,setLat]=useState(0)
     var [long,setLong]=useState(0)
     const [showMap,setShowMap]=useState(false)
+    const [hideOthers,setHideOthers]=useState(false)
 
     const setMapCoordinates=(id)=>{
         //setLat(lat=0)
@@ -142,25 +144,26 @@ function Road() {
                                 gestureHandling={'greedy'}
                                 disableDefaultUI={false} />
                         </APIProvider>}
-            
-            <div class="form-check">
+            {wcam && <WeatherCam />}
+           
+            <div class="form-check" hidden={hideOthers}>
                 <input class="form-check-input" type="checkbox" id="announcementCB" onChange={roadAnnounce}></input>
                 <label class="form-check-label" for="announcementCB">Road Traffic announcements</label>
             </div>
-            <div class="form-check">
+            <div class="form-check"hidden={hideOthers}>
                 <input class="form-check-input" type="checkbox" id="roadworksCB"  onChange={roadWorks}></input>
                 <label class="form-check-label" for="roadworksCB">Active road works</label>
             </div>
             <br></br>
-            <div class="form-check">
+            <div class="form-check" hidden={hideOthers}>
                 <input class="form-check-input" type="checkbox" id="weightCB" onChange={weightRistrictions}></input>
                 <label class="form-check-label" for="weightCB">Active weight Restritctions</label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="cameraCB" onChange={() => setWcam(!wcam)}></input>
+                <input class="form-check-input" type="checkbox" id="cameraCB" onChange={() => {setWcam(!wcam);setHideOthers(!hideOthers)}}></input>
                 <label class="form-check-label" for="cameraCB">Weather cameras</label>
             </div>
-            {wcam && <WeatherCam />}
+           
          
       
         </div>

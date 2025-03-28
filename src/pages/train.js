@@ -144,7 +144,7 @@ function Train() {
         document.getElementById("list").appendChild(success)
         var mailAddress=prompt("Enter email address")
         var apk=localStorage.getItem("apk")
-        console.log(apk)
+   
         
         try {
            

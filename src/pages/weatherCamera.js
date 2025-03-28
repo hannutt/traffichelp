@@ -10,6 +10,8 @@ function WeatherCam() {
     //avaimen avulla käytetään arvona olevaa listaa
     const cams = {"tre":camTre,"kur":camKur,"jkl":camJkl}
     const [cameraParam,setCameraParam]= useState('')
+    var [camWidth,setCamWidth]=useState(500)
+    var [camHeight,setCamHeight]=useState(300)
 
 
     function getCamera(e) {
@@ -36,6 +38,16 @@ function WeatherCam() {
 
 
     }
+    function increaseImage() {
+        setCamHeight(camHeight+10)
+        setCamWidth(camWidth+10)
+    }
+
+    function decreaseImage() {
+        setCamHeight(camHeight-10)
+        setCamWidth(camWidth-10)
+
+    }
     return (
         <div>
             {/*e.target value eli valitun optionin value arvo lähetetään getcamera funktiolle*/}
@@ -45,12 +57,15 @@ function WeatherCam() {
                 <option value={"jkl"}>VT 4 Jyväskylä - Vaajakoski</option>
                 <option value={"kur"}>VT 3 Kurikka</option>
             </select>
-            <br></br>
+            <br></br><br></br>
             <button class="btn btn-primary btn-sm" onClick={changeView}>Change camera</button>
-            <br></br>
-            <img id="camImg" width={700} height={500} alt="camera" src={'empty'}></img>
-
-
+            <span className="changeBtn">
+            <button class="btn btn-info btn-sm" onClick={increaseImage}>+</button>
+            </span>
+            <button class="btn btn-warning btn-sm" onClick={decreaseImage}>-</button>
+            
+            <br></br><br></br>
+            <img id="camImg" width={camWidth} height={camHeight} alt="camera" src={'empty'}></img>
         </div>
     )
 }

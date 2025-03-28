@@ -106,10 +106,9 @@ VIEWING WEATHER CAMERAS
 
 Weather camera images are retrieved from weathercam.digitraffic.fi/(id) The images of the camera to be displayed are selected from the html selection component and the selected image is displayed in the html img element. The URLs of the camera images are stored in variables and the selected component has an onChange event handler function that performs the search and display of the user's desired image. The image of each weather camera can be changed by pressing the "change camera" button. There are 3 different angles for each camera.
 
-An example picture where the user has selected a road camera from the html select component
+An example picture where the user has selected a road camera from the html select component. The application displays weather camera images in 500 x 300 size by default. The user can increase or decrease the size of the image using the + and - buttons. Each click changes the size by 10
 
 ![alt text](src/images/weatherCam.png)
-
 
 ROAD TRAFFIC DATA
 
