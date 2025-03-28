@@ -32,7 +32,7 @@ DATA SEARCH FROM TRAINS
 
 User can search for any VR train information using train number and date.
 
-An example view where the user has searched for valid train passenger bulletins and the departure and arrival times and route of train 45 on 22.3.25. The date is selected from the MUI DatePicker component and the train number is entered in the input field. The API call requires a date in the format YYYY-DD-MM. The selected date is formatted in the required format, using the format method of the DayJS library.
+An example view where the user has searched for valid train passenger bulletins and the departure and arrival times and route of train 45 on 22.3.25. The date is selected from the MUI DatePicker component and the train number is entered in the input field. The API call requires a date in the format YYYY-DD-MM. The selected date is formatted in the required format, using the format method of the DayJS library. The user can also send train information to the email address of their choice by clicking on the blue envelope icon. The email feature is made with the SMTP express library
 
 ![alt text](src/images/dataoftrain-1.png)
 
