@@ -12,8 +12,6 @@ function Road() {
     const [hideOthers,setHideOthers]=useState(false)
 
     const setMapCoordinates=(id)=>{
-        //setLat(lat=0)
-        //setLong(long=0)
         var coordinates = document.getElementById(id).value
         var coordSplit = coordinates.split(",")
         setLong(long=parseFloat(coordSplit[0]))
@@ -72,13 +70,22 @@ function Road() {
             //data on json-tulosjoukon nimi
             .then(data => {
                 console.log(data)
+                var i = 0
 
                 data.features.forEach(d => {
+                    i+=1
                     const li = document.createElement("li")
+                    const mapBtn=document.createElement("button")
+                    mapBtn.setAttribute("class","btn btn-primary btn-sm")
+                    mapBtn.textContent="Show in map"
+                    mapBtn.id='mapBtn'+i
+                    mapBtn.value=d.geometry.coordinates[0][0]
+                    mapBtn.addEventListener("click",()=>setMapCoordinates(mapBtn.id))
 
                     //kentässä näytetää json tulosjoukon roadstationid ja sensorvalue-
                     li.innerText = d.properties.announcements[0].location.description + ' ' + d.properties.announcements[0].features[0].name + ' ' + d.properties.announcements[0].features[0].quantity + " t"
                     document.getElementById("list").appendChild(li)
+                    document.getElementById("list").appendChild(mapBtn)
                 })
 
 
@@ -114,7 +121,7 @@ function Road() {
                     mapBtn.id="mapBtn"+j
                     mapBtn.addEventListener("click",()=>setMapCoordinates(mapBtn.id))
                     mapBtn.textContent="Show in map"
-                    //mapBtn.value=d.properties.geometry[0].coordinates
+                    mapBtn.value=d.geometry.coordinates[0]+','+d.geometry.coordinates[1]
                     
 
                     //kentässä näytetää json tulosjoukon roadstationid ja sensorvalue-
@@ -134,11 +141,12 @@ function Road() {
             <div id="roadContent" hidden={roadCBsel} className="roadContent">
                 <ul id="list"></ul>
             </div>
+            <br></br>
             {showMap &&
             <APIProvider apiKey={""}>
                             <Map
                                 
-                                style={{ width: '50vw', height: '50vh' }}
+                                style={{ width: '35vw', height: '50vh' }}
                                 defaultCenter={{ lat: lat, lng: long }}
                                 defaultZoom={13}
                                 gestureHandling={'greedy'}

@@ -116,7 +116,7 @@ The user can search for various road traffic information, such as ongoing road w
 
 Example image where the user has searched for all ongoing roadworks in Finland and opened one of the roadworks in the Google Maps map view. Each roadwork has a Bootstrap 5 style button, which the user can click to open the roadwork location in the Google Maps view. The latitude/longitude coordinates of the roadwork are stored in React State variables after the button is clicked and sent as parameters to the Maps component implementing the map view.
 
-![alt text](src/images/roadAnnounc.png)
+![alt text](src/images/roadAnnouc.png)
 
 GRAPHQL QUERIES
 
