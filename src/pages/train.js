@@ -12,17 +12,18 @@ import emailIcon from "../icons/email24px.png"
 import check from "../icons/checked 24px.png"
 import { createClient } from "smtpexpress"
 import axios from "axios";
+import TrainStations from "./trainStations";
 
 
 
 function Train() {
     
     const [trainClick, setTrainClick] = useState(false)
-    const [stationClick, setStationClick] = useState(false)
+   
     const [trainComposition, setTrainComposition] = useState(false)
     const [station, setStation] = useState('')
     const [trainNum, setTrainNum] = useState('')
-    const [selectionDiv, setSelectionDiv] = useState(true)
+    const [selectionDiv, setSelectionDiv] = useState(false)
     const [routeGuide, setRouteGuide] = useState(true)
     const [TrainNumberFeat, setTrainNumberFeat] = useState(false)
     const [switchChanged, setSwitchChanged] = useState(false)
@@ -39,39 +40,6 @@ function Train() {
         document.getElementById("clearBtn").hidden = true
         setShowTts(showTts = false)
     }
-
-    function getSelctedStation(val) {
-        setStationClick(!stationClick)
-        const stationUrl = `https://rata.digitraffic.fi/api/v1/live-trains/station/${val}?departing_trains=5`
-        const USERID = { 'Digitraffic-User': 'Junamies/FoobarApp 1.0' }
-        fetch(stationUrl, { headers: USERID })
-            .then(response => {
-                return response.json()
-            })
-            //data on json-tulosjoukon nimi
-            .then(data => {
-                console.log(data)
-                var i = 0
-                data.forEach(d => {
-                    i += 1
-                    const li = document.createElement("li")
-                    if (i % 1 == 0) {
-                        li.setAttribute("class", 'liData')
-                    }
-                    if (i % 2 == 0) {
-                        li.setAttribute("class", "liData2")
-                    }
-
-                    //kentässä näytetää json tulosjoukon roadstationid ja sensorvalue-
-                    li.innerText = "Train: " + d.trainType + ' ' + d.trainNumber + ' Departure/arrival: ' + d.timeTableRows[0].type + ' | ' + '| Original departure station: ' + d.timeTableRows[0].stationShortCode + " | Track: " + d.timeTableRows[0].commercialTrack + "| Scheduled departure time " + d.timeTableRows[0].scheduledTime.replace("T", " ").replace(":00.000Z", " ") + 'Realized departure time: ' + d.timeTableRows[0].actualTime.replace("T", " ").replace(".000Z", " ")
-                    document.getElementById("list").appendChild(li)
-                })
-
-
-
-            })
-    }
-
     function fromStation(day) {
         const URLi = `https://rata.digitraffic.fi/api/v1/live-trains/station/${FromStation}/${toStation}?departure_date=${day}`
         const USERID = { 'Digitraffic-User': 'Junamies/FoobarApp 1.0' }
@@ -135,10 +103,7 @@ function Train() {
 
                     li.innerText = "Train number " + d.trainNumber + ' Depar. date: ' + d.trainDepartureDate + ' ' + d.video.text.en + " Notification valid: " + d.endValidity.replace("T00:00:00Z", " ")
                     document.getElementById("list").appendChild(li)
-
-
                 })
-
             })
     }
 
@@ -165,8 +130,6 @@ function Train() {
                 mail.src = emailIcon
                 mail.addEventListener("click", sendMail)
                 document.getElementById("list").appendChild(mail)
-
-
             })
     }
     async function sendMail() {
@@ -206,9 +169,6 @@ function Train() {
               };
               const response = await api.post("send", body);
               console.log(response.data);
-
-        
-     
         } catch (error) {
             console.error("Error sending email:", error);
           }
@@ -266,21 +226,8 @@ function Train() {
             </div>
             <label htmlFor="stationCB">Get information about train stations</label>
             <input class="form-check-input" type="checkbox" id="stationCB" onChange={() => setSelectionDiv(!selectionDiv)}></input>
-            <div hidden={selectionDiv} className="selection">
-
-                <br></br>
-
-                <label for="stations">Choose a station:</label>
-                <select name="stations" id="stations" onChange={e => getSelctedStation(e.target.value)}>
-                    <option value="default" selected>select</option>
-                    <option value="hki">Helsinki station</option>
-                    <option value="tku">Turku station</option>
-                    <option value="tpe">Tampere station</option>
-                    <option value="sk">Seinäjoki station</option>
-                </select>
-            </div>
-            <br></br>
-            <div class="arrNdep" hidden={selectionDiv}>
+            {selectionDiv && <TrainStations/>}
+            <div class="arrNdep">
 
                 <label class="form-check-label" for="ArrivingDeparting">Train route guide</label>
                 <input class="form-check-input" type="checkbox" value="" id="routeguide" onChange={changeStates}></input>
@@ -319,7 +266,7 @@ function Train() {
             <div>
             </div>
             {trainClick && <button id="clearBtn" class="btn btn-danger btn-sm" onClick={clear}>X</button>}
-            {stationClick && <button id="clearBtn" class="btn btn-danger btn-sm" onClick={clear}>X</button>}
+            
 
         </div>
 

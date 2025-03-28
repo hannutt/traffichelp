@@ -69,6 +69,11 @@
   overflow: auto;
 
 }
+.list {
+  max-height: 200px;
+  max-width: 600px;
+  overflow: auto;
+}
 
 .seaInput input {
   float:left;
@@ -131,6 +136,9 @@
   white-space: nowrap;
   margin-left: 5px;
   margin-right: 5px;
+}
+.clearBtn {
+  margin-left: 10px;
 }
 
 
