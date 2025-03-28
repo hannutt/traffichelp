@@ -175,7 +175,7 @@ function Train() {
                 baseURL: "https://api.smtpexpress.com/",
                 headers: {
                   "Content-Type": "application/json",
-                  Authorization: "Bearer 3fdc370a1206eea41d7f6b777d2c2d19bf9d9ed4e3ff4eb11c",
+                  Authorization: "Bearer",
                 },
               });
               const body = {
