@@ -9,6 +9,7 @@ import ByTrainNumber from "./byTrainNumber";
 import LanguageOptions from "./languageOptions";
 import ConvertText from "./convertText";
 import emailIcon from "../icons/email24px.png"
+import check from "../icons/checked 24px.png"
 import { createClient } from "smtpexpress"
 import axios from "axios";
 
@@ -169,13 +170,27 @@ function Train() {
             })
     }
     async function sendMail() {
+        var notice = document.createElement("span")
+        var success=document.createElement("img")
+        notice.textContent="Email sent!"
+        notice.setAttribute("class","notice")
+        notice.id="notice"
+        success.id="success"
+        success.src=check
+        document.getElementById("list").appendChild(notice)
+        document.getElementById("list").appendChild(success)
+        var mailAddress=prompt("Enter email address")
+        var apk=localStorage.getItem("apk")
+        console.log(apk)
+        
         try {
+           
             var msg = document.getElementById("list").innerText
             const api = axios.create({
                 baseURL: "https://api.smtpexpress.com/",
                 headers: {
                   "Content-Type": "application/json",
-                  Authorization: "Bearer",
+                  Authorization: `Bearer ${apk}`,
                 },
               });
               const body = {
@@ -186,7 +201,7 @@ function Train() {
                   email: "traffic-helper-b1134d@smtpexpress.email",
                 },
                 recipients: {
-                  email: "htuomela@gmail.com",
+                  email: mailAddress,
                 },
               };
               const response = await api.post("send", body);
@@ -197,6 +212,14 @@ function Train() {
         } catch (error) {
             console.error("Error sending email:", error);
           }
+          const timeOut=setTimeout(clearEmailVertification,5000)
+    }
+
+    function clearEmailVertification() {
+        const notice = document.getElementById("notice")
+        const success = document.getElementById("success")
+        notice.remove()
+        success.remove()
     }
 
     

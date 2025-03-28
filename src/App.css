@@ -127,6 +127,10 @@
 .busInput {
   margin-left: 10px;
 }
-
+.notice {
+  white-space: nowrap;
+  margin-left: 5px;
+  margin-right: 5px;
+}
 
 
