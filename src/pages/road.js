@@ -2,6 +2,7 @@ import { useState } from "react"
 import WeatherCam from "./weatherCamera"
 import { APIProvider, Map } from '@vis.gl/react-google-maps';
 import { use } from "react";
+import AutomaticTraffic from "./automaticTraffic";
 
 function Road() {
     const [roadCBsel, setRoadCBsel] = useState(true)
@@ -10,6 +11,7 @@ function Road() {
     var [long,setLong]=useState(0)
     const [showMap,setShowMap]=useState(false)
     const [hideOthers,setHideOthers]=useState(false)
+    const [atmd,setAtmd]=useState(false)
 
     const setMapCoordinates=(id)=>{
         var coordinates = document.getElementById(id).value
@@ -153,6 +155,14 @@ function Road() {
                                 disableDefaultUI={false} />
                         </APIProvider>}
             {wcam && <WeatherCam />}
+
+            {atmd&& <AutomaticTraffic/>}
+            
+
+            <div class="form-check" hidden={hideOthers}>
+                <input class="form-check-input" type="checkbox" id="announcementCB" onChange={()=>{setAtmd(!atmd);setHideOthers(!hideOthers)}}></input>
+                <label class="form-check-label" for="announcementCB">Automatic traffic measurement data</label>
+            </div>
            
             <div class="form-check" hidden={hideOthers}>
                 <input class="form-check-input" type="checkbox" id="announcementCB" onChange={roadAnnounce}></input>

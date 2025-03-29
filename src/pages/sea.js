@@ -151,11 +151,13 @@ function Sea() {
     }
     return (
         <div>
+           
             <Routes>
                 <Route>
                     <Route path="/websocket" element={<WsComponent />} />
                 </Route>
             </Routes>
+           
             <button id="closeBtn" hidden={closeButton} onClick={hideContent}>X</button>
             <div id="lakeContent" className="lakeContent">
                 <ul id="list" className="list"></ul>
@@ -183,6 +185,17 @@ function Sea() {
             </select>
             <hr className="hrLine"></hr>
             <br></br>
+            <div className="mapArea">
+                    {mapState && <APIProvider apiKey={""}>
+                        <Map
+
+                            style={{ width: '35vw', height: '35vh' }}
+                            defaultCenter={{ lat: latitude, lng: longitude }}
+                            defaultZoom={12}
+                            gestureHandling={'greedy'}
+                            disableDefaultUI={false} />
+                    </APIProvider>}
+                </div>
             <input class="form-check-input" hidden={waterAreas} id="map" type="checkbox" onChange={() => setMapState(!mapState)}></input>
             <label class="form-check-label" hidden={waterAreas} for="map">Show the water area on the map</label>
 
@@ -203,17 +216,7 @@ function Sea() {
                     <button class="btn btn-primary btn-sm" hidden={waterAreas} onClick={availableAreas}>Show site numbers</button>
                 </div>
                 <br></br>
-                <div className="mapArea">
-                    {mapState && <APIProvider apiKey={""}>
-                        <Map
-
-                            style={{ width: '50vw', height: '45vh' }}
-                            defaultCenter={{ lat: latitude, lng: longitude }}
-                            defaultZoom={12}
-                            gestureHandling={'greedy'}
-                            disableDefaultUI={false} />
-                    </APIProvider>}
-                </div>
+              
             </div>
         </div>
 

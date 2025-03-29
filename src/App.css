@@ -144,5 +144,9 @@
   margin-left: 10px;
   margin-right: 10px;
 }
+.content {
+  border: 2px solid black;
+  padding: 8px;
+}
 
 

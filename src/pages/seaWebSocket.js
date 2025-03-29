@@ -16,7 +16,7 @@ function WsComponent() {
         <div className="ws">
             <h3>MQTT WebSocket</h3>
             {mesg}
-            <button onClick={()=>readSocket}>read</button>
+            <button onClick={readSocket}>read</button>
             
         </div>
     )

@@ -19,6 +19,7 @@ function App() {
   const [hideTrain, setHideTrain] = useState(false)
   const [hideSea, setHideSea] = useState(false)
   const [hideLogo,setHideLogo]=useState(false)
+  const [hideBus,setHideBus]=useState(false)
   const [busOpt,setBusOpt]=useState(false)
   
   
@@ -39,6 +40,8 @@ function App() {
       setHideTrain(!hideTrain)
       setHideSea(!hideSea)
       setRoadOpt(!roadOpt)
+      setHideLogo(!hideLogo)
+      setHideBus(!hideBus)
 
     }
 
@@ -47,6 +50,8 @@ function App() {
       setSeaOpt(!seaOpt)
       setHideRoad(!hideRoad)
       setHideTrain(!hideTrain)
+      setHideBus(!hideBus)
+      setHideLogo(!hideLogo)
 
     }
     else if (stateval=='busOpt') {
@@ -78,8 +83,8 @@ function App() {
           <input class="form-check-input" id='seaCB' hidden={hideSea} type="checkbox"  onChange={() => helper('seaOpt')}></input>
           <label class="form-check-label"hidden= {hideSea}  for="trainCB">Sea environment & Sea traffic Data</label>
           <br></br>
-          <input class="form-check-input" id='busCB' hidden={hideSea} type="checkbox"  onChange={() => helper('busOpt')}></input>
-          <label class="form-check-label"hidden= {hideSea}  for="busCB">Buses</label>
+          <input class="form-check-input" id='busCB' hidden={hideBus} type="checkbox"  onChange={() => helper('busOpt')}></input>
+          <label class="form-check-label"hidden= {hideBus}  for="busCB">Buses</label>
        
         </div>
 
