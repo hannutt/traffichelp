@@ -27,8 +27,9 @@ function ByTrainNumber() {
     }
     return (
         <div className="numberSearch">
-            <label class="form-check-label" for="fiCB">Search by train number</label>
             <input class="form-check-input" type="checkbox" value="fi" id="byTrainNumber" onChange={()=>setSearch(!search)}></input>
+            <label class="form-check-label" for="fiCB">Search by train number</label>
+            
             <br></br>
             {search && <><input type="text" placeholder="TRAIN NUMBER" onChange={(e) => setTrainNumber(e.target.value)} /><button class="btn btn-primary btn-sm" onClick={passengerInfoNumber}>Search</button></>}
         </div>

@@ -7,8 +7,11 @@ import Buses from "./pages/buses"
 import WsComponent from './pages/seaWebSocket';
 import { useState } from 'react';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
-
+import train from "./icons/train.png"
 import tfLogoBlack from './images/tfLogoBlack.png'
+import road from "./icons/road.png"
+import ship from "./icons/ship.png"
+import bus from "./icons/bus.png"
 
 
 function App() {
@@ -70,21 +73,22 @@ function App() {
     <div className='App-header'>
 
       <img className='tfLogo' id='tfLogo' hidden={hideLogo} src={tfLogoBlack} height={100} width={200}></img>
+      <br></br>
       <div>
       
 
         <div class="form-check">
           <input class="form-check-input" id='trainCB' hidden={hideTrain} type="checkbox"  onChange={() => helper('trainOpt')}></input>
-          <label class="form-check-label"hidden= {hideTrain}  for="trainCB">Train traffic data</label>
+          <label class="form-check-label"hidden= {hideTrain}  for="trainCB">Train traffic data</label> <img src={train}></img>
           <br></br>
           <input class="form-check-input" id='roadCB' hidden={hideRoad} type="checkbox"  onChange={() => helper('roadOpt')}></input>
-          <label class="form-check-label"hidden= {hideRoad}  for="trainCB">Road traffic data</label>
+          <label class="form-check-label"hidden= {hideRoad}  for="trainCB">Road traffic data</label> <img src={road}></img>
           <br></br>
           <input class="form-check-input" id='seaCB' hidden={hideSea} type="checkbox"  onChange={() => helper('seaOpt')}></input>
-          <label class="form-check-label"hidden= {hideSea}  for="trainCB">Sea environment & Sea traffic Data</label>
+          <label class="form-check-label"hidden= {hideSea}  for="trainCB">Sea environment & Sea traffic Data</label> <img src={ship}></img>
           <br></br>
           <input class="form-check-input" id='busCB' hidden={hideBus} type="checkbox"  onChange={() => helper('busOpt')}></input>
-          <label class="form-check-label"hidden= {hideBus}  for="busCB">Buses</label>
+          <label class="form-check-label"hidden= {hideBus}  for="busCB">Buses</label> <img src={bus}></img>
        
         </div>
 

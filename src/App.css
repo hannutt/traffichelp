@@ -111,10 +111,9 @@
 }
 .pasInfo>button {
   margin-right: 10px;
+
 }
-.pasInfo{
-  display : inline-flex;
-}
+
 .liData {
   line-height: 1.8;
   /*text-align: left;*/

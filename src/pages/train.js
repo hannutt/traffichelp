@@ -29,6 +29,7 @@ function Train() {
     const [switchChanged, setSwitchChanged] = useState(false)
     var [showTts, setShowTts] = useState(false)
     const [hideStation,setHideStation]=useState(false)
+    const [showTrainsBtn,setShowTrainBtn]=useState(true)
 
     var [FromStation, setFromStation] = useState('')
     var [toStation, setToStaion] = useState('')
@@ -205,11 +206,15 @@ function Train() {
     function changeStates() {
         setRouteGuide(!routeGuide)
         setTrainNumberFeat(!TrainNumberFeat)
-    }
+        setHideStation(!hideStation)
+        setShowTrainBtn(!showTrainsBtn)
+    }   
     return (
 
         <div>
             <div className="pasInfo">
+            <Link to="/traingql"><button className="btn btn-info btn-sm" hidden={hideStation}>GraphQL Queries</button></Link>
+            <br></br>
                 <button class="btn btn-info btn-sm" onClick={handlePassengerData}>Show Active passenger info</button>
                 <select id="stations" onChange={(e) => setStation(e.target.value)}>
                     <option value={"TPE"}>Tampere</option>
@@ -237,22 +242,23 @@ function Train() {
                 </Route>
             </Routes>
 
-            <Link to="/traingql"><button className="btn btn-info btn-sm" hidden={hideStation}>GraphQL Queries</button></Link>
+         
             {showTts && <ConvertText />}
 
             <div id="trainContent" className="trainContent">
                 <ul id="list" className="list"></ul>
             </div>
             <div className="station" hidden={hideStation}>
+            <input class="form-check-input" style={{marginRight:10 +"px"}} type="checkbox" id="stationCB" onChange={() => setSelectionDiv(!selectionDiv)}></input>
             <label htmlFor="stationCB">Get information about train stations</label>
-            <input class="form-check-input" type="checkbox" id="stationCB" onChange={() => setSelectionDiv(!selectionDiv)}></input>
             {selectionDiv && <TrainStations/>}
-            <div class="arrNdep">
-
+            </div>
+            <div>
+                <input class="form-check-input" style={{marginRight:10 +"px"}} type="checkbox" value="" id="routeguide" onChange={changeStates}></input>
                 <label class="form-check-label" for="ArrivingDeparting">Train route guide</label>
-                <input class="form-check-input" type="checkbox" value="" id="routeguide" onChange={changeStates}></input>
+                
             </div>
-            </div>
+            
             {/*row ja col on bootstrapin tyyliluokkia joilla saadaan autocomplete kentät vierekkäin*/}
             <div class="row" hidden={routeGuide}>
             <div class="col">
@@ -261,7 +267,9 @@ function Train() {
                 className="fromAC"
                 id="free-solo-demo"
                 freeSolo
+                //autocompleten arvot eli asemat
                 options={stations}
+                size="small"
                 renderInput={(params)=><TextField{...params} label="FROM"/>}
                 //event on onchange eventti eli se kun kentän sisältö muuttuu, value on itse kentän sisältö
                 onChange={(event, value) => setFromStation(value)}
@@ -273,6 +281,7 @@ function Train() {
                 id="free-solo-demo"
                 freeSolo
                 options={stations}
+                size="small"
                 renderInput={(params)=><TextField{...params} label="TO"/>}
                 onChange={(event, value) => setToStaion(value)}
                  />
@@ -282,12 +291,13 @@ function Train() {
                 <input type="text" id="from" placeholder="FROM STATION" onChange={(e) => setFromStation(e.target.value)}></input>
                 <input type="text" id="to" placeholder="TO STATION" onChange={(e) => setToStaion(e.target.value)}></input>*/}
             </div>
-            <button class="btn btn-primary btn-sm" hidden={hideStation} onClick={() => fromStation(dayjs(dateValue).format('YYYY-MM-DD'))}>Show trains</button>
+            <button hidden={showTrainsBtn} class="btn btn-primary btn-sm" onClick={() => fromStation(dayjs(dateValue).format('YYYY-MM-DD'))}>Show trains</button>
 
 
             <div>
-                <label class="form-check-label" for="srcCB">Search for train information by date and train number</label>
-                <input class="form-check-input" type="checkbox" onChange={() => {setTrainComposition(!trainComposition);setHideStation(!hideStation)}}></input>
+            <input class="form-check-input" style={{marginRight:10 +"px"}} type="checkbox" onChange={() => {setTrainComposition(!trainComposition);setHideStation(!hideStation)}}></input>
+                <label class="form-check-label"  for="srcCB">Search for train information by date and train number</label>
+               
             </div>
             <div>
                 {/*checkboxin klikkaus muuttaa trainCompositionin trueksi ja silloin näytetään alla olevat input kentät*/}
