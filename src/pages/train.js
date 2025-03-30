@@ -13,7 +13,7 @@ import check from "../icons/checked 24px.png"
 import { createClient } from "smtpexpress"
 import axios from "axios";
 import TrainStations from "./trainStations";
-
+import { Autocomplete, TextField } from "@mui/material";
 
 
 function Train() {
@@ -28,12 +28,13 @@ function Train() {
     const [TrainNumberFeat, setTrainNumberFeat] = useState(false)
     const [switchChanged, setSwitchChanged] = useState(false)
     var [showTts, setShowTts] = useState(false)
+    const [hideStation,setHideStation]=useState(false)
 
     var [FromStation, setFromStation] = useState('')
     var [toStation, setToStaion] = useState('')
     let date = Date()
     var [dateValue, setDateValue] = useState(dayjs(date))
-
+    const stations=["Helsinki","Tampere","Oulu","Vaasa","Seinäjoki","Oulu",'Jyväskylä','Rovaniemi','Kajaani','Joensuu']
     function clear() {
 
         document.getElementById("list").hidden = true
@@ -41,7 +42,25 @@ function Train() {
         setShowTts(showTts = false)
     }
     function fromStation(day) {
-        const URLi = `https://rata.digitraffic.fi/api/v1/live-trains/station/${FromStation}/${toStation}?departure_date=${day}`
+        var URLi=""
+        console.log(FromStation)
+        //ensimmäisen kirjaimen muunto isoksi kirjaimeksi, koska stationrealnamesin propertyt on isolla kirjaimella
+        FromStation=FromStation.charAt(0).toUpperCase() + FromStation.slice(1)
+        toStation= toStation.charAt(0).toUpperCase() + toStation.slice(1)
+        var stationsRealNames={Helsinki:"HKI",Tampere:"TPE",Seinäjoki:"SK",Turku:"TKU",Oulu:"OL",Vaasa:"VS",Jyväskylä:"JY",Rovaniemi:"ROI",Kajaani:"KAJ",Joensuu:"JNS"}
+        //tarkistus löytyykö käyttäjän syöttämät asemat sanakirjasta
+        if (FromStation in stationsRealNames && toStation in stationsRealNames)
+        {
+            var startStation = stationsRealNames[FromStation]
+            var destination = stationsRealNames[toStation]
+           
+            URLi = `https://rata.digitraffic.fi/api/v1/live-trains/station/${startStation}/${destination}?departure_date=${day}`
+        }
+        else{
+            URLi = `https://rata.digitraffic.fi/api/v1/live-trains/station/${FromStation}/${toStation}?departure_date=${day}`
+        }
+        
+
         const USERID = { 'Digitraffic-User': 'Junamies/FoobarApp 1.0' }
         fetch(URLi, { headers: USERID })
             .then(response => {
@@ -62,7 +81,7 @@ function Train() {
                         li.setAttribute("class", "liData2")
                     }
 
-                    li.innerText = "Departure from: " + d.timeTableRows[0].stationShortCode + " Track: " + d.timeTableRows[0].commercialTrack + " " + " " + d.timeTableRows[0].scheduledTime.replace("T", " ").replace(".000Z", " ")
+                    li.innerText = "From: " + FromStation+ " To: "+" "+toStation+ " Track: " + d.timeTableRows[0].commercialTrack + " " + " " + d.timeTableRows[0].scheduledTime.replace("T", " ").replace(".000Z", " ")
                     document.getElementById("list").appendChild(li)
                 })
 
@@ -206,7 +225,7 @@ function Train() {
 
             </div>
             {switchChanged && <><LanguageOptions /><LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DatePicker format="YYYY-MM-DD" value={dateValue} onChange={(newValue) => setDateValue(newValue)} />
+                <DatePicker slotProps={{ textField: { size: 'small' } }} className="dp" format="YYYY-MM-DD" value={dateValue} onChange={(newValue) => setDateValue(newValue)} />
             </LocalizationProvider></>}
 
             <br></br>
@@ -218,12 +237,13 @@ function Train() {
                 </Route>
             </Routes>
 
-            <Link to="/traingql"><button className="btn btn-info btn-sm">GraphQL Queries</button></Link>
+            <Link to="/traingql"><button className="btn btn-info btn-sm" hidden={hideStation}>GraphQL Queries</button></Link>
             {showTts && <ConvertText />}
 
             <div id="trainContent" className="trainContent">
                 <ul id="list" className="list"></ul>
             </div>
+            <div className="station" hidden={hideStation}>
             <label htmlFor="stationCB">Get information about train stations</label>
             <input class="form-check-input" type="checkbox" id="stationCB" onChange={() => setSelectionDiv(!selectionDiv)}></input>
             {selectionDiv && <TrainStations/>}
@@ -232,22 +252,48 @@ function Train() {
                 <label class="form-check-label" for="ArrivingDeparting">Train route guide</label>
                 <input class="form-check-input" type="checkbox" value="" id="routeguide" onChange={changeStates}></input>
             </div>
-            <div className="routeInputs" hidden={routeGuide}>
-                <input type="text" id="from" placeholder="FROM STATION" onChange={(e) => setFromStation(e.target.value)}></input>
-                <input type="text" id="to" placeholder="TO STATION" onChange={(e) => setToStaion(e.target.value)}></input>
-                <button class="btn btn-primary btn-sm" onClick={() => fromStation(dayjs(dateValue).format('YYYY-MM-DD'))}>Show trains</button>
             </div>
+            {/*row ja col on bootstrapin tyyliluokkia joilla saadaan autocomplete kentät vierekkäin*/}
+            <div class="row" hidden={routeGuide}>
+            <div class="col">
+               
+                <Autocomplete
+                className="fromAC"
+                id="free-solo-demo"
+                freeSolo
+                options={stations}
+                renderInput={(params)=><TextField{...params} label="FROM"/>}
+                //event on onchange eventti eli se kun kentän sisältö muuttuu, value on itse kentän sisältö
+                onChange={(event, value) => setFromStation(value)}
+                 />
+                 </div>
+                 <div class="col">
+                  <Autocomplete
+                className="fromAC"
+                id="free-solo-demo"
+                freeSolo
+                options={stations}
+                renderInput={(params)=><TextField{...params} label="TO"/>}
+                onChange={(event, value) => setToStaion(value)}
+                 />
+                 </div>
+          
+                {/*}
+                <input type="text" id="from" placeholder="FROM STATION" onChange={(e) => setFromStation(e.target.value)}></input>
+                <input type="text" id="to" placeholder="TO STATION" onChange={(e) => setToStaion(e.target.value)}></input>*/}
+            </div>
+            <button class="btn btn-primary btn-sm" hidden={hideStation} onClick={() => fromStation(dayjs(dateValue).format('YYYY-MM-DD'))}>Show trains</button>
 
 
             <div>
                 <label class="form-check-label" for="srcCB">Search for train information by date and train number</label>
-                <input class="form-check-input" type="checkbox" onChange={() => setTrainComposition(!trainComposition)}></input>
+                <input class="form-check-input" type="checkbox" onChange={() => {setTrainComposition(!trainComposition);setHideStation(!hideStation)}}></input>
             </div>
             <div>
                 {/*checkboxin klikkaus muuttaa trainCompositionin trueksi ja silloin näytetään alla olevat input kentät*/}
                 {trainComposition && <>  <LocalizationProvider dateAdapter={AdapterDayjs}>
                     {/*newvalue parametri on valittu päivämäärä*/}
-                    <DatePicker format="YYYY-MM-DD" value={dateValue} onChange={(newValue) => setDateValue(newValue)} />
+                    <DatePicker className="dp" slotProps={{ textField: { size: 'small' } }} format="YYYY-MM-DD" value={dateValue} onChange={(newValue) => setDateValue(newValue)} />
                     {/*dayjs kirjastolla saadaan muutettua Date objektin päivämäärä muotoon YYYY-DD-MM*/}
 
                     {console.log(dayjs(dateValue).format('YYYY-MM-DD'))}
@@ -257,7 +303,7 @@ function Train() {
 
                 {!routeGuide && <>  <LocalizationProvider dateAdapter={AdapterDayjs}>
                     {/*newvalue parametri on valittu päivämäärä*/}
-                    <DatePicker format="YYYY-MM-DD" value={dateValue} onChange={(newValue) => setDateValue(newValue)} />
+                    <DatePicker slotProps={{ textField: { size: 'small' } }} className="dp" format="YYYY-MM-DD" value={dateValue} onChange={(newValue) => setDateValue(newValue)} />
                     {/*dayjs kirjastolla saadaan muutettua Date objektin päivämäärä muotoon YYYY-DD-MM*/}
 
                     {console.log(dayjs(dateValue).format('YYYY-MM-DD'))}
