@@ -15,6 +15,7 @@ function WeatherCam() {
     var [scale, setScale] = useState(1.0)
     var [sliderValue,setSliderValue]=useState(0)
     var slid = document.getElementById("zoomRng")
+    const [automaticChange,setAutomaticChange]=useState(false)
    
 
 
@@ -63,6 +64,25 @@ function WeatherCam() {
         setScale(scale=slid.value)
         
     }
+    const executeChange=()=>{
+        document.getElementById("cameraChange").click()
+
+    }
+    var clicks=0
+    const automateChange=()=>{
+        clicks=clicks+1
+        console.log(clicks)
+        if (clicks % 1 === 0)
+        {
+            setInterval(executeChange,5000)
+        }
+        if (clicks % 2 === 0)
+        {
+            clearInterval(executeChange)
+        }
+     
+
+    }
     return (
         <div>
             {/*e.target value eli valitun optionin value arvo lähetetään getcamera funktiolle*/}
@@ -73,12 +93,17 @@ function WeatherCam() {
                 <option value={"kur"}>VT 3 Kurikka</option>
             </select>
             <br></br><br></br>
-            <button class="btn btn-primary btn-sm" onClick={changeView}>Change camera</button>
+            <button class="btn btn-primary btn-sm" id="cameraChange" onClick={changeView}>Change camera</button>
             <span className="changeBtn">
                 <button class="btn btn-info btn-sm" onClick={increaseImage}>+</button>
             </span>
             <button class="btn btn-warning btn-sm" onClick={decreaseImage}>-</button>
             <button class="btn btn-success btn-sm" style={{ marginLeft: 10 + "px" }} onClick={resetValues}>Reset</button>
+            <br></br><br></br>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="automChangeCB" onClick={automateChange}></input>
+                <label class="form-check-label" for="automChangeCB">Automatically switch every 60 seconds</label>
+            </div>
             <div class="slidecontainer">
                 <input type="range" min="1" max="3" step={0.1} defaultValue={1} class="slider" id="zoomRng" onInput={sliderMove}></input>
                 <br></br>

@@ -109,6 +109,8 @@ An example picture where the user has selected a road camera from the html selec
 
 The user can also zoom in on the weather camera image using the HTML slider component. The slider component has a minimum value of 1, a maximum value of 3, and a step between values ​​of 0.1. The slider component changes the CSS value of the img element's transformation scale. The value is stored in the State variable and passed to the img element's style property.
 
+By selecting the "Switch automatically every 60 seconds" checkbox, the user can automate the camera switching. The timing is implemented using the setInterval method
+
 ![alt text](src/images/weatherCam.png)
 
 ROAD TRAFFIC DATA
