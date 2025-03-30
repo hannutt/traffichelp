@@ -26,7 +26,6 @@ UI components; The application mostly uses Bootstrap 5 and Material-Ui (MUI) com
 READABILITY OF THE RESPONSE TEXT
 
 The text is mostly readable. However, some extra characters from the answers have been removed to improve the user experience using the JavaScript replace method. the replace method is executed automatically in the forEach loop.
-Sample images of the information searched and received using the search criteria.
 
 DATA SEARCH FROM TRAINS
 
@@ -106,7 +105,9 @@ VIEWING WEATHER CAMERAS
 
 Weather camera images are retrieved from weathercam.digitraffic.fi/(id) The images of the camera to be displayed are selected from the html selection component and the selected image is displayed in the html img element. The URLs of the camera images are stored in variables and the selected component has an onChange event handler function that performs the search and display of the user's desired image. The image of each weather camera can be changed by pressing the "change camera" button. There are 3 different angles for each camera.
 
-An example picture where the user has selected a road camera from the html select component. The application displays weather camera images in 500 x 300 size by default. The user can increase or decrease the size of the image using the + and - buttons. Each click changes the size by 10
+An example picture where the user has selected a road camera from the html select component. The application displays weather camera images in 500 x 300 size by default. The user can increase or decrease the size of the image using the + and - buttons. Each click changes the size by 10. Reset button restores default values.
+
+The user can also zoom in on the weather camera image using the HTML slider component. The slider component has a minimum value of 1, a maximum value of 3, and a step between values ​​of 0.1. The slider component changes the CSS value of the img element's transformation scale. The value is stored in the State variable and passed to the img element's style property.
 
 ![alt text](src/images/weatherCam.png)
 

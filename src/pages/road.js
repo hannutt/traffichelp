@@ -1,7 +1,6 @@
 import { useState } from "react"
 import WeatherCam from "./weatherCamera"
 import { APIProvider, Map } from '@vis.gl/react-google-maps';
-import { use } from "react";
 import AutomaticTraffic from "./automaticTraffic";
 
 function Road() {
