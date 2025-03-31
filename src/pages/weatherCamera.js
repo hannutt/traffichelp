@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState,useRef } from "react"
 
 function WeatherCam() {
 
@@ -13,11 +13,9 @@ function WeatherCam() {
     var [camWidth, setCamWidth] = useState(500)
     var [camHeight, setCamHeight] = useState(300)
     var [scale, setScale] = useState(1.0)
-    var [sliderValue,setSliderValue]=useState(0)
     var slid = document.getElementById("zoomRng")
-    const [automaticChange,setAutomaticChange]=useState(false)
+    const intervalRef = useRef(null)
    
-
 
     function getCamera(e) {
         setCamView(0)
@@ -59,29 +57,31 @@ function WeatherCam() {
         setCamWidth(camWidth = 500)
     }
 
-    const sliderMove=()=> {
+    const sliderMove = () => {
         document.getElementById("sliderval").innerText = slid.value
-        setScale(scale=slid.value)
-        
+        setScale(scale = slid.value)
+
     }
-    const executeChange=()=>{
+    const executeChange = () => {
         document.getElementById("cameraChange").click()
 
     }
-    var clicks=0
-    const automateChange=()=>{
-        clicks=clicks+1
-        console.log(clicks)
-        if (clicks % 1 === 0)
-        {
-            setInterval(executeChange,5000)
-        }
-        if (clicks % 2 === 0)
-        {
-            clearInterval(executeChange)
-        }
-     
 
+
+
+
+    const automateChange = () => {
+
+        intervalRef.current=setInterval(() => {
+            document.getElementById("cameraChange").click()
+            
+        }, 5000);
+      
+
+    }
+    const stopChange = () => {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
     }
     return (
         <div>
@@ -104,6 +104,7 @@ function WeatherCam() {
                 <input class="form-check-input" type="checkbox" id="automChangeCB" onClick={automateChange}></input>
                 <label class="form-check-label" for="automChangeCB">Automatically switch every 60 seconds</label>
             </div>
+            <button onClick={stopChange}>stop</button>
             <div class="slidecontainer">
                 <input type="range" min="1" max="3" step={0.1} defaultValue={1} class="slider" id="zoomRng" onInput={sliderMove}></input>
                 <br></br>
