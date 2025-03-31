@@ -14,6 +14,8 @@ function WeatherCam() {
     var [camHeight, setCamHeight] = useState(300)
     var [scale, setScale] = useState(1.0)
     var slid = document.getElementById("zoomRng")
+    var [contrast,setContrast]=useState(100)
+    var [hideStopBtn,setHideStopBtn]=useState(true)
     const intervalRef = useRef(null)
    
 
@@ -60,18 +62,10 @@ function WeatherCam() {
     const sliderMove = () => {
         document.getElementById("sliderval").innerText = slid.value
         setScale(scale = slid.value)
-
     }
-    const executeChange = () => {
-        document.getElementById("cameraChange").click()
-
-    }
-
-
-
-
     const automateChange = () => {
 
+        setHideStopBtn(!hideStopBtn)
         intervalRef.current=setInterval(() => {
             document.getElementById("cameraChange").click()
             
@@ -80,6 +74,10 @@ function WeatherCam() {
 
     }
     const stopChange = () => {
+        //poistaa checkboksin valinnan
+        const cb=document.getElementById("automChangeCB")
+        cb.checked=false
+        //pysäyttää intervallin
         clearInterval(intervalRef.current);
         intervalRef.current = null;
     }
@@ -104,7 +102,8 @@ function WeatherCam() {
                 <input class="form-check-input" type="checkbox" id="automChangeCB" onClick={automateChange}></input>
                 <label class="form-check-label" for="automChangeCB">Automatically switch every 60 seconds</label>
             </div>
-            <button onClick={stopChange}>stop</button>
+            <button class="btn btn-success btn-sm" onClick={()=>setContrast(contrast+10)}>Contrast +</button> <button class="btn btn-danger btn-sm" onClick={()=>setContrast(contrast-10)}>Contrast -</button>
+            <button class="btn btn-danger btn-sm" hidden={hideStopBtn} onClick={stopChange}>stop</button>
             <div class="slidecontainer">
                 <input type="range" min="1" max="3" step={0.1} defaultValue={1} class="slider" id="zoomRng" onInput={sliderMove}></input>
                 <br></br>
@@ -112,7 +111,7 @@ function WeatherCam() {
                 <span id="sliderval"></span>
             </div>
             <br></br>
-            <img id="camImg" style={{ transform: "scale(" + scale + ")" }} width={camWidth} height={camHeight} alt="camera" src={'empty'}></img>
+            <img id="camImg" style={{ transform: "scale(" + scale + ")",filter:"contrast("+contrast+"%)"}} width={camWidth} height={camHeight} alt="camera" src={'empty'}></img>
 
         </div>
     )
