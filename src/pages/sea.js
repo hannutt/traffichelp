@@ -4,6 +4,7 @@ import WsComponent from "./seaWebSocket";
 import { APIProvider, Map } from '@vis.gl/react-google-maps';
 import MarineWarnings from "./marineWarns"
 import ConvertText from "./convertText"
+import SeaVessels from "./seaVessels";
 import '../App.css';
 function Sea() {
 
@@ -17,6 +18,7 @@ function Sea() {
     const [hideSafety, setHideSafety] = useState(false)
     const [hideMarine, setHideMarine] = useState(false)
     const [ttsBtn, setTtsBtn] = useState(false)
+    const [vessels,setVessels]=useState(false)
     var clicks = 0
     //useeffect huomaa heti, jos latitude longitude statet muuttuvat
     useEffect(() => {
@@ -162,6 +164,8 @@ function Sea() {
             <div id="lakeContent" className="lakeContent">
                 <ul id="list" className="list"></ul>
             </div>
+            <br></br>
+            <p id="vesselDetails" className="vesselDetails"></p>
             {ttsBtn && <ConvertText />}
 
             <hr className="hrLine"></hr>
@@ -174,8 +178,13 @@ function Sea() {
             <input class="form-check-input" id='waterCB' type="checkbox" onChange={executeWaterArea} ></input>
             <label class="form-check-label" for="waterCB">Water area information</label>
             <br></br>
+            <input class="form-check-input" id='vesselCB' type="checkbox" onChange={()=>setVessels(!vessels)} ></input>
+            <label class="form-check-label" for="vesselCB">Sea vessels</label>
+            <br></br>
             <label for="lake" hidden={waterAreas}>Choose a water area:</label>
             {warnings && <MarineWarnings />}
+
+            {vessels && <SeaVessels/>}
 
             <select hidden={waterAreas} name="lake" id="lake" onChange={e => getSelectedLake(e.target.value)}>
                 <option value="8859">Kelloniemi</option>
@@ -184,12 +193,12 @@ function Sea() {
                 <option value="20244">Talla</option>
             </select>
             <hr className="hrLine"></hr>
-            <br></br>
+            
             <div className="mapArea">
                     {mapState && <APIProvider apiKey={""}>
                         <Map
 
-                            style={{ width: '35vw', height: '35vh' }}
+                            style={{ width: '35vw', height: '50vh' }}
                             defaultCenter={{ lat: latitude, lng: longitude }}
                             defaultZoom={12}
                             gestureHandling={'greedy'}

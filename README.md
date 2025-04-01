@@ -91,6 +91,14 @@ Sample image of the list of available water areas.
 
 ![alt text](src/images/sites.png)
 
+FIND INFORMATION ABOUT SEA SHIPS
+
+This feature returns the names of ships wrapped in Bootstrap 5 button elements. By clicking on the button element, the user can see additional information about the ship, such as the width and length of the ship, whether the ship is sailing or in port, etc.
+
+Example image of the response when a user clicks on a button with the text Tenacious
+
+![alt text](src/images/seavessels.png)
+
 SHOW MARINE WARNINGS
 
 The application uses the Finnish Transport Agency's POOKI service to search for marine warnings. This feature usually returns a lot of data, so a dedicated CSS stylesheet has been created for the HTML element where the data is displayed. It has a maximum width of 400 px, a maximum height of 200 px, and the element has a scroll bar to make it easier to view the data.

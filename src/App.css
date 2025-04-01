@@ -45,13 +45,15 @@
   }
 }
 
+/*
 .list{
   background-color: lightgray;
   border-radius: 10px;
   font-size: medium;
   font-weight: bold;
   
-}
+  
+}*/
 
 .title {
   font-weight: bold;
@@ -66,7 +68,7 @@
   border: 2px solid black;
   max-height: 200px;
   max-width: 400px;
-  overflow: auto;
+  /*overflow: auto;*/
 
 }
 .list {
@@ -188,4 +190,10 @@
 }
 .currentScale {
   white-space: nowrap;
+}
+.vesselDetails {
+  background-color: lightgray;
+  padding: 5px;
+  border-radius: 10px;
+  width: 400px;
 }
