@@ -35,7 +35,7 @@ function Train() {
     var [toStation, setToStaion] = useState('')
     let date = Date()
     var [dateValue, setDateValue] = useState(dayjs(date))
-    const stations=["Helsinki","Tampere","Oulu","Vaasa","Seinäjoki","Oulu",'Jyväskylä','Rovaniemi','Kajaani','Joensuu']
+    const stations=["Helsinki","Tampere","Oulu","Vaasa","Seinäjoki",'Jyväskylä','Rovaniemi','Kajaani','Joensuu']
     function clear() {
 
         document.getElementById("list").hidden = true
@@ -295,8 +295,8 @@ function Train() {
 
 
             <div>
-            <input class="form-check-input" style={{marginRight:10 +"px"}} type="checkbox" onChange={() => {setTrainComposition(!trainComposition);setHideStation(!hideStation)}}></input>
-                <label class="form-check-label"  for="srcCB">Search for train information by date and train number</label>
+            <input class="form-check-input" hidden={hideStation} style={{marginRight:10 +"px"}} type="checkbox" onChange={() => {setTrainComposition(!trainComposition);setHideStation(!hideStation)}}></input>
+                <label class="form-check-label" hidden={hideStation}  for="srcCB">Search for train information by date and train number</label>
                
             </div>
             <div>

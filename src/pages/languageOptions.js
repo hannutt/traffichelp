@@ -40,10 +40,6 @@ function LanguageOptions() {
                             li.innerText = "Train number " + d.trainNumber + ' Depar. date: ' + d.trainDepartureDate + ' ' + d.video.text.sv + " Notification valid: " + d.endValidity.replace("T00:00:00Z", " ")
                             document.getElementById("list").appendChild(li)
                         }
-
-                       
-                    
-
                 })
 
             })

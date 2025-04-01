@@ -5,6 +5,7 @@ function ByTrainNumber() {
     var [trainNumber,setTrainNumber]=useState('')
 
     function passengerInfoNumber() {
+        document.getElementById("list").innerText=" "
         const URLi = `https://rata.digitraffic.fi/api/v1/passenger-information/active?train_number=${trainNumber}`
         const USERID = { 'Digitraffic-User': 'Junamies/FoobarApp 1.0' }
         fetch(URLi, { headers: USERID })
@@ -14,11 +15,17 @@ function ByTrainNumber() {
             //data on json-tulosjoukon nimi
             .then(data => {
                 console.log(data)
+                if (data=="")
+                {
+                    const li = document.createElement("li")
+                    li.innerText="No active passenger information"
+                    document.getElementById("list").appendChild(li)
+                }
                 //data käydään silmukassa läpi, d on silmukkamuuttuja kuin esim i for-loopissa
                 data.forEach(d => {
                     const li = document.createElement("li")
                     //kentässä näytetää json tulosjoukon roadstationid ja sensorvalue-
-                    li.innerText = d.trainNumber+' '+d.trainDepartureDate+' '+d.video.text.en
+                    li.innerText = "Train "+d.trainNumber+' '+' '+d.video.text.en+" Notification valid: "+d.startValidity.replace("T"," ").replace("Z"," ")+" - "+d.endValidity.replace("T"," ").replace("Z"," ")
                     document.getElementById("list").appendChild(li)
                 })
 

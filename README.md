@@ -47,11 +47,13 @@ Example image where the user has selected Seinäjoki station.
 
 ROUTE GUIDE FOR TRAINS
 
-The user can search for routes by entering the departure station, destination station and travel date. The application searches information using these criteria and displays a list of trains matching the criteria to the user. The result shows the user the departure time, departure date and departure track.
+The user can search for routes by entering the departure station, destination station and travel date. The application searches information using these criteria and displays a list of trains matching the criteria to the user. The result shows the user the departure time, departure date and departure track. The route guide input fields use MUI autocomplete fields.
 
-Example view of the result where the user has searched for trains from Helsinki to Tampere on the date 24.3.25.
+Example views of the route guide and results where the user has searched for trains from Helsinki to Tampere on the date 24.3.25.
 
-![alt text](src/images/routeguide.png)
+![alt text](src/images/routes.png)
+
+![alt text](src/images/routelist.png)
 
 RAILWAY PASSENGER INFORMATION
 
@@ -61,7 +63,7 @@ Example image where the user has selected Helsinki Station and retrieved active 
 
 ![alt text](src/images/passengerInfo.png)
 
-The user can also search for passenger information based on the train number. This option will only show notifications related to the train number.
+The user can also search for passenger information based on the train number. This option will only show notifications related to the train number. Example image from which the user has retrieved passenger information regarding train number 12. The result shows the train number, details and start and end dates when the notification is valid.
 
 ![alt text](src/images/bynumber.png)
 
