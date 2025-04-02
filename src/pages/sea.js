@@ -165,6 +165,7 @@ function Sea() {
                 <ul id="list" className="list"></ul>
             </div>
             <br></br>
+            <p id="coordinates"></p>
             <p id="vesselDetails" className="vesselDetails"></p>
             {ttsBtn && <ConvertText />}
 

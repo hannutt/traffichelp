@@ -197,3 +197,12 @@
   border-radius: 10px;
   width: 400px;
 }
+.map{
+  position: absolute;
+  right: 147px;
+  width: 300px;
+  top: 145px;
+
+  padding: 10px;
+
+}

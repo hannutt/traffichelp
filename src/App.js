@@ -36,6 +36,7 @@ function App() {
       setTrainOpt(!trainOpt)
       setHideSea(!hideSea)
       setHideLogo(!hideLogo)
+      setHideBus(!hideBus)
 
     }
     else if (stateval == 'roadOpt') {
@@ -79,16 +80,16 @@ function App() {
 
         <div class="form-check">
           <input class="form-check-input" id='trainCB' hidden={hideTrain} type="checkbox"  onChange={() => helper('trainOpt')}></input>
-          <label class="form-check-label"hidden= {hideTrain}  for="trainCB">Train traffic data</label> <img src={train}></img>
+          <label class="form-check-label"hidden= {hideTrain}  for="trainCB">Train traffic data</label> <img hidden={hideTrain} src={train}></img>
           <br></br>
           <input class="form-check-input" id='roadCB' hidden={hideRoad} type="checkbox"  onChange={() => helper('roadOpt')}></input>
-          <label class="form-check-label"hidden= {hideRoad}  for="trainCB">Road traffic data</label> <img src={road}></img>
+          <label class="form-check-label"hidden= {hideRoad}  for="trainCB">Road traffic data</label> <img hidden={hideRoad} src={road}></img>
           <br></br>
           <input class="form-check-input" id='seaCB' hidden={hideSea} type="checkbox"  onChange={() => helper('seaOpt')}></input>
-          <label class="form-check-label"hidden= {hideSea}  for="trainCB">Sea environment & Sea traffic Data</label> <img src={ship}></img>
+          <label class="form-check-label"hidden= {hideSea}  for="trainCB">Sea environment & Sea traffic Data</label> <img hidden={hideSea} src={ship}></img>
           <br></br>
           <input class="form-check-input" id='busCB' hidden={hideBus} type="checkbox"  onChange={() => helper('busOpt')}></input>
-          <label class="form-check-label"hidden= {hideBus}  for="busCB">Buses</label> <img src={bus}></img>
+          <label class="form-check-label"hidden= {hideBus}  for="busCB">Buses</label> <img hidden={hideBus} src={bus}></img>
        
         </div>
 
