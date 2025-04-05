@@ -1,5 +1,16 @@
 .App {
   text-align: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  width: 100vw;
+  background-size: cover;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  overflow: scroll;
 }
 
 .App-logo {
@@ -24,6 +35,19 @@
   color: black;
   border: 1px solid black;
 }
+/*
+ background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  width: 100vw;
+  background-size: cover;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  overflow: scroll;
+*/
 
 
 /*app header divim sisällä oleviin label komponentteihin tyhjä tila cb:n ja labelin väliin*/

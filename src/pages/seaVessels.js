@@ -11,6 +11,8 @@ function SeaVessels() {
     var [mapDisable, setMapDisable] = useState(false)
     var [shipWidth,setShipWidth]=useState(0)
     var [shipLength,setShipLength]=useState(0)
+    var [barchart,setBarChart]=useState(true)
+
     function getVesselData(id) {
         document.getElementById("vesselDetails").innerText = " "
         var details = document.getElementById(id).value
@@ -20,6 +22,7 @@ function SeaVessels() {
         var coordinates = title.split(",")
         setLatCoord(latCoord = parseFloat(coordinates[0]))
         setLongCoord(longCoord = parseFloat(coordinates[1]))
+        setBarChart(barchart=false)
 
 
         console.log(document.getElementById(id).title)
@@ -96,8 +99,8 @@ function SeaVessels() {
                 </APIProvider>}
                 <br></br>
                 <span className="speed">Vessel Statistics</span>
-                <Gauge width={125} height={100} value={speed} valueMax={40} startAngle={-90} endAngle={90} />
-                <span className="bar">
+                <Gauge hidden={barchart} width={125} height={100} value={speed} valueMax={40} startAngle={-90} endAngle={90} />
+                <span className="bar" hidden={barchart}>
                 <BarChart
                 xAxis={[{ scaleType: 'band', data: ['Width', 'Length',] }]}
                 series={[{ data: [shipWidth, 0] }, { data: [0, shipLength] },]}

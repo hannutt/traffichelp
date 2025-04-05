@@ -81,7 +81,7 @@ function Train() {
                         li.setAttribute("class", "liData2")
                     }
 
-                    li.innerText = "From: " + FromStation + " To: " + " " + toStation + " Track: " + d.timeTableRows[0].commercialTrack + " " + " " + d.timeTableRows[0].scheduledTime.replace("T", " ").replace(".000Z", " ")
+                    li.innerText = d.trainType+" "+d.trainNumber+" From: " + FromStation + " To: " + " " + toStation + " | Track: " + d.timeTableRows[0].commercialTrack + " |" + " " + d.timeTableRows[0].scheduledTime.replace("T", " ").replace(".000Z", " ")
                     document.getElementById("list").appendChild(li)
                 })
 
