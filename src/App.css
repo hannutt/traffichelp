@@ -72,6 +72,10 @@
 
 }
 .list {
+  background-color: lightgray;
+  border-radius: 10px;
+  font-size: medium;
+  font-weight: bold;
   max-height: 200px;
   max-width: 600px;
   overflow: auto;

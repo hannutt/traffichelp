@@ -17,9 +17,9 @@ import { Autocomplete, TextField } from "@mui/material";
 
 
 function Train() {
-    
+
     const [trainClick, setTrainClick] = useState(false)
-   
+
     const [trainComposition, setTrainComposition] = useState(false)
     const [station, setStation] = useState('')
     const [trainNum, setTrainNum] = useState('')
@@ -28,14 +28,14 @@ function Train() {
     const [TrainNumberFeat, setTrainNumberFeat] = useState(false)
     const [switchChanged, setSwitchChanged] = useState(false)
     var [showTts, setShowTts] = useState(false)
-    const [hideStation,setHideStation]=useState(false)
-    const [showTrainsBtn,setShowTrainBtn]=useState(true)
-
+    const [hideStation, setHideStation] = useState(false)
+    const [showTrainsBtn, setShowTrainBtn] = useState(true)
+    const [include, setInclude] = useState(false)
     var [FromStation, setFromStation] = useState('')
     var [toStation, setToStaion] = useState('')
     let date = Date()
     var [dateValue, setDateValue] = useState(dayjs(date))
-    const stations=["Helsinki","Tampere","Oulu","Vaasa","Seinäjoki",'Jyväskylä','Rovaniemi','Kajaani','Joensuu']
+    const stations = ["Helsinki", "Tampere", "Oulu", "Vaasa", "Seinäjoki", 'Jyväskylä', 'Rovaniemi', 'Kajaani', 'Joensuu']
     function clear() {
 
         document.getElementById("list").hidden = true
@@ -43,24 +43,23 @@ function Train() {
         setShowTts(showTts = false)
     }
     function fromStation(day) {
-        var URLi=""
+        var URLi = ""
         console.log(FromStation)
         //ensimmäisen kirjaimen muunto isoksi kirjaimeksi, koska stationrealnamesin propertyt on isolla kirjaimella
-        FromStation=FromStation.charAt(0).toUpperCase() + FromStation.slice(1)
-        toStation= toStation.charAt(0).toUpperCase() + toStation.slice(1)
-        var stationsRealNames={Helsinki:"HKI",Tampere:"TPE",Seinäjoki:"SK",Turku:"TKU",Oulu:"OL",Vaasa:"VS",Jyväskylä:"JY",Rovaniemi:"ROI",Kajaani:"KAJ",Joensuu:"JNS"}
+        FromStation = FromStation.charAt(0).toUpperCase() + FromStation.slice(1)
+        toStation = toStation.charAt(0).toUpperCase() + toStation.slice(1)
+        var stationsRealNames = { Helsinki: "HKI", Tampere: "TPE", Seinäjoki: "SK", Turku: "TKU", Oulu: "OL", Vaasa: "VS", Jyväskylä: "JY", Rovaniemi: "ROI", Kajaani: "KAJ", Joensuu: "JNS" }
         //tarkistus löytyykö käyttäjän syöttämät asemat sanakirjasta
-        if (FromStation in stationsRealNames && toStation in stationsRealNames)
-        {
+        if (FromStation in stationsRealNames && toStation in stationsRealNames) {
             var startStation = stationsRealNames[FromStation]
             var destination = stationsRealNames[toStation]
-           
+
             URLi = `https://rata.digitraffic.fi/api/v1/live-trains/station/${startStation}/${destination}?departure_date=${day}`
         }
-        else{
+        else {
             URLi = `https://rata.digitraffic.fi/api/v1/live-trains/station/${FromStation}/${toStation}?departure_date=${day}`
         }
-        
+
 
         const USERID = { 'Digitraffic-User': 'Junamies/FoobarApp 1.0' }
         fetch(URLi, { headers: USERID })
@@ -82,7 +81,7 @@ function Train() {
                         li.setAttribute("class", "liData2")
                     }
 
-                    li.innerText = "From: " + FromStation+ " To: "+" "+toStation+ " Track: " + d.timeTableRows[0].commercialTrack + " " + " " + d.timeTableRows[0].scheduledTime.replace("T", " ").replace(".000Z", " ")
+                    li.innerText = "From: " + FromStation + " To: " + " " + toStation + " Track: " + d.timeTableRows[0].commercialTrack + " " + " " + d.timeTableRows[0].scheduledTime.replace("T", " ").replace(".000Z", " ")
                     document.getElementById("list").appendChild(li)
                 })
 
@@ -142,9 +141,17 @@ function Train() {
                 //data käydään silmukassa läpi, d on silmukkamuuttuja kuin esim i for-loopissa
                 data.journeySections.forEach(d => {
                     const li = document.createElement("li")
-                    //kentässä näytetää json tulosjoukon roadstationid ja sensorvalue-
-                    li.innerText = "Departure from " + d.beginTimeTableRow.stationShortCode + " at " + d.beginTimeTableRow.scheduledTime.replace("T", " ").replace("Z", " ").replace("000", " ") + " arrival to " + d.endTimeTableRow.stationShortCode + " at " + d.endTimeTableRow.scheduledTime.replace("T", " ").replace("Z", " ").replace("000 ", " ")
-                    document.getElementById("list").appendChild(li)
+                    if (include) {
+                        li.innerText = "Departure from " + d.beginTimeTableRow.stationShortCode + " at " + d.beginTimeTableRow.scheduledTime.replace("T", " ").replace("Z", " ").replace("000", " ") + " arrival to " + d.endTimeTableRow.stationShortCode + " at \n" + d.endTimeTableRow.scheduledTime.replace("T", " ").replace("Z", " ").replace("000 ", " ")+" "+d.wagons.salesNumber
+
+                    }
+                    else {
+
+                        //kentässä näytetää json tulosjoukon roadstationid ja sensorvalue-
+                        li.innerText = "Departure from " + d.beginTimeTableRow.stationShortCode + " at " + d.beginTimeTableRow.scheduledTime.replace("T", " ").replace("Z", " ").replace("000", " ") + " arrival to " + d.endTimeTableRow.stationShortCode + " at " + d.endTimeTableRow.scheduledTime.replace("T", " ").replace("Z", " ").replace("000 ", " ")+" "+d.wagons[0].salesNumber
+                        document.getElementById("list").appendChild(li)
+                    }
+
                 })
                 const mail = document.createElement('img')
                 mail.src = emailIcon
@@ -154,45 +161,45 @@ function Train() {
     }
     async function sendMail() {
         var notice = document.createElement("span")
-        var success=document.createElement("img")
-        notice.textContent="Email sent!"
-        notice.setAttribute("class","notice")
-        notice.id="notice"
-        success.id="success"
-        success.src=check
+        var success = document.createElement("img")
+        notice.textContent = "Email sent!"
+        notice.setAttribute("class", "notice")
+        notice.id = "notice"
+        success.id = "success"
+        success.src = check
         document.getElementById("list").appendChild(notice)
         document.getElementById("list").appendChild(success)
-        var mailAddress=prompt("Enter email address")
-        var apk=localStorage.getItem("apk")
-   
-        
+        var mailAddress = prompt("Enter email address")
+        var apk = localStorage.getItem("apk")
+
+
         try {
-           
+
             var msg = document.getElementById("list").innerText
             const api = axios.create({
                 baseURL: "https://api.smtpexpress.com/",
                 headers: {
-                  "Content-Type": "application/json",
-                  Authorization: `Bearer ${apk}`,
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${apk}`,
                 },
-              });
-              const body = {
+            });
+            const body = {
                 subject: "Traffic data",
                 message: `<h3> ${msg} </h3>`,
                 sender: {
-                  name: "Traffic Helper",
-                  email: "traffic-helper-b1134d@smtpexpress.email",
+                    name: "Traffic Helper",
+                    email: "traffic-helper-b1134d@smtpexpress.email",
                 },
                 recipients: {
-                  email: mailAddress,
+                    email: mailAddress,
                 },
-              };
-              const response = await api.post("send", body);
-              console.log(response.data);
+            };
+            const response = await api.post("send", body);
+            console.log(response.data);
         } catch (error) {
             console.error("Error sending email:", error);
-          }
-          const timeOut=setTimeout(clearEmailVertification,5000)
+        }
+        const timeOut = setTimeout(clearEmailVertification, 5000)
     }
 
     function clearEmailVertification() {
@@ -202,19 +209,19 @@ function Train() {
         success.remove()
     }
 
-    
+
     function changeStates() {
         setRouteGuide(!routeGuide)
         setTrainNumberFeat(!TrainNumberFeat)
         setHideStation(!hideStation)
         setShowTrainBtn(!showTrainsBtn)
-    }   
+    }
     return (
 
         <div>
             <div className="pasInfo">
-            <Link to="/traingql"><button className="btn btn-info btn-sm" hidden={hideStation}>GraphQL Queries</button></Link>
-            <br></br>
+                <Link to="/traingql"><button className="btn btn-info btn-sm" hidden={hideStation}>GraphQL Queries</button></Link>
+                <br></br>
                 <button class="btn btn-info btn-sm" onClick={handlePassengerData}>Show Active passenger info</button>
                 <select id="stations" onChange={(e) => setStation(e.target.value)}>
                     <option value={"TPE"}>Tampere</option>
@@ -242,51 +249,51 @@ function Train() {
                 </Route>
             </Routes>
 
-         
+
             {showTts && <ConvertText />}
 
             <div id="trainContent" className="trainContent">
                 <ul id="list" className="list"></ul>
             </div>
             <div className="station" hidden={hideStation}>
-            <input class="form-check-input" style={{marginRight:10 +"px"}} type="checkbox" id="stationCB" onChange={() => setSelectionDiv(!selectionDiv)}></input>
-            <label htmlFor="stationCB">Get information about train stations</label>
-            {selectionDiv && <TrainStations/>}
+                <input class="form-check-input" style={{ marginRight: 10 + "px" }} type="checkbox" id="stationCB" onChange={() => setSelectionDiv(!selectionDiv)}></input>
+                <label htmlFor="stationCB">Get information about train stations</label>
+                {selectionDiv && <TrainStations />}
             </div>
             <div>
-                <input class="form-check-input" style={{marginRight:10 +"px"}} type="checkbox" value="" id="routeguide" onChange={changeStates}></input>
+                <input class="form-check-input" style={{ marginRight: 10 + "px" }} type="checkbox" value="" id="routeguide" onChange={changeStates}></input>
                 <label class="form-check-label" for="ArrivingDeparting">Train route guide</label>
-                
+
             </div>
-            
+
             {/*row ja col on bootstrapin tyyliluokkia joilla saadaan autocomplete kentät vierekkäin*/}
             <div class="row" hidden={routeGuide}>
-            <div class="col">
-               
-                <Autocomplete
-                className="fromAC"
-                id="free-solo-demo"
-                freeSolo
-                //autocompleten arvot eli asemat
-                options={stations}
-                size="small"
-                renderInput={(params)=><TextField{...params} label="FROM"/>}
-                //event on onchange eventti eli se kun kentän sisältö muuttuu, value on itse kentän sisältö
-                onChange={(event, value) => setFromStation(value)}
-                 />
-                 </div>
-                 <div class="col">
-                  <Autocomplete
-                className="fromAC"
-                id="free-solo-demo"
-                freeSolo
-                options={stations}
-                size="small"
-                renderInput={(params)=><TextField{...params} label="TO"/>}
-                onChange={(event, value) => setToStaion(value)}
-                 />
-                 </div>
-          
+                <div class="col">
+
+                    <Autocomplete
+                        className="fromAC"
+                        id="free-solo-demo"
+                        freeSolo
+                        //autocompleten arvot eli asemat
+                        options={stations}
+                        size="small"
+                        renderInput={(params) => <TextField{...params} label="FROM" />}
+                        //event on onchange eventti eli se kun kentän sisältö muuttuu, value on itse kentän sisältö
+                        onChange={(event, value) => setFromStation(value)}
+                    />
+                </div>
+                <div class="col">
+                    <Autocomplete
+                        className="fromAC"
+                        id="free-solo-demo"
+                        freeSolo
+                        options={stations}
+                        size="small"
+                        renderInput={(params) => <TextField{...params} label="TO" />}
+                        onChange={(event, value) => setToStaion(value)}
+                    />
+                </div>
+
                 {/*}
                 <input type="text" id="from" placeholder="FROM STATION" onChange={(e) => setFromStation(e.target.value)}></input>
                 <input type="text" id="to" placeholder="TO STATION" onChange={(e) => setToStaion(e.target.value)}></input>*/}
@@ -295,21 +302,23 @@ function Train() {
 
 
             <div>
-            <input class="form-check-input" hidden={hideStation} style={{marginRight:10 +"px"}} type="checkbox" onChange={() => {setTrainComposition(!trainComposition);setHideStation(!hideStation)}}></input>
-                <label class="form-check-label" hidden={hideStation}  for="srcCB">Search for train information by date and train number</label>
-               
+                <input class="form-check-input" style={{ marginRight: 10 + "px" }} type="checkbox" onChange={() => { setTrainComposition(!trainComposition); setHideStation(!hideStation) }}></input>
+                <label class="form-check-label" for="srcCB">Search for train information by date and train number</label>
+
             </div>
             <div>
                 {/*checkboxin klikkaus muuttaa trainCompositionin trueksi ja silloin näytetään alla olevat input kentät*/}
-                {trainComposition && <>  <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    {/*newvalue parametri on valittu päivämäärä*/}
-                    <DatePicker className="dp" slotProps={{ textField: { size: 'small' } }} format="YYYY-MM-DD" value={dateValue} onChange={(newValue) => setDateValue(newValue)} />
-                    {/*dayjs kirjastolla saadaan muutettua Date objektin päivämäärä muotoon YYYY-DD-MM*/}
+                {trainComposition && <>  <input class="form-check-input" type="checkbox" value="" id="includeComp" onChange={()=>setInclude(!include)}></input>
+                    <label class="form-check-label" for="includeComp">Include composition data </label><br></br>
+                    <LocalizationProvider dateAdapter={AdapterDayjs} >
+                        {/*newvalue parametri on valittu päivämäärä*/}
+                        <DatePicker className="dp" slotProps={{ textField: { size: 'small' } }} format="YYYY-MM-DD" value={dateValue} onChange={(newValue) => setDateValue(newValue)} />
+                        {/*dayjs kirjastolla saadaan muutettua Date objektin päivämäärä muotoon YYYY-DD-MM*/}
 
-                    {console.log(dayjs(dateValue).format('YYYY-MM-DD'))}
+                        {console.log(dayjs(dateValue).format('YYYY-MM-DD'))}
 
 
-                </LocalizationProvider><><input className="trainNumber" type="text" onChange={e => setTrainNum(e.target.value)} name="trainNum" id="trainNum" placeholder="eg. 59"></input><button class="btn btn-primary" onClick={() => handleCompositionData(dayjs(dateValue).format('YYYY-MM-DD'), trainNum)}>Fetch Data</button></></>}
+                    </LocalizationProvider><><input className="trainNumber" type="text" onChange={e => setTrainNum(e.target.value)} name="trainNum" id="trainNum" placeholder="eg. 59"></input><button class="btn btn-primary" onClick={() => handleCompositionData(dayjs(dateValue).format('YYYY-MM-DD'), trainNum)}>Fetch Data</button></></>}
 
                 {!routeGuide && <>  <LocalizationProvider dateAdapter={AdapterDayjs}>
                     {/*newvalue parametri on valittu päivämäärä*/}
@@ -322,7 +331,7 @@ function Train() {
             <div>
             </div>
             {trainClick && <button id="clearBtn" class="btn btn-danger btn-sm" onClick={clear}>X</button>}
-            
+
 
         </div>
 

@@ -7,19 +7,30 @@ function SeaVessels() {
     var [i,setI]=useState(0)
     var [speed,setSpeed]=useState(0)
     var [showVesselsMap,setShowVesselsMap]=useState(false)
+    var [mapDisable,setMapDisable]=useState(false)
 
     function getVesselData(id) {
         document.getElementById("vesselDetails").innerText=" "
         var details=document.getElementById(id).value
         var title=document.getElementById(id).title
+        var s = document.getElementById(id).name
+        setSpeed(speed=parseFloat(s))
         var coordinates=title.split(",")
         setLatCoord(latCoord= parseFloat(coordinates[0]))
-        setLatCoord(longCoord=parseFloat(coordinates[1]))
+        setLongCoord(longCoord=parseFloat(coordinates[1]))
 
 
         console.log(document.getElementById(id).title)
         document.getElementById("vesselDetails").innerText=details
-        setShowVesselsMap(!showVesselsMap)
+        if (mapDisable)
+        {
+            setShowVesselsMap(showVesselsMap=false)
+        }
+        else{
+            setShowVesselsMap(showVesselsMap=true)
+
+        }
+        
 
     }
 
@@ -77,14 +88,17 @@ function SeaVessels() {
             
                                         style={{ width: '20vw', height: '30vh' }}
                                         defaultCenter={{ lat: latCoord, lng: longCoord }}
-                                        defaultZoom={12}
+                                        defaultZoom={10}
                                         gestureHandling={'greedy'}
                                         disableDefaultUI={false} />
                                 </APIProvider>}
+                                <span>Vessel Speed</span>
+                                <Gauge width={100} height={100} value={speed} startAngle={-90} endAngle={90} />
                                 </div>
-            <Gauge width={100} height={100} value={speed} startAngle={-90} endAngle={90} />
+
+            
             <input type="number" placeholder="How many vessels?" style={{marginRight:10+"px"}} onChange={(e)=>setI(e.target.value)}></input>
-            {i>0 &&<button class="btn-dark btn-sm" onClick={getVessels}>Get vessels</button>}
+            {i>0 &&<><button class="btn-dark btn-sm" onClick={getVessels}>Get vessels</button><br></br><input class="form-check-input" type="checkbox" id="disableMaps" onChange={()=>setMapDisable(!mapDisable)}></input> <label  class="form-check-label"> Disable automatic maps</label></>}
             
 
         </div>

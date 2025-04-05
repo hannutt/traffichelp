@@ -93,9 +93,10 @@ Sample image of the list of available water areas.
 
 FIND INFORMATION ABOUT SEA SHIPS
 
-This feature returns the names of ships wrapped in Bootstrap 5 button elements. By clicking on the button element, the user can see additional information about the ship, such as the width and length of the ship, whether the ship is sailing or in port, etc. The application automatically passes the ship's coordinates to the Google Maps API, which creates a map view based on the given coordinates.
+This feature returns the names of ships wrapped in Bootstrap 5 button elements. By clicking on the button element, the user can see additional information about the ship, such as the width and length of the ship, whether the ship is sailing or in port, etc. The application automatically passes the ship's coordinates to the Google Maps API, which creates a map view based on the given coordinates. The user can also disable the automatic map display by clicking the checkbox.
+Ship speed is displayed in the MUI Gauge component.
 
-Example image of the response when a user clicks on a button with the text Tenacious
+Example image of the response when a user clicks on a button with the text Le Grand Bleu
 
 ![alt text](src/images/seavessels.png)
 
