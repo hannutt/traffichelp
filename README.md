@@ -47,7 +47,7 @@ Example image where the user has selected Seinäjoki station.
 
 ROUTE GUIDE FOR TRAINS
 
-The user can search for routes by entering the departure station, destination station and travel date. The application searches information using these criteria and displays a list of trains matching the criteria to the user. The result shows the user the departure time, departure date and departure track. The route guide input fields use MUI autocomplete fields.
+The user can search for routes by entering the departure station, destination station and travel date. The application searches information using these criteria and displays a list of trains matching the criteria to the user. The result shows the user the departure time, departure date and departure track. The route guide input fields use MUI autocomplete fields. Rest-Api response dates are in YYYY-MM-DD format by default. The user can change the format by clicking the "Convert date DD-MM-YYYY" checkbox. The conversion is done using the dayjs library. In the example image below, the user has converted the dates to DD-MM-YYYY.
 
 Example views of the route guide and results where the user has searched for trains from Helsinki to Tampere on the date 24.3.25.
 

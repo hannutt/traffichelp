@@ -33,6 +33,7 @@ function Train() {
     const [include, setInclude] = useState(false)
     var [FromStation, setFromStation] = useState('')
     var [toStation, setToStaion] = useState('')
+    var [dateConvert,setDateConvert]=useState(false)
     let date = Date()
     var [dateValue, setDateValue] = useState(dayjs(date))
     const stations = ["Helsinki", "Tampere", "Oulu", "Vaasa", "Seinäjoki", 'Jyväskylä', 'Rovaniemi', 'Kajaani', 'Joensuu']
@@ -44,7 +45,7 @@ function Train() {
     }
     function fromStation(day) {
         var URLi = ""
-        console.log(FromStation)
+        document.getElementById("list").innerText=" "
         //ensimmäisen kirjaimen muunto isoksi kirjaimeksi, koska stationrealnamesin propertyt on isolla kirjaimella
         FromStation = FromStation.charAt(0).toUpperCase() + FromStation.slice(1)
         toStation = toStation.charAt(0).toUpperCase() + toStation.slice(1)
@@ -80,8 +81,20 @@ function Train() {
                     if (i % 2 == 0) {
                         li.setAttribute("class", "liData2")
                     }
+                    var dateFormat=dayjs(d.timeTableRows[0].scheduledTime)
+                    
+                    if (dateConvert)
+                    {
+                        li.innerText = d.trainType+" "+d.trainNumber+" From: " + FromStation + " To: " + " " + toStation + " | Track: " + d.timeTableRows[0].commercialTrack + " |" + " " + dateFormat.format("DD.MM.YYYY")
 
-                    li.innerText = d.trainType+" "+d.trainNumber+" From: " + FromStation + " To: " + " " + toStation + " | Track: " + d.timeTableRows[0].commercialTrack + " |" + " " + d.timeTableRows[0].scheduledTime.replace("T", " ").replace(".000Z", " ")
+                    }
+                    else{
+                        li.innerText = d.trainType+" "+d.trainNumber+" From: " + FromStation + " To: " + " " + toStation + " | Track: " + d.timeTableRows[0].commercialTrack + " |" + " " + d.timeTableRows[0].scheduledTime.replace("T", " ").replace(".000Z", " ")
+
+                    }
+
+
+                  
                     document.getElementById("list").appendChild(li)
                 })
 
@@ -262,7 +275,10 @@ function Train() {
             </div>
             <div>
                 <input class="form-check-input" style={{ marginRight: 10 + "px" }} type="checkbox" value="" id="routeguide" onChange={changeStates}></input>
-                <label class="form-check-label" for="ArrivingDeparting">Train route guide</label>
+                <label class="form-check-label" for="roteguide">Train route guide</label>
+
+                <input hidden={routeGuide} class="form-check-input" style={{ marginRight: 10 + "px" }} type="checkbox" value="" id="convertDate" onChange={()=>setDateConvert(!dateConvert)}></input>
+                <label hidden={routeGuide} class="form-check-label" for="convertDate">Convert date to DD-MM-YYYY</label>
 
             </div>
 
