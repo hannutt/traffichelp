@@ -45,6 +45,7 @@ function Train() {
         document.getElementById("list").hidden = true
         document.getElementById("clearBtn").hidden = true
         setShowTts(showTts = false)
+        setHideStation(!hideStation)
     }
     function fromStation(day) {
         var URLi = ""
@@ -285,6 +286,8 @@ function Train() {
             {showTts && <ConvertText />}
 
             <div id="trainContent" className="trainContent">
+                <br></br>
+                <p id="temp" className="temp"></p>
                 <ul id="list" className="list"></ul>
             </div>
             <div className="station" hidden={hideStation}>
