@@ -70,8 +70,9 @@ function SeaVessels() {
                         vesselBtn.value = d.properties.name + " " + "Nat: " + d.properties.nationality + " Coordinates: " + d.geometry.coordinates + '. Length: ' + d.properties.aisLength + ". Width: " + d.properties.aisWidth + " Activity: " + d.properties.shipActivities[0].activityText + ". Course: " + d.properties.shipState.course + ". Comment: " + d.properties.shipState.aisStateText + " \n Area: " + d.properties.shipState.posArea
                         vesselBtn.name = d.properties.shipState.speed
                         vesselBtn.title = d.geometry.coordinates
+                        
                         setShipLength(shipLength=parseFloat(d.properties.aisLength))
-                        setShipWidth(shipWidth=d.properties.aisWidth)
+                        setShipWidth(shipWidth=parseFloat(d.properties.aisWidth))
                         vesselBtn.addEventListener("click", () => getVesselData(vesselBtn.id))
                         document.getElementById("list").appendChild(vesselBtn)
                         //rivinvaihto aina yhden li:n jälkeen

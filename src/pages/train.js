@@ -37,8 +37,10 @@ function Train() {
     let date = Date()
     var [dateValue, setDateValue] = useState(dayjs(date))
     const stations = ["Helsinki", "Tampere", "Oulu", "Vaasa", "Seinäjoki", 'Jyväskylä', 'Rovaniemi', 'Kajaani', 'Joensuu']
+    var stationsRealNames = { Helsinki: "HKI", Tampere: "TPE", Seinäjoki: "SK", Turku: "TKU", Oulu: "OL", Vaasa: "VS", Jyväskylä: "JY", Rovaniemi: "ROI", Kajaani: "KAJ", Joensuu: "JNS" }
+    var stationShorts={HKI:'Helsinki',VS:'Vaasa',TPE:'Tampere',SK:"Seinäjoki",TKU:"Turku",JY:"Jyväskylä",ROI:"Rovaniemi",KAJ:"Kajaani",JNS:"Joensuu"}
+    
     function clear() {
-
         document.getElementById("list").hidden = true
         document.getElementById("clearBtn").hidden = true
         setShowTts(showTts = false)
@@ -49,7 +51,7 @@ function Train() {
         //ensimmäisen kirjaimen muunto isoksi kirjaimeksi, koska stationrealnamesin propertyt on isolla kirjaimella
         FromStation = FromStation.charAt(0).toUpperCase() + FromStation.slice(1)
         toStation = toStation.charAt(0).toUpperCase() + toStation.slice(1)
-        var stationsRealNames = { Helsinki: "HKI", Tampere: "TPE", Seinäjoki: "SK", Turku: "TKU", Oulu: "OL", Vaasa: "VS", Jyväskylä: "JY", Rovaniemi: "ROI", Kajaani: "KAJ", Joensuu: "JNS" }
+        //var stationsRealNames = { Helsinki: "HKI", Tampere: "TPE", Seinäjoki: "SK", Turku: "TKU", Oulu: "OL", Vaasa: "VS", Jyväskylä: "JY", Rovaniemi: "ROI", Kajaani: "KAJ", Joensuu: "JNS" }
         //tarkistus löytyykö käyttäjän syöttämät asemat sanakirjasta
         if (FromStation in stationsRealNames && toStation in stationsRealNames) {
             var startStation = stationsRealNames[FromStation]
@@ -81,6 +83,7 @@ function Train() {
                     if (i % 2 == 0) {
                         li.setAttribute("class", "liData2")
                     }
+                    //muunnetaan rest-apin pvm yyyy-dd-mm muodosts dd-mm-yyyy muotoon
                     var dateFormat=dayjs(d.timeTableRows[0].scheduledTime)
                     
                     if (dateConvert)
@@ -141,7 +144,8 @@ function Train() {
 
 
     function handleCompositionData(pDay, pTrainNum) {
-
+        var stationname;
+        var endStation;
         const URLi = `https://rata.digitraffic.fi/api/v1/compositions/${pDay}/${pTrainNum}`
         const USERID = { 'Digitraffic-User': 'Junamies/FoobarApp 1.0' }
         fetch(URLi, { headers: USERID })
@@ -150,14 +154,29 @@ function Train() {
             })
             //data on json-tulosjoukon nimi
             .then(data => {
-                console.log(data)
+                //console.log(data)
                 //data käydään silmukassa läpi, d on silmukkamuuttuja kuin esim i for-loopissa
                 data.journeySections.forEach(d => {
                     const li = document.createElement("li")
+                    var stationcode = d.beginTimeTableRow.stationShortCode
+                    var stationEnd=d.endTimeTableRow.stationShortCode
+                    var dateFormatStart=dayjs(d.beginTimeTableRow.scheduledTime)
+                    var dateFormatEnd=dayjs(d.endTimeTableRow.scheduledTime)
+                    
+
+                    if (stationcode in stationShorts && stationEnd in stationShorts)
+                        {
+                            stationname=stationShorts[stationcode]
+                            stationEnd=stationShorts[stationEnd]
+                             li.innerText = "Departure from " + stationname+ " at " + dateFormatStart.format("DD.MM.YYYY HH:mm") + " arrival to " +stationEnd + " at " + dateFormatEnd.format("DD.MM.YYYY HH:mm") 
+                             document.getElementById("list").appendChild(li)
+                            
+                        } 
+                    /*
                     if (include) {
                         li.innerText = "Departure from " + d.beginTimeTableRow.stationShortCode + " at " + d.beginTimeTableRow.scheduledTime.replace("T", " ").replace("Z", " ").replace("000", " ") + " arrival to " + d.endTimeTableRow.stationShortCode + " at \n" + d.endTimeTableRow.scheduledTime.replace("T", " ").replace("Z", " ").replace("000 ", " ")+" "+d.wagons.salesNumber
 
-                    }
+                    }*/
                     else {
 
                         //kentässä näytetää json tulosjoukon roadstationid ja sensorvalue-

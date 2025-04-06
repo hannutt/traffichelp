@@ -39,6 +39,8 @@ function AutomaticTraffic() {
                         const li = document.createElement("li")
                         li.innerText = d.name + ' ' + d.value+" "+d.timeWindowStart.replace("T"," ").replace(":00Z"," ")+" - "+d.timeWindowEnd.replace(":00Z"," ").replace("T"," ")
                         li.id = "data"
+
+                        //rest-api tulosjoukon 3 rivi jne
                         if (i===3)
                         {
                             setAvgTitle(avgTitle=d.name)
@@ -84,10 +86,11 @@ function AutomaticTraffic() {
             </select>
             <br></br><br></br>
             <input class="form-check-input" type="checkbox" id="avgCB" onChange={() => setAvg(!avg)}></input>
-            <label class="form-check-label" for="avgCB">Average speed on the {road}</label>
+            <label class="form-check-label" for="avgCB">Average speed {road}</label>
             <br></br>
             <input class="form-check-input" type="checkbox" id="avgCB" onChange={() => setBypass(!bypass)}></input>
             <label class="form-check-label" for="avgCB">Bypasses {road}</label>
+            <br></br><br></br>
 
             <div id="graphics">
 
@@ -95,7 +98,7 @@ function AutomaticTraffic() {
                 
                  slotProps={{
                     legend: {
-                      direction: 'column',
+                      direction: 'row',
                       position: { vertical: 'top', horizontal: 'right' },
                     },
                   }}
@@ -105,8 +108,8 @@ function AutomaticTraffic() {
                         {
                             data: [
                                 
-                                { id: 0, value: avg1, label: avgTitle },
-                                { id: 1, value: avg2, label: avgTitle2 },
+                                { id: 0, value: avg1, label: avgTitle,color:"green" },
+                                { id: 1, value: avg2, label: avgTitle2,color:"red" },
                                 
                             ],
                         },
@@ -115,6 +118,12 @@ function AutomaticTraffic() {
                     height={200}
                 />}
                   {bypass && <PieChart
+                   slotProps={{
+                    legend: {
+                      direction: 'row',
+                      position: { vertical: 'top', horizontal: 'right' },
+                    },
+                  }}
                     series={[
                         {
                             data: [

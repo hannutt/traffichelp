@@ -26,6 +26,8 @@
 
 .App-header {
   background-image: url('images/trafficBGMiddle.jpg');
+  /*taustakuva levitetään koko näytön peittäväksi*/
+  background-size: cover;
   min-height: 100vh;
   display: flex;
   flex-direction: column;

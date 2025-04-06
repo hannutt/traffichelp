@@ -35,6 +35,11 @@ An example view where the user has searched for valid train passenger bulletins 
 
 The user will see a confirmation that the email has been sent. The confirmation will include the text "Email sent!" and a success icon. The confirmation message is automatically deleted after 5 seconds using the JavaScript setTimeout method.
 
+Rest-Api uses shortcodes for stations, for example Helsinki station is HKI. The application has a simple JavaScript dictionary object that has values ​​for most of the station shortcodes, which are used as keys in the dictionary.
+By using key-value pairs, the user sees the actual name of the station in the output, not the shortcode
+
+Additionally, the REST API displays date data in the format YYYY-MM-DD by default. The final result is displayed in the format DD-MM-YYYY, which is the common Finnish date format. This conversion was done using the DayJS library.
+
 ![alt text](src/images/dataoftrain-1.png)
 
 SEARCH TRAIN STATION INFORMATION
