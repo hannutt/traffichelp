@@ -9,7 +9,8 @@ function BusLocate() {
     var [showBus, setShowBus] = useState(false)
     var dst;
     var destination;
-    var lines=['101','8A','8B']
+    var lines=['101','8A','8B','102']
+    
     function getCoordinates(values) {
         var coords = values.split(",")
         setBusLong(busLong = parseFloat(coords[0]))
@@ -56,18 +57,7 @@ function BusLocate() {
 
                     }
 
-                    /*
-                    else{
-                        const li = document.createElement("li")
-                        const mapBtn = document.createElement("button")
-                        mapBtn.setAttribute("class","btn btn-dark btn-sm")
-                        mapBtn.textContent="Show in map"
-                        mapBtn.value= d.monitoredVehicleJourney.vehicleLocation.longitude + "," + d.monitoredVehicleJourney.vehicleLocation.latitude
-                        mapBtn.addEventListener("click",()=>getCoordinates(mapBtn.value))
-                        li.innerText = "Line: "+d.monitoredVehicleJourney.lineRef+" Coordinates: "+ d.monitoredVehicleJourney.vehicleLocation.longitude + " " + d.monitoredVehicleJourney.vehicleLocation.latitude+" Current speed: "+d.monitoredVehicleJourney.speed+" km/h"+"\n Destination: "+dst
-                        document.getElementById("busContent").appendChild(li)
-                        document.getElementById("busContent").appendChild(mapBtn)
-                    }*/
+                  
 
                 });
             })
@@ -79,7 +69,7 @@ function BusLocate() {
         <div>
             <Autocomplete
                 className="fromAC"
-                id="fromStation"
+                id="busLines"
                 freeSolo
                 //autocompleten arvot eli asemat
                 options={lines}

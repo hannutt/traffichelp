@@ -288,6 +288,7 @@ function Train() {
             <div id="trainContent" className="trainContent">
                 <br></br>
                 <p id="temp" className="temp"></p>
+                <img id="weatherIcon"></img>
                 <ul id="list" className="list"></ul>
             </div>
             <div className="station" hidden={hideStation}>

@@ -7,6 +7,7 @@ function Buses() {
     var [keyword, setKeyword] = useState('')
     var [url, setUrl] = useState('')
     var [locate,setLocate]=useState(false)
+    var [information,setInformation]=useState(true)
     function processData() {
         //regex-kaava, jolla etsitään merkkijonosta numeroita väliltä 0-9
         let regex = /\d/;
@@ -56,12 +57,17 @@ function Buses() {
                 <div id="busContent"></div>
               
                 <div>
-                    <input hidden={locate} class="form-check-input" type="checkbox" value="" id="location" onChange={()=>setLocate(!locate)}></input>
-                        <label hidden={locate} class="form-check-label" for="location">Get bus location</label>
-                        <br></br><br></br>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="location" onChange={()=>setLocate(!locate)}></input>
+                        <label class="form-check-label" for="location">Get bus location</label>
+                        <br></br>
+                        <input hidden={locate} class="form-check-input" type="checkbox" value="" id="information" onChange={()=>setInformation(!information)}></input>
+                        <label hidden={locate} class="form-check-label" for="information">Get bus information</label>
+                        </div>
+                        <br></br>
                         {locate&&<BusLocate/>}
-                        <input hidden={locate} type="text" placeholder="keyword or line" onChange={(e) => setKeyword(e.target.value)}></input>
-                        <span hidden={locate} className="busInput">
+                        <input hidden={information} type="text" placeholder="keyword or line" onChange={(e) => setKeyword(e.target.value)}></input>
+                        <span hidden={information} className="busInput">
                             <button class="btn btn-primary btn-sm" onClick={processData}>Get data</button>
                             {/*}
                             <button class="btn btn-primary btn-sm" onClick={getLineData}>Line data</button>*/}

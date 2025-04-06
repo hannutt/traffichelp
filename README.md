@@ -47,6 +47,7 @@ SEARCH TRAIN STATION INFORMATION
 The user can select the desired station from the html selector component. This feature displays the trains that stop at the selected stations, the scheduled arrival/departure time of the trains, and the actual arrival or departure time. The planned track used by the train when arriving at the station is also displayed. When you search for train station information, the app also shows the temperature in Celsius for the city where the searched train station is located. The Weather API is used to search for weather information. https://www.weatherapi.com/
 
 Example image where the user has selected the Seinäjoki station and also sees the weather temperature in Seinäjoki.
+The Weather API also retrieves an icon describing the conditions.
 
 ![alt text](src/images/skStation.png)
 

@@ -48,8 +48,10 @@ function TrainStations() {
                 return response.json()
             })
             .then(data => {
+                console.log(data.current.condition.icon)
                
-                document.getElementById("temp").innerText="Temperature at the station: " +data.current.temp_c+" "+ '\u00B0'+"C"
+                document.getElementById("temp").innerText=`Temperature at the ${station}: ` +data.current.temp_c+" "+ '\u00B0'+"C"
+                document.getElementById("weatherIcon").src=data.current.condition.icon
              
                 })
            
