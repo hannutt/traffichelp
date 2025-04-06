@@ -20,6 +20,7 @@ function ConvertText() {
             
             <input class="form-check-input" type="checkbox" id="speakCB" onClick={() => speak(document.getElementById("list").innerHTML)}></input>
             <label class="form-check-label" for="speakCB">Convert text to speech</label>
+            <br></br><br></br>
             {ttsShown &&<button class="btn btn-danger btn-sm" onClick={stopSpeaking}>||</button>}
             
         </div>

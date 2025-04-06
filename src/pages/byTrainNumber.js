@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-function ByTrainNumber() {
+function ByTrainNumber(props) {
     const [search,setSearch]=useState(false)
     var [trainNumber,setTrainNumber]=useState('')
 
@@ -33,7 +33,7 @@ function ByTrainNumber() {
         
     }
     return (
-        <div className="numberSearch">
+        <div className="numberSearch" hidden={props.hideStation}>
             <input class="form-check-input" type="checkbox" value="fi" id="byTrainNumber" onChange={()=>setSearch(!search)}></input>
             <label class="form-check-label" for="fiCB">Search by train number</label>
             

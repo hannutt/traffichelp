@@ -34,6 +34,7 @@ function Train() {
     var [FromStation, setFromStation] = useState('')
     var [toStation, setToStaion] = useState('')
     var [dateConvert,setDateConvert]=useState(false)
+    const[ passengerClick,SetPassengerClick]=useState(false)
     let date = Date()
     var [dateValue, setDateValue] = useState(dayjs(date))
     const stations = ["Helsinki", "Tampere", "Oulu", "Vaasa", "Seinäjoki", 'Jyväskylä', 'Rovaniemi', 'Kajaani', 'Joensuu']
@@ -101,6 +102,7 @@ function Train() {
     }
 
     function handlePassengerData() {
+        setHideStation(!hideStation)
         setShowTts(!showTts)
         var URLi = ''
         if (station === 'general') {
@@ -119,9 +121,12 @@ function Train() {
             //data on json-tulosjoukon nimi
             .then(data => {
                 console.log(data)
+               
                 //data käydään silmukassa läpi, d on silmukkamuuttuja kuin esim i for-loopissa
                 var i = 0
                 data.forEach(d => {
+                    var departureDate=dayjs( d.trainDepartureDate)
+                    var endTime=dayjs(d.endValidity)
                     i += 1
                     const li = document.createElement("li")
                     li.id = "list"
@@ -132,7 +137,7 @@ function Train() {
                         li.setAttribute("class", "liData2")
                     }
 
-                    li.innerText = "Train number " + d.trainNumber + ' Depar. date: ' + d.trainDepartureDate + ' ' + d.video.text.en + " Notification valid: " + d.endValidity.replace("T00:00:00Z", " ")
+                    li.innerText = "Train number " + d.trainNumber + ' Depar. date: ' + departureDate.format("DD.MM.YYYY") + ' ' + d.video.text.en + " Notification valid: "+endTime.format("DD.MM.YYYY")
                     document.getElementById("list").appendChild(li)
                 })
             })
@@ -154,6 +159,7 @@ function Train() {
                 //data käydään silmukassa läpi, d on silmukkamuuttuja kuin esim i for-loopissa
                 data.journeySections.forEach(d => {
                     const li = document.createElement("li")
+                    //talletetaan muuttujiin rest-apin tuloksia
                     var stationcode = d.beginTimeTableRow.stationShortCode
                     var stationEnd=d.endTimeTableRow.stationShortCode
                     var dateFormatStart=dayjs(d.beginTimeTableRow.scheduledTime)
@@ -259,7 +265,7 @@ function Train() {
                     <option value={"general"}>General</option>
                 </select>
             </div>
-            <div class="form-check form-switch">
+            <div hidden={hideStation} class="form-check form-switch">
                 <input class="form-check-input" type="checkbox" role="switch" id="langSwitch" onChange={() => setSwitchChanged(!switchChanged)}></input>
                 <label class="form-check-label" for="langSwitch">Lang. options</label>
 
@@ -269,7 +275,7 @@ function Train() {
             </LocalizationProvider></>}
 
             <br></br>
-            <ByTrainNumber />
+            <ByTrainNumber hideStation={hideStation} />
             <Routes>
                 <Route>
                     <Route path="/traingql" element={<TrainGraphQl />} />
@@ -329,7 +335,7 @@ function Train() {
             <button hidden={showTrainsBtn} class="btn btn-primary btn-sm" onClick={() => fromStation(dayjs(dateValue).format('YYYY-MM-DD'))}>Show trains</button>
 
 
-            <div>
+            <div hidden={hideStation}>
                 <input class="form-check-input" style={{ marginRight: 10 + "px" }} type="checkbox" onChange={() => { setTrainComposition(!trainComposition); setHideStation(!hideStation) }}></input>
                 <label class="form-check-label" for="srcCB">Search for train information by date and train number</label>
 
