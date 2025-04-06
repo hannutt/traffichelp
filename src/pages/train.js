@@ -85,7 +85,7 @@ function Train() {
                     }
                     //muunnetaan rest-apin pvm yyyy-dd-mm muodosts dd-mm-yyyy muotoon
                     var dateFormat=dayjs(d.timeTableRows[0].scheduledTime)
-                    
+                    //jos dateconvert on true eli checkboksi on valittu
                     if (dateConvert)
                     {
                         li.innerText = d.trainType+" "+d.trainNumber+" From: " + FromStation + " To: " + " " + toStation + " | Track: " + d.timeTableRows[0].commercialTrack + " |" + " " + dateFormat.format("DD.MM.YYYY")
@@ -94,13 +94,9 @@ function Train() {
                     else{
                         li.innerText = d.trainType+" "+d.trainNumber+" From: " + FromStation + " To: " + " " + toStation + " | Track: " + d.timeTableRows[0].commercialTrack + " |" + " " + d.timeTableRows[0].scheduledTime.replace("T", " ").replace(".000Z", " ")
 
-                    }
-
-
-                  
+                    }                  
                     document.getElementById("list").appendChild(li)
                 })
-
             })
     }
 
@@ -274,13 +270,11 @@ function Train() {
 
             <br></br>
             <ByTrainNumber />
-
             <Routes>
                 <Route>
                     <Route path="/traingql" element={<TrainGraphQl />} />
                 </Route>
             </Routes>
-
 
             {showTts && <ConvertText />}
 
@@ -298,7 +292,6 @@ function Train() {
 
                 <input hidden={routeGuide} class="form-check-input" style={{ marginRight: 10 + "px" }} type="checkbox" value="" id="convertDate" onChange={()=>setDateConvert(!dateConvert)}></input>
                 <label hidden={routeGuide} class="form-check-label" for="convertDate">Convert date to DD-MM-YYYY</label>
-
             </div>
 
             {/*row ja col on bootstrapin tyyliluokkia joilla saadaan autocomplete kentät vierekkäin*/}
@@ -307,7 +300,7 @@ function Train() {
 
                     <Autocomplete
                         className="fromAC"
-                        id="free-solo-demo"
+                        id="fromStation"
                         freeSolo
                         //autocompleten arvot eli asemat
                         options={stations}
@@ -320,7 +313,7 @@ function Train() {
                 <div class="col">
                     <Autocomplete
                         className="fromAC"
-                        id="free-solo-demo"
+                        id="toStation"
                         freeSolo
                         options={stations}
                         size="small"

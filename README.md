@@ -113,9 +113,13 @@ The application uses the Finnish Transport Agency's POOKI service to search for 
 
 BUS SERVICE INFORMATION
 
-The user can search for information about the city of Tampere's bus services. So far, the feature allows you to search for routes by bus number and search terms. In the example image below, the user has searched for all buses that stop in the Ratina district.
+The user can search for information about the city of Tampere's bus services. So far, the user can search for bus service information by bus route number or keyword and also get the bus location as coordinates and placed on Google Maps In the example image below, the user has searched for all buses that stop in the Ratina district.
 
 ![alt text](src/images/busdata.png)
+
+Another example image where the user has searched for the location of bus line 101. In addition to the location, the user is shown the speed of the bus and the destination station.
+
+![alt text](src/images/buslocation.png)
 
 VIEWING WEATHER CAMERAS
 
